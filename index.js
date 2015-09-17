@@ -3,8 +3,8 @@ var fs = require('fs');
 var fixed = require('fixed');
 var unidecode = require('unidecode');
 
-var file_in = 'ofmdata/lsas.xml';
-//var file_in = 'ofmdata/lovv.xml';
+//var file_in = 'ofmdata/lsas.xml';
+var file_in = 'ofmdata/lovv.xml';
 //var file_in = 'ofmdata/ed.xml';
 var file_out = "out.txt";
 
@@ -1072,7 +1072,7 @@ xml.on('updateElement: Dpn', function(data) {
 	}
 	var line = arinc_wp.generate(arinc_data);
 	writeRecord(line);
-	//process.stdout.write(JSON.stringify(data) + "\n\n");
+	//console.log(JSON.stringify(data) + "\n\n");
 });
 
 // Airport
@@ -1158,7 +1158,7 @@ xml.on('updateElement: Ase', function(data) {
 		lower_unit: 'M', // M = MSL, A = AGL
 		upper: convertUnit(data.valDistVerUpper, data.uomDistVerUpper, 'FT'),
 		upper_unit: 'M', // M = MSL, A = AGL
-		//record_nr: current_record_nr++,
+		record_nr: current_record_nr++,
 		seq_nr: 0,
 		cycle: 1, //TODO
 	};
@@ -1202,11 +1202,6 @@ xml.on('updateElement: Ase', function(data) {
 	}
 });
 
-
-xml.on('data', function(data) {
-	//    process.stdout.write(data);
-});
-
 xml.on('end', function(data){
-	process.stdout.write("done\n");
+	console.log("done");
 });
