@@ -3,7 +3,7 @@ var fs = require('fs');
 var fixed = require('fixed');
 var unidecode = require('unidecode');
 
-var file_in = 'ofmdata/lsas.xml';
+var file_in = 'ofmdata/lovv.xml';
 //var file_in = 'ofmdata/lovv.xml';
 //var file_in = 'ofmdata/ed.xml';
 var file_out = "out.txt";
@@ -1077,7 +1077,6 @@ xml.on('updateElement: Dpn', function(data) {
 
 // Airport
 xml.on('updateElement: Ahp', function(data) {
-	return;
 	// add to cache
 	xml_cache[data.AhpUid.$.mid] = data;
 	if (data.codeType != 'AD') {
@@ -1111,7 +1110,6 @@ xml.on('updateElement: Rwy', function(data) {
 
 // Runway
 xml.on('updateElement: Rdn', function(data) {
-	return;
 	var rwy = xml_cache[data.RdnUid.RwyUid.AhpUid.$.mid];
 	if (rwy.codeType != 'AD') {
 		//console.log("Skipping RWY of AD " + rwy.AhpUid.codeId + " type: " + rwy.codeType);
@@ -1165,6 +1163,17 @@ xml.on('updateElement: Ase', function(data) {
 		cycle: 1, //TODO
 	};
 
+	// FIXUPs, TODO
+	if (isNaN(arinc_data.upper)) {
+		arinc_data.upper = 10000;
+		process.stdout.write("WARNING: missing upper for "+data.txtName +", setting to 10000ft\n");
+	}
+	
+	if (isNaN(arinc_data.lower)) {
+		arinc_data.lower = 0;	
+		process.stdout.write("WARNING: missing lower for "+data.txtName +", setting to 0ft\n");
+	}
+	
 	var arinc = arinc_as_ctl;
 	if (data.AseUid.codeType == 'GLDR') { // restriced AS
 		arinc = arinc_as_res;
@@ -1182,7 +1191,7 @@ xml.on('updateElement: Ase', function(data) {
 		var x = gmlPosList[pos].split(",");
 		arinc_data.longitude = long2arinc(x[0]);
 		arinc_data.latitude = lat2arinc(x[1]);
-		arinc_data.seq_nr += 10;
+		//arinc_data.seq_nr += 10; // TODO: overflow
 		arinc_data.record_nr = current_record_nr++;
 		var line = arinc.generate(arinc_data);
 		writeRecord(line);
@@ -1192,4 +1201,8 @@ xml.on('updateElement: Ase', function(data) {
 
 xml.on('data', function(data) {
 	//    process.stdout.write(data);
+});
+
+xml.on('end', function(data){
+	process.stdout.write("done\n");
 });
