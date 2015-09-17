@@ -2,6 +2,7 @@ var xmlStream = require('xml-stream');
 var fs = require('fs');
 var fixed = require('fixed');
 var unidecode = require('unidecode');
+var merge = require('object-mapper').merge;
 
 //var file_in = 'ofmdata/lsas.xml';
 var file_in = 'ofmdata/lovv.xml';
@@ -424,8 +425,8 @@ var arinc_spec_aprt = {
 			type: 'string',
 			length: 5,
 			startingPosition: 23,
-			defaultValue: 'FL100'
-		}, //TODO speed_limit, altitude
+			defaultValue: ''
+		}, //TODO speed_limit, altitude FL100/250
 		{
 			key: 'longest_rwy',
 			type: 'string',
@@ -462,7 +463,7 @@ var arinc_spec_aprt = {
 			type: 'string',
 			length: 3,
 			startingPosition: 62,
-			defaultValue: '250'
+			defaultValue: ''
 		}, //TODO
 
 		{
@@ -983,7 +984,7 @@ xml.on('updateElement: Vor', function(data) {
 	};
 	if (data.codeType == 'DVOR') {
 		arinc_data.navaid_class_type2 = 'D';
-		arinc_data.dme_ident = data.VorUid.codeId; // DME identifier
+		//arinc_data.dme_ident = data.VorUid.codeId; // DME identifier
 		arinc_data.dme_latitude = lat2arinc(data.VorUid.geoLat);
 		arinc_data.dme_longitude = long2arinc(data.VorUid.geoLong);
 		arinc_data.dme_elevation = parseInt(data.valElev);
@@ -1027,7 +1028,7 @@ xml.on('updateElement: Ndb', function(data) {
 		ndb_ident: data.NdbUid.codeId, // NDB identifier
 		ndb_icao_code: data.$.xt_fir.substring(0, 2), // ICAO code
 		cont_nr: 0,
-		ndb_freq: data.valFreq * 100, // VOR frequency
+		ndb_freq: data.valFreq * 10, // Ndb frequency
 		navaid_class_type1: 'H',
 		navaid_class_type2: '',
 		navaid_class_range: 'M', // TODO: range undefined
@@ -1149,7 +1150,7 @@ xml.on('updateElement: Ase', function(data) {
 		return;
 	}
 
-	//process.stdout.write(JSON.stringify(data) + "\n\n");
+	//console.log(JSON.stringify(data) + "\n\n");
 	var arinc_data = {
 		icao_code: data.$.xt_fir.substring(0, 2), // ICAO code
 		name: str2arinc(data.txtName),
@@ -1177,7 +1178,7 @@ xml.on('updateElement: Ase', function(data) {
 	var arinc = arinc_as_ctl;
 	if (data.AseUid.codeType == 'GLDR') { // restriced AS
 		arinc = arinc_as_res;
-		console.log("restriced AS");
+		console.log("restricted AS");
 		arinc_data.as_type = 'U'; //TODO: unknown
 	}
 	else {
@@ -1191,7 +1192,7 @@ xml.on('updateElement: Ase', function(data) {
 		var x = gmlPosList[pos].split(",");
 		arinc_data.longitude = long2arinc(x[0]);
 		arinc_data.latitude = lat2arinc(x[1]);
-		arinc_data.seq_nr += 10; // TODO: overflow
+		arinc_data.seq_nr += 1; // TODO: overflow
 		arinc_data.record_nr = current_record_nr++;
 		if (arinc_data.seq_nr >= 10000) {
 			console.log("WARNING: AS is too complex (more than 1000 elements) " + arinc_data.seq_nr + " for "+data.txtName +", ignoring...");	

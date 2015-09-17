@@ -10,6 +10,7 @@
   "license": "MIT",
   "dependencies": {
     "fixed": "0.0.3",
+    "object-mapper": "^2.2.5",
     "unidecode": "^0.1.7",
     "xml-stream": "^0.4.5"
   }
