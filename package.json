@@ -1,0 +1,16 @@
+{
+  "name": "ofm2arinc424",
+  "version": "0.0.1",
+  "description": "Convert OpenFlightMaps AIXM to arinc424",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "fixed": "0.0.3",
+    "unidecode": "^0.1.7",
+    "xml-stream": "^0.4.5"
+  }
+}
