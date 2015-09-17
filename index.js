@@ -3,7 +3,7 @@ var fs = require('fs');
 var fixed = require('fixed');
 var unidecode = require('unidecode');
 
-var file_in = 'ofmdata/lovv.xml';
+var file_in = 'ofmdata/lsas.xml';
 //var file_in = 'ofmdata/lovv.xml';
 //var file_in = 'ofmdata/ed.xml';
 var file_out = "out.txt";
@@ -1166,12 +1166,12 @@ xml.on('updateElement: Ase', function(data) {
 	// FIXUPs, TODO
 	if (isNaN(arinc_data.upper)) {
 		arinc_data.upper = 10000;
-		process.stdout.write("WARNING: missing upper for "+data.txtName +", setting to 10000ft\n");
+		console.log("WARNING: missing upper for "+data.txtName +", setting to 10000ft");
 	}
 	
 	if (isNaN(arinc_data.lower)) {
 		arinc_data.lower = 0;	
-		process.stdout.write("WARNING: missing lower for "+data.txtName +", setting to 0ft\n");
+		console.log("WARNING: missing lower for "+data.txtName +", setting to 0ft");
 	}
 	
 	var arinc = arinc_as_ctl;
@@ -1191,10 +1191,14 @@ xml.on('updateElement: Ase', function(data) {
 		var x = gmlPosList[pos].split(",");
 		arinc_data.longitude = long2arinc(x[0]);
 		arinc_data.latitude = lat2arinc(x[1]);
-		//arinc_data.seq_nr += 10; // TODO: overflow
+		arinc_data.seq_nr += 10; // TODO: overflow
 		arinc_data.record_nr = current_record_nr++;
-		var line = arinc.generate(arinc_data);
-		writeRecord(line);
+		if (arinc_data.seq_nr >= 10000) {
+			console.log("WARNING: AS is too complex (more than 1000 elements) " + arinc_data.seq_nr + " for "+data.txtName +", ignoring...");	
+		} else {
+			var line = arinc.generate(arinc_data);
+			writeRecord(line);
+		}
 	}
 });
 
