@@ -4,8 +4,8 @@ var fixed = require('fixed');
 var unidecode = require('unidecode');
 var merge = require('object-mapper').merge;
 
-var file_in = 'ofmdata/lsas.xml';
-//var file_in = 'ofmdata/lovv.xml';
+//var file_in = 'ofmdata/lsas.xml';
+var file_in = 'ofmdata/lovv.xml';
 //var file_in = 'ofmdata/ed.xml';
 var file_out = "out.txt";
 
@@ -1534,8 +1534,8 @@ function map_comm_service(ofm) {
 		'INFO': 'S  ',  // AD Info frequency, unicom, some map this also to INF, TODO
 		'FIC' : 'F  ',  // Flight *Information* Center
 		//'APP' : '   ',
-		//'TWR' : '   ',
-		//'SMC' : '   ',  // Surface movement control
+		'TWR' : '   ',
+		'SMC' : '   ',  // Surface movement control
 	}
 	var result = map[ofm];
 	if (result)
@@ -1646,7 +1646,8 @@ xml.on('updateElement: Ndb', function(data) {
 xml.on('updateElement: Dpn', function(data) {
 	var ident = str2arinc(data.DpnUid.codeId, 5);
 	if (ident == "") {
-		console.log("WARNING: waypoint has no ident: "+data.txtName)
+		console.log("INFO: waypoint has no ident: "+data.txtName)
+		ident = str2arinc(data.txtName, 5);
 	}
 	// Enroute Waypoints (EA) / Terminal Waypoint (PC)
 	var arinc_data = {
@@ -1753,7 +1754,7 @@ xml.on('updateElement: Rwy', function(data) {
 xml.on('updateElement: Rdn', function(data) {
 	var rwy = xml_cache[data.RdnUid.RwyUid.AhpUid.$.mid];
 	if (rwy.codeType != 'AD') {
-		console.log("WARNING: Skipping RWY of AD " + rwy.AhpUid.codeId + " type: " + rwy.codeType);
+		console.log("INFO: Skipping RWY of AD " + rwy.AhpUid.codeId + " type: " + rwy.codeType);
 		return;
 	}
 	
@@ -1784,6 +1785,8 @@ xml.on('updateElement: Rdn', function(data) {
 //// Other
 // Airspace
 xml.on('updateElement: Ase', function(data) {
+	return;
+
 	if (data.gmlPosList) {
 		// gmlPosList record, add to cache
 		xml_cache[data.$.mid] = data;
@@ -1990,6 +1993,7 @@ xml.on('updateElement: Ase', function(data) {
 		console.log("WARNING: ASE gml polygons not found for:" + data.txtName)
 	}
 });
+
 
 xml.on('end', function(data) {
 	console.log("done");
