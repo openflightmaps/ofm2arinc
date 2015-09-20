@@ -1150,9 +1150,17 @@ function convertUnit(val, fromUnit, toUnit) {
 	throw new Error("Invalid conversion from " + fromUnit + " to " + toUnit);
 }
 
+// generates an arinc424 record
+function generateRecord(template, data) {
+	return template.generate(data);
+}
 
 function writeRecord(line) {
 	out_stream.write(line);
+}
+
+function generateAndWriteRecord(template, data) {
+	writeRecord(generateRecord(template, data));
 }
 
 //// Waypoints
@@ -1184,8 +1192,7 @@ xml.on('updateElement: Vor', function(data) {
 		arinc_data.dme_longitude = long2arinc(data.VorUid.geoLong);
 		arinc_data.dme_elevation = parseInt(data.valElev);
 	}
-	var line = arinc_vordme.generate(arinc_data);
-	writeRecord(line);
+	generateAndWriteRecord(arinc_vordme, arinc_data);
 });
 
 // DME
@@ -1211,8 +1218,7 @@ xml.on('updateElement: Dme', function(data) {
 		record_nr: current_record_nr++,
 		cycle: 1, //TODO
 	};
-	var line = arinc_vordme.generate(arinc_data);
-	writeRecord(line);
+	generateAndWriteRecord(arinc_vordme, arinc_data);
 });
 
 // NDB
@@ -1238,8 +1244,7 @@ xml.on('updateElement: Ndb', function(data) {
 		record_nr: current_record_nr++,
 		cycle: 1, //TODO
 	};
-	var line = arinc_ndb.generate(arinc_data);
-	writeRecord(line);
+	generateAndWriteRecord(arinc_ndb, arinc_data);
 });
 
 // Designated Point / Reporting Points
@@ -1266,8 +1271,7 @@ xml.on('updateElement: Dpn', function(data) {
 		arinc_data.sub_section_6 = 'A';
 		arinc_data.aprt_ident = 'ENRT';
 	}
-	var line = arinc_wp.generate(arinc_data);
-	writeRecord(line);
+	generateAndWriteRecord(arinc_wp, arinc_data);
 	//console.log(JSON.stringify(data) + "\n\n");
 });
 
@@ -1294,8 +1298,7 @@ xml.on('updateElement: Ahp', function(data) {
 		record_nr: current_record_nr++,
 		cycle: 1, //TODO
 	};
-	var line = arinc_aprt.generate(arinc_data);
-	writeRecord(line);
+	generateAndWriteRecord(arinc_aprt, arinc_data);
 });
 
 // Unicast Frequency
@@ -1316,8 +1319,7 @@ xml.on('updateElement: Fqy', function(data) {
 			icao_code: apt.$.xt_fir.substring(0, 2), // ICAO code
 			//name: str2arinc(data.RdnUid.txtDesig),
 		};
-		var line = arinc_aprt_com.generate(arinc_data);
-		writeRecord(line);
+		generateAndWriteRecord(arinc_aprt_com, arinc_data);
 	}
 });
 
@@ -1352,8 +1354,7 @@ xml.on('updateElement: Rdn', function(data) {
 		record_nr: current_record_nr++,
 		cycle: 1, //TODO
 	};
-	var line = arinc_rwy.generate(arinc_data);
-	writeRecord(line);
+	generateAndWriteRecord(arinc_rwy, arinc_data);
 });
 
 //// Other
@@ -1420,8 +1421,7 @@ xml.on('updateElement: Ase', function(data) {
 			// first record needs additional info
 			// add here, but only first
 
-			var line = arinc.generate(arinc_data);
-			writeRecord(line);
+			generateAndWriteRecord(arinc, arinc_data);
 		}
 	}
 });
