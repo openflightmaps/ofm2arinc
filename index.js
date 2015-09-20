@@ -16,379 +16,532 @@ var xml = new xmlStream(in_stream);
 var xml_cache = [];
 
 var arinc_spec_vordme = {
-	length: 132,
-	fields: [{
-		key: 'record_type',
-		type: 'string',
-		length: 1,
-		startingPosition: 1,
-		defaultValue: 'S'
-	}, {
-		key: 'area',
-		type: 'string',
-		length: 3,
-		startingPosition: 2,
-		defaultValue: 'EUR'
-	}, {
-		key: 'section',
-		type: 'string',
-		length: 1,
-		startingPosition: 5
-	}, {
-		key: 'sub_section',
-		type: 'string',
-		length: 1,
-		startingPosition: 6
-	}, {
-		key: 'arpt_ident',
-		type: 'string',
-		length: 4,
-		startingPosition: 7
-	}, {
-		key: 'icao_code',
-		type: 'string',
-		length: 2,
-		startingPosition: 11
-	}, {
-		key: 'vor_ident',
-		type: 'string',
-		length: 4,
-		startingPosition: 14
-	}, {
-		key: 'vor_icao_code',
-		type: 'string',
-		length: 2,
-		startingPosition: 20
-	}, {
-		key: 'cont_nr',
-		type: 'integer',
-		length: 1,
-		startingPosition: 22
-	}, {
-		key: 'vor_freq',
-		type: 'integer',
-		length: 5,
-		startingPosition: 23
-	}, {
-		key: 'navaid_class_type1',
-		type: 'string',
-		length: 1,
-		startingPosition: 28
-	}, {
-		key: 'navaid_class_type2',
-		type: 'string',
-		length: 1,
-		startingPosition: 29
-	}, {
-		key: 'navaid_class_range',
-		type: 'string',
-		length: 1,
-		startingPosition: 30
-	}, {
-		key: 'navaid_class_addinfo',
-		type: 'string',
-		length: 1,
-		startingPosition: 31
-	}, {
-		key: 'navaid_class_colocation',
-		type: 'string',
-		length: 1,
-		startingPosition: 32
-	}, {
-		key: 'vor_latitude',
-		type: 'string',
-		length: 9,
-		startingPosition: 33
-	}, {
-		key: 'vor_longitude',
-		type: 'string',
-		length: 10,
-		startingPosition: 42
-	}, {
-		key: 'dme_ident',
-		type: 'string',
-		length: 4,
-		startingPosition: 52
-	}, {
-		key: 'dme_latitude',
-		type: 'string',
-		length: 9,
-		startingPosition: 56
-	}, {
-		key: 'dme_longitude',
-		type: 'string',
-		length: 10,
-		startingPosition: 65
-	}, {
-		key: 'station_declination',
-		type: 'string',
-		length: 5,
-		startingPosition: 75
-	}, {
-		key: 'dme_elevation',
-		type: 'integer',
-		length: 5,
-		startingPosition: 80
-	}, {
-		key: 'merit',
-		type: 'integer',
-		length: 1,
-		startingPosition: 85
-	}, {
-		key: 'freq_protection',
-		type: 'integer',
-		length: 3,
-		startingPosition: 88,
-		defaultValue: 40
-	}, {
-		key: 'datum_code',
-		type: 'string',
-		length: 3,
-		startingPosition: 91,
-		defaultValue: 'WGE'
-	}, {
-		key: 'navaid_name',
-		type: 'string',
-		length: 30,
-		startingPosition: 94
-	}, {
-		key: 'record_nr',
-		type: 'integer',
-		length: 5,
-		startingPosition: 124
-	}, {
-		key: 'cycle',
-		type: 'integer',
-		length: 4,
-		startingPosition: 129
-	}, ]
+	1: {
+		length: 132,
+		fields: [{
+			key: 'record_type',
+			type: 'string',
+			length: 1,
+			startingPosition: 1,
+			defaultValue: 'S'
+		}, {
+			key: 'area',
+			type: 'string',
+			length: 3,
+			startingPosition: 2,
+			defaultValue: 'EUR'
+		}, {
+			key: 'section',
+			type: 'string',
+			length: 1,
+			startingPosition: 5
+		}, {
+			key: 'sub_section',
+			type: 'string',
+			length: 1,
+			startingPosition: 6
+		}, {
+			key: 'arpt_ident',
+			type: 'string',
+			length: 4,
+			startingPosition: 7
+		}, {
+			key: 'icao_code',
+			type: 'string',
+			length: 2,
+			startingPosition: 11
+		}, {
+			key: 'vor_ident',
+			type: 'string',
+			length: 4,
+			startingPosition: 14
+		}, {
+			key: 'vor_icao_code',
+			type: 'string',
+			length: 2,
+			startingPosition: 20
+		}, {
+			key: 'cont_nr',
+			type: 'integer',
+			length: 1,
+			startingPosition: 22
+		}, {
+			key: 'vor_freq',
+			type: 'integer',
+			length: 5,
+			startingPosition: 23
+		}, {
+			key: 'navaid_class_type1',
+			type: 'string',
+			length: 1,
+			startingPosition: 28
+		}, {
+			key: 'navaid_class_type2',
+			type: 'string',
+			length: 1,
+			startingPosition: 29
+		}, {
+			key: 'navaid_class_range',
+			type: 'string',
+			length: 1,
+			startingPosition: 30
+		}, {
+			key: 'navaid_class_addinfo',
+			type: 'string',
+			length: 1,
+			startingPosition: 31
+		}, {
+			key: 'navaid_class_colocation',
+			type: 'string',
+			length: 1,
+			startingPosition: 32
+		}, {
+			key: 'vor_latitude',
+			type: 'string',
+			length: 9,
+			startingPosition: 33
+		}, {
+			key: 'vor_longitude',
+			type: 'string',
+			length: 10,
+			startingPosition: 42
+		}, {
+			key: 'dme_ident',
+			type: 'string',
+			length: 4,
+			startingPosition: 52
+		}, {
+			key: 'dme_latitude',
+			type: 'string',
+			length: 9,
+			startingPosition: 56
+		}, {
+			key: 'dme_longitude',
+			type: 'string',
+			length: 10,
+			startingPosition: 65
+		}, {
+			key: 'station_declination',
+			type: 'string',
+			length: 5,
+			startingPosition: 75
+		}, {
+			key: 'dme_elevation',
+			type: 'integer',
+			length: 5,
+			startingPosition: 80
+		}, {
+			key: 'merit',
+			type: 'integer',
+			length: 1,
+			startingPosition: 85
+		}, {
+			key: 'freq_protection',
+			type: 'integer',
+			length: 3,
+			startingPosition: 88,
+			defaultValue: 40
+		}, {
+			key: 'datum_code',
+			type: 'string',
+			length: 3,
+			startingPosition: 91,
+			defaultValue: 'WGE'
+		}, {
+			key: 'navaid_name',
+			type: 'string',
+			length: 30,
+			startingPosition: 94
+		}, {
+			key: 'record_nr',
+			type: 'integer',
+			length: 5,
+			startingPosition: 124
+		}, {
+			key: 'cycle',
+			type: 'integer',
+			length: 4,
+			startingPosition: 129
+		}, ]
+	}
 };
 
 var arinc_spec_ndb = {
-	length: 132,
-	fields: [{
-		key: 'record_type',
-		type: 'string',
-		length: 1,
-		startingPosition: 1,
-		defaultValue: 'S'
-	}, {
-		key: 'area',
-		type: 'string',
-		length: 3,
-		startingPosition: 2,
-		defaultValue: 'EUR'
-	}, {
-		key: 'section',
-		type: 'string',
-		length: 1,
-		startingPosition: 5
-	}, {
-		key: 'sub_section',
-		type: 'string',
-		length: 1,
-		startingPosition: 6
-	}, {
-		key: 'arpt_ident',
-		type: 'string',
-		length: 4,
-		startingPosition: 7
-	}, {
-		key: 'icao_code',
-		type: 'string',
-		length: 2,
-		startingPosition: 11
-	}, {
-		key: 'ndb_ident',
-		type: 'string',
-		length: 4,
-		startingPosition: 14
-	}, {
-		key: 'ndb_icao_code',
-		type: 'string',
-		length: 2,
-		startingPosition: 20
-	}, {
-		key: 'cont_nr',
-		type: 'integer',
-		length: 1,
-		startingPosition: 22
-	}, {
-		key: 'ndb_freq',
-		type: 'integer',
-		length: 5,
-		startingPosition: 23
-	}, {
-		key: 'navaid_class_type1',
-		type: 'string',
-		length: 1,
-		startingPosition: 28
-	}, {
-		key: 'navaid_class_type2',
-		type: 'string',
-		length: 1,
-		startingPosition: 29
-	}, {
-		key: 'navaid_class_range',
-		type: 'string',
-		length: 1,
-		startingPosition: 30
-	}, {
-		key: 'navaid_class_addinfo',
-		type: 'string',
-		length: 1,
-		startingPosition: 31
-	}, {
-		key: 'navaid_class_colocation',
-		type: 'string',
-		length: 1,
-		startingPosition: 32
-	}, {
-		key: 'ndb_latitude',
-		type: 'string',
-		length: 9,
-		startingPosition: 33
-	}, {
-		key: 'ndb_longitude',
-		type: 'string',
-		length: 10,
-		startingPosition: 42
-	}, {
-		key: 'mag_variation',
-		type: 'string',
-		length: 5,
-		startingPosition: 75
-	}, {
-		key: 'datum_code',
-		type: 'string',
-		length: 3,
-		startingPosition: 91,
-		defaultValue: 'WGE'
-	}, {
-		key: 'navaid_name',
-		type: 'string',
-		length: 30,
-		startingPosition: 94
-	}, {
-		key: 'record_nr',
-		type: 'integer',
-		length: 5,
-		startingPosition: 124
-	}, {
-		key: 'cycle',
-		type: 'integer',
-		length: 4,
-		startingPosition: 129
-	}, ]
+	1: {
+		length: 132,
+		fields: [{
+			key: 'record_type',
+			type: 'string',
+			length: 1,
+			startingPosition: 1,
+			defaultValue: 'S'
+		}, {
+			key: 'area',
+			type: 'string',
+			length: 3,
+			startingPosition: 2,
+			defaultValue: 'EUR'
+		}, {
+			key: 'section',
+			type: 'string',
+			length: 1,
+			startingPosition: 5
+		}, {
+			key: 'sub_section',
+			type: 'string',
+			length: 1,
+			startingPosition: 6
+		}, {
+			key: 'arpt_ident',
+			type: 'string',
+			length: 4,
+			startingPosition: 7
+		}, {
+			key: 'icao_code',
+			type: 'string',
+			length: 2,
+			startingPosition: 11
+		}, {
+			key: 'ndb_ident',
+			type: 'string',
+			length: 4,
+			startingPosition: 14
+		}, {
+			key: 'ndb_icao_code',
+			type: 'string',
+			length: 2,
+			startingPosition: 20
+		}, {
+			key: 'cont_nr',
+			type: 'integer',
+			length: 1,
+			startingPosition: 22
+		}, {
+			key: 'ndb_freq',
+			type: 'integer',
+			length: 5,
+			startingPosition: 23
+		}, {
+			key: 'navaid_class_type1',
+			type: 'string',
+			length: 1,
+			startingPosition: 28
+		}, {
+			key: 'navaid_class_type2',
+			type: 'string',
+			length: 1,
+			startingPosition: 29
+		}, {
+			key: 'navaid_class_range',
+			type: 'string',
+			length: 1,
+			startingPosition: 30
+		}, {
+			key: 'navaid_class_addinfo',
+			type: 'string',
+			length: 1,
+			startingPosition: 31
+		}, {
+			key: 'navaid_class_colocation',
+			type: 'string',
+			length: 1,
+			startingPosition: 32
+		}, {
+			key: 'ndb_latitude',
+			type: 'string',
+			length: 9,
+			startingPosition: 33
+		}, {
+			key: 'ndb_longitude',
+			type: 'string',
+			length: 10,
+			startingPosition: 42
+		}, {
+			key: 'mag_variation',
+			type: 'string',
+			length: 5,
+			startingPosition: 75
+		}, {
+			key: 'datum_code',
+			type: 'string',
+			length: 3,
+			startingPosition: 91,
+			defaultValue: 'WGE'
+		}, {
+			key: 'navaid_name',
+			type: 'string',
+			length: 30,
+			startingPosition: 94
+		}, {
+			key: 'record_nr',
+			type: 'integer',
+			length: 5,
+			startingPosition: 124
+		}, {
+			key: 'cycle',
+			type: 'integer',
+			length: 4,
+			startingPosition: 129
+		}, ]
+	}
 };
 
 var arinc_spec_wp = {
-	length: 132,
-	fields: [{
-		key: 'record_type',
-		type: 'string',
-		length: 1,
-		startingPosition: 1,
-		defaultValue: 'S'
-	}, {
-		key: 'area',
-		type: 'string',
-		length: 3,
-		startingPosition: 2,
-		defaultValue: 'EUR'
-	}, {
-		key: 'section',
-		type: 'string',
-		length: 1,
-		startingPosition: 5
-	}, {
-		key: 'sub_section_6',
-		type: 'string',
-		length: 1,
-		startingPosition: 6
-	}, {
-		key: 'aprt_ident',
-		type: 'string',
-		length: 4,
-		startingPosition: 7
-	}, {
-		key: 'aprt_icao_code',
-		type: 'string',
-		length: 2,
-		startingPosition: 11
-	}, {
-		key: 'sub_section_13',
-		type: 'string',
-		length: 1,
-		startingPosition: 13
-	}, {
-		key: 'ident',
-		type: 'string',
-		length: 5,
-		startingPosition: 14
-	}, {
-		key: 'icao_code',
-		type: 'string',
-		length: 2,
-		startingPosition: 20
-	}, {
-		key: 'cont_nr',
-		type: 'integer',
-		length: 1,
-		startingPosition: 22
-	}, {
-		key: 'wpt_type',
-		type: 'string',
-		length: 1,
-		startingPosition: 27,
-		defaultValue: 'V'
-	}, {
-		key: 'latitude',
-		type: 'string',
-		length: 9,
-		startingPosition: 33
-	}, {
-		key: 'longitude',
-		type: 'string',
-		length: 10,
-		startingPosition: 42
-	}, {
-		key: 'elevation',
-		type: 'string',
-		length: 5,
-		startingPosition: 80
-	}, {
-		key: 'datum_code',
-		type: 'string',
-		length: 3,
-		startingPosition: 85,
-		defaultValue: 'WGE'
-	}, {
-		key: 'name_ind',
-		type: 'string',
-		length: 3,
-		startingPosition: 96
-	}, {
-		key: 'name',
-		type: 'string',
-		length: 25,
-		startingPosition: 99
-	}, {
-		key: 'record_nr',
-		type: 'integer',
-		length: 5,
-		startingPosition: 124
-	}, {
-		key: 'cycle',
-		type: 'integer',
-		length: 4,
-		startingPosition: 129
-	}, ]
+	1: {
+		length: 132,
+		fields: [{
+			key: 'record_type',
+			type: 'string',
+			length: 1,
+			startingPosition: 1,
+			defaultValue: 'S'
+		}, {
+			key: 'area',
+			type: 'string',
+			length: 3,
+			startingPosition: 2,
+			defaultValue: 'EUR'
+		}, {
+			key: 'section',
+			type: 'string',
+			length: 1,
+			startingPosition: 5
+		}, {
+			key: 'sub_section_6',
+			type: 'string',
+			length: 1,
+			startingPosition: 6
+		}, {
+			key: 'aprt_ident',
+			type: 'string',
+			length: 4,
+			startingPosition: 7
+		}, {
+			key: 'aprt_icao_code',
+			type: 'string',
+			length: 2,
+			startingPosition: 11
+		}, {
+			key: 'sub_section_13',
+			type: 'string',
+			length: 1,
+			startingPosition: 13
+		}, {
+			key: 'ident',
+			type: 'string',
+			length: 5,
+			startingPosition: 14
+		}, {
+			key: 'icao_code',
+			type: 'string',
+			length: 2,
+			startingPosition: 20
+		}, {
+			key: 'cont_nr',
+			type: 'integer',
+			length: 1,
+			startingPosition: 22
+		}, {
+			key: 'wpt_type',
+			type: 'string',
+			length: 1,
+			startingPosition: 27,
+			defaultValue: 'V'
+		}, {
+			key: 'latitude',
+			type: 'string',
+			length: 9,
+			startingPosition: 33
+		}, {
+			key: 'longitude',
+			type: 'string',
+			length: 10,
+			startingPosition: 42
+		}, {
+			key: 'elevation',
+			type: 'string',
+			length: 5,
+			startingPosition: 80
+		}, {
+			key: 'datum_code',
+			type: 'string',
+			length: 3,
+			startingPosition: 85,
+			defaultValue: 'WGE'
+		}, {
+			key: 'name_ind',
+			type: 'string',
+			length: 3,
+			startingPosition: 96
+		}, {
+			key: 'name',
+			type: 'string',
+			length: 25,
+			startingPosition: 99
+		}, {
+			key: 'record_nr',
+			type: 'integer',
+			length: 5,
+			startingPosition: 124
+		}, {
+			key: 'cycle',
+			type: 'integer',
+			length: 4,
+			startingPosition: 129
+		}, ]
+	}
 };
 
 var arinc_spec_aprt = {
-	length: 132,
-	fields: [{
+	1: {
+		length: 132,
+		fields: [{
+				key: 'record_type',
+				type: 'string',
+				length: 1,
+				startingPosition: 1,
+				defaultValue: 'S'
+			}, {
+				key: 'area',
+				type: 'string',
+				length: 3,
+				startingPosition: 2,
+				defaultValue: 'EUR'
+			}, {
+				key: 'section',
+				type: 'string',
+				length: 1,
+				startingPosition: 5
+			}, {
+				key: 'ident',
+				type: 'string',
+				length: 4,
+				startingPosition: 7
+			}, {
+				key: 'icao_code',
+				type: 'string',
+				length: 2,
+				startingPosition: 11
+			}, {
+				key: 'sub_section',
+				type: 'string',
+				length: 1,
+				startingPosition: 13
+			}, {
+				key: 'iata',
+				type: 'string',
+				length: 3,
+				startingPosition: 14
+			}, {
+				key: 'cont_nr',
+				type: 'integer',
+				length: 1,
+				startingPosition: 22
+			}, {
+				key: 'speed_limit_alt',
+				type: 'string',
+				length: 5,
+				startingPosition: 23,
+				defaultValue: ''
+			}, //TODO speed_limit, altitude FL100/250
+			{
+				key: 'longest_rwy',
+				type: 'string',
+				length: 3,
+				startingPosition: 28
+			}, // length of longest RWY in 100s of ft
+			{
+				key: 'ifr',
+				type: 'string',
+				length: 1,
+				startingPosition: 31
+			}, {
+				key: 'latitude',
+				type: 'string',
+				length: 9,
+				startingPosition: 33
+			}, {
+				key: 'longitude',
+				type: 'string',
+				length: 10,
+				startingPosition: 42
+			}, {
+				key: 'mag_variation',
+				type: 'string',
+				length: 5,
+				startingPosition: 52
+			}, {
+				key: 'elevation',
+				type: 'integer',
+				length: 5,
+				startingPosition: 57
+			}, {
+				key: 'speed_limit',
+				type: 'string',
+				length: 3,
+				startingPosition: 62,
+				defaultValue: ''
+			}, //TODO
+
+			{
+				key: 'pub_mil',
+				type: 'string',
+				length: 1,
+				startingPosition: 81,
+				defaultValue: 'C'
+			}, //TODO PUBLIC
+			{
+				key: 'timezone',
+				type: 'string',
+				length: 3,
+				startingPosition: 82,
+				defaultValue: 'A00'
+			}, //TODO GMT+1
+			{
+				key: 'daytime',
+				type: 'string',
+				length: 1,
+				startingPosition: 85,
+				defaultValue: 'Y'
+			}, //TODO day light saving: y/n
+			{
+				key: 'mag_true',
+				type: 'string',
+				length: 1,
+				startingPosition: 86,
+				defaultValue: 'M'
+			}, //TODO magentic
+			//TODO...
+			{
+				key: 'datum_code',
+				type: 'string',
+				length: 3,
+				startingPosition: 87,
+				defaultValue: 'WGE'
+			}, {
+				key: 'name',
+				type: 'string',
+				length: 30,
+				startingPosition: 94
+			}, {
+				key: 'record_nr',
+				type: 'integer',
+				length: 5,
+				startingPosition: 124
+			}, {
+				key: 'cycle',
+				type: 'integer',
+				length: 4,
+				startingPosition: 129
+			},
+		]
+	}
+};
+
+var arinc_spec_aprt_com = {
+	1: {
+		length: 132,
+		fields: [{
 			key: 'record_type',
 			type: 'string',
 			length: 1,
@@ -421,33 +574,50 @@ var arinc_spec_aprt = {
 			length: 1,
 			startingPosition: 13
 		}, {
-			key: 'iata',
+			key: 'comm_type',
 			type: 'string',
 			length: 3,
 			startingPosition: 14
 		}, {
+			key: 'comm_freq',
+			type: 'integer',
+			length: 7,
+			startingPosition: 17
+		}, {
+			key: 'gt',
+			type: 'string',
+			length: 1,
+			startingPosition: 24
+		}, {
+			key: 'freq_unit',
+			type: 'string',
+			length: 1,
+			startingPosition: 25
+		}, {
 			key: 'cont_nr',
 			type: 'integer',
 			length: 1,
-			startingPosition: 22
-		}, {
-			key: 'speed_limit_alt',
-			type: 'string',
-			length: 5,
-			startingPosition: 23,
-			defaultValue: ''
-		}, //TODO speed_limit, altitude FL100/250
-		{
-			key: 'longest_rwy',
+			startingPosition: 26
+		}, { // TODO
+			key: 'service_ind',
 			type: 'string',
 			length: 3,
-			startingPosition: 28
-		}, // length of longest RWY in 100s of ft
-		{
-			key: 'ifr',
+			startingPosition: 27
+		}, { // TODO
+			key: 'radar',
+			type: 'string',
+			length: 1,
+			startingPosition: 30,
+		}, { // TODO
+			key: 'modulation',
 			type: 'string',
 			length: 1,
 			startingPosition: 31
+		}, { // TODO
+			key: 'sig_em',
+			type: 'string',
+			length: 1,
+			startingPosition: 32
 		}, {
 			key: 'latitude',
 			type: 'string',
@@ -468,54 +638,86 @@ var arinc_spec_aprt = {
 			type: 'integer',
 			length: 5,
 			startingPosition: 57
+		}, { // TODO
+			key: 'h24_ind',
+			type: 'string',
+			length: 1,
+			startingPosition: 62
+		}, { // TODO
+			key: 'sector',
+			type: 'string',
+			length: 6,
+			startingPosition: 63
+		}, { //TODO
+			key: 'alt_desc',
+			type: 'string',
+			length: 1,
+			startingPosition: 69
+		}, { //TODO
+			key: 'altitude1',
+			type: 'string',
+			length: 5,
+			startingPosition: 70
+		}, { //TODO
+			key: 'altitude2',
+			type: 'string',
+			length: 5,
+			startingPosition: 75
+		}, { //TODO
+			key: 'sector_fac',
+			type: 'string',
+			length: 4,
+			startingPosition: 80
+		}, { //TODO
+			key: 'icao_code2',
+			type: 'string',
+			length: 2,
+			startingPosition: 84
+		}, { //TODO
+			key: 'sec_code2',
+			type: 'string',
+			length: 1,
+			startingPosition: 86
+		}, { //TODO
+			key: 'sub_code2',
+			type: 'string',
+			length: 1,
+			startingPosition: 87
+		}, { //TODO
+			key: 'dist_desc',
+			type: 'string',
+			length: 1,
+			startingPosition: 88
+		}, { //TODO
+			key: 'comm_dist',
+			type: 'integer',
+			length: 2,
+			startingPosition: 89
+		}, { //TODO
+			key: 'remote_fac',
+			type: 'string',
+			length: 4,
+			startingPosition: 91
+		}, { //TODO
+			key: 'icao_code3',
+			type: 'string',
+			length: 2,
+			startingPosition: 95
+		}, { //TODO
+			key: 'sec_code3',
+			type: 'string',
+			length: 1,
+			startingPosition: 97
+		}, { //TODO
+			key: 'sub_code3',
+			type: 'string',
+			length: 1,
+			startingPosition: 98
 		}, {
-			key: 'speed_limit',
+			key: 'callsign',
 			type: 'string',
-			length: 3,
-			startingPosition: 62,
-			defaultValue: ''
-		}, //TODO
-
-		{
-			key: 'pub_mil',
-			type: 'string',
-			length: 1,
-			startingPosition: 81,
-			defaultValue: 'C'
-		}, //TODO PUBLIC
-		{
-			key: 'timezone',
-			type: 'string',
-			length: 3,
-			startingPosition: 82,
-			defaultValue: 'A00'
-		}, //TODO GMT+1
-		{
-			key: 'daytime',
-			type: 'string',
-			length: 1,
-			startingPosition: 85,
-			defaultValue: 'Y'
-		}, //TODO day light saving: y/n
-		{
-			key: 'mag_true',
-			type: 'string',
-			length: 1,
-			startingPosition: 86,
-			defaultValue: 'M'
-		}, //TODO magentic
-		//TODO...
-		{
-			key: 'datum_code',
-			type: 'string',
-			length: 3,
-			startingPosition: 87,
-			defaultValue: 'WGE'
-		}, {
-			key: 'name',
-			type: 'string',
-			length: 30,
-			startingPosition: 94
+			length: 25,
+			startingPosition: 99
 		}, {
 			key: 'record_nr',
 			type: 'integer',
@@ -526,206 +728,15 @@ var arinc_spec_aprt = {
 			type: 'integer',
 			length: 4,
 			startingPosition: 129
-		},
-	]
-};
-
-var arinc_spec_aprt_com = {
-	length: 132,
-	fields: [{
-		key: 'record_type',
-		type: 'string',
-		length: 1,
-		startingPosition: 1,
-		defaultValue: 'S'
-	}, {
-		key: 'area',
-		type: 'string',
-		length: 3,
-		startingPosition: 2,
-		defaultValue: 'EUR'
-	}, {
-		key: 'section',
-		type: 'string',
-		length: 1,
-		startingPosition: 5
-	}, {
-		key: 'ident',
-		type: 'string',
-		length: 4,
-		startingPosition: 7
-	}, {
-		key: 'icao_code',
-		type: 'string',
-		length: 2,
-		startingPosition: 11
-	}, {
-		key: 'sub_section',
-		type: 'string',
-		length: 1,
-		startingPosition: 13
-	}, {
-		key: 'comm_type',
-		type: 'string',
-		length: 3,
-		startingPosition: 14
-	}, {
-		key: 'comm_freq',
-		type: 'integer',
-		length: 7,
-		startingPosition: 17
-	}, {
-		key: 'gt',
-		type: 'string',
-		length: 1,
-		startingPosition: 24
-	}, {
-		key: 'freq_unit',
-		type: 'string',
-		length: 1,
-		startingPosition: 25
-	}, {
-		key: 'cont_nr',
-		type: 'integer',
-		length: 1,
-		startingPosition: 26
-	}, { // TODO
-		key: 'service_ind',
-		type: 'string',
-		length: 3,
-		startingPosition: 27
-	}, { // TODO
-		key: 'radar',
-		type: 'string',
-		length: 1,
-		startingPosition: 30,
-	}, { // TODO
-		key: 'modulation',
-		type: 'string',
-		length: 1,
-		startingPosition: 31
-	}, { // TODO
-		key: 'sig_em',
-		type: 'string',
-		length: 1,
-		startingPosition: 32
-	}, {
-		key: 'latitude',
-		type: 'string',
-		length: 9,
-		startingPosition: 33
-	}, {
-		key: 'longitude',
-		type: 'string',
-		length: 10,
-		startingPosition: 42
-	}, {
-		key: 'mag_variation',
-		type: 'string',
-		length: 5,
-		startingPosition: 52
-	}, {
-		key: 'elevation',
-		type: 'integer',
-		length: 5,
-		startingPosition: 57
-	}, { // TODO
-		key: 'h24_ind',
-		type: 'string',
-		length: 1,
-		startingPosition: 62
-	}, { // TODO
-		key: 'sector',
-		type: 'string',
-		length: 6,
-		startingPosition: 63
-	}, { //TODO
-		key: 'alt_desc',
-		type: 'string',
-		length: 1,
-		startingPosition: 69
-	}, { //TODO
-		key: 'altitude1',
-		type: 'string',
-		length: 5,
-		startingPosition: 70
-	}, { //TODO
-		key: 'altitude2',
-		type: 'string',
-		length: 5,
-		startingPosition: 75
-	}, { //TODO
-		key: 'sector_fac',
-		type: 'string',
-		length: 4,
-		startingPosition: 80
-	}, { //TODO
-		key: 'icao_code2',
-		type: 'string',
-		length: 2,
-		startingPosition: 84
-	}, { //TODO
-		key: 'sec_code2',
-		type: 'string',
-		length: 1,
-		startingPosition: 86
-	}, { //TODO
-		key: 'sub_code2',
-		type: 'string',
-		length: 1,
-		startingPosition: 87
-	}, { //TODO
-		key: 'dist_desc',
-		type: 'string',
-		length: 1,
-		startingPosition: 88
-	}, { //TODO
-		key: 'comm_dist',
-		type: 'integer',
-		length: 2,
-		startingPosition: 89
-	}, { //TODO
-		key: 'remote_fac',
-		type: 'string',
-		length: 4,
-		startingPosition: 91
-	}, { //TODO
-		key: 'icao_code3',
-		type: 'string',
-		length: 2,
-		startingPosition: 95
-	}, { //TODO
-		key: 'sec_code3',
-		type: 'string',
-		length: 1,
-		startingPosition: 97
-	}, { //TODO
-		key: 'sub_code3',
-		type: 'string',
-		length: 1,
-		startingPosition: 98
-	}, {
-		key: 'callsign',
-		type: 'string',
-		length: 25,
-		startingPosition: 99
-	}, {
-		key: 'record_nr',
-		type: 'integer',
-		length: 5,
-		startingPosition: 124
-	}, {
-		key: 'cycle',
-		type: 'integer',
-		length: 4,
-		startingPosition: 129
-	}, ]
+		}, ]
+	}
 };
 
 
 var arinc_spec_rwy = {
-	length: 132,
-	fields: [{
+	1: {
+		length: 132,
+		fields: [{
 			key: 'record_type',
 			type: 'string',
 			length: 1,
@@ -797,14 +808,13 @@ var arinc_spec_rwy = {
 			type: 'integer',
 			length: 4,
 			startingPosition: 72
-		}, {
+		}, { // threshold crossing height, default 50ft TODO
 			key: 'tch',
 			type: 'integer',
 			length: 2,
 			startingPosition: 76,
 			defaultValue: 50
-		}, // threshold crossing height, default 50ft TODO
-		{
+		}, {
 			key: 'rwy_width',
 			type: 'integer',
 			length: 3,
@@ -829,247 +839,319 @@ var arinc_spec_rwy = {
 			type: 'integer',
 			length: 4,
 			startingPosition: 129
-		},
-	]
+		}, ]
+	}
 };
 
 var arinc_spec_as_ctl = {
-	length: 132,
-	fields: [ // controlled airspace
-		{
-			key: 'record_type',
-			type: 'string',
-			length: 1,
-			startingPosition: 1,
-			defaultValue: 'S'
-		}, {
-			key: 'area',
-			type: 'string',
-			length: 3,
-			startingPosition: 2,
-			defaultValue: 'EUR'
-		}, {
-			key: 'section',
-			type: 'string',
-			length: 1,
-			startingPosition: 5,
-			defaultValue: 'U'
-		}, {
-			key: 'sub_section',
-			type: 'string',
-			length: 1,
-			startingPosition: 6,
-			defaultValue: 'C'
-		}, {
-			key: 'icao_code',
-			type: 'string',
-			length: 2,
-			startingPosition: 7
-		}, {
-			key: 'as_type',
-			type: 'string',
-			length: 1,
-			startingPosition: 9
-		}, {
-			key: 'as_center',
-			type: 'string',
-			length: 5,
-			startingPosition: 10
-		}, {
-			key: 'multi_cd',
-			type: 'string',
-			length: 1,
-			startingPosition: 20
-		}, {
-			key: 'seq_nr',
-			type: 'integer',
-			length: 4,
-			startingPosition: 21
-		}, {
-			key: 'cont_nr',
-			type: 'integer',
-			length: 1,
-			startingPosition: 25
-		}, {
-			key: 'level',
-			type: 'string',
-			length: 1,
-			startingPosition: 26,
-			defaultValue: 'B'
-		}, //TODO B=all altitudes
-		{
-			key: 'boundary_via',
-			type: 'string',
-			length: 2,
-			startingPosition: 31,
-			defaultValue: 'G '
-		}, //TODO G=great circle
-		{
-			key: 'latitude',
-			type: 'string',
-			length: 9,
-			startingPosition: 33
-		}, {
-			key: 'longitude',
-			type: 'string',
-			length: 10,
-			startingPosition: 42
-		}, {
-			key: 'lower',
-			type: 'integer',
-			length: 5,
-			startingPosition: 82
-		}, {
-			key: 'lower_unit',
-			type: 'string',
-			length: 1,
-			startingPosition: 87
-		}, // M = MSL, A = AGL
-		{
-			key: 'upper',
-			type: 'integer',
-			length: 5,
-			startingPosition: 88
-		}, {
-			key: 'upper_unit',
-			type: 'string',
-			length: 1,
-			startingPosition: 93
-		}, // M = MSL, A = AGL
-		{
-			key: 'name',
-			type: 'string',
-			length: 30,
-			startingPosition: 94
-		}, {
-			key: 'record_nr',
-			type: 'integer',
-			length: 5,
-			startingPosition: 124
-		}, {
-			key: 'cycle',
-			type: 'integer',
-			length: 4,
-			startingPosition: 129
-		},
-	]
+	1: {
+		length: 132,
+		fields: [ // controlled airspace
+			{
+				key: 'record_type',
+				type: 'string',
+				length: 1,
+				startingPosition: 1,
+				defaultValue: 'S'
+			}, {
+				key: 'area',
+				type: 'string',
+				length: 3,
+				startingPosition: 2,
+				defaultValue: 'EUR'
+			}, {
+				key: 'section',
+				type: 'string',
+				length: 1,
+				startingPosition: 5,
+				defaultValue: 'U'
+			}, {
+				key: 'sub_section',
+				type: 'string',
+				length: 1,
+				startingPosition: 6,
+				defaultValue: 'C'
+			}, {
+				key: 'icao_code',
+				type: 'string',
+				length: 2,
+				startingPosition: 7
+			}, {
+				key: 'as_type',
+				type: 'string',
+				length: 1,
+				startingPosition: 9
+			}, {
+				key: 'as_center',
+				type: 'string',
+				length: 5,
+				startingPosition: 10
+			}, {
+				key: 'multi_cd',
+				type: 'string',
+				length: 1,
+				startingPosition: 20
+			}, {
+				key: 'seq_nr',
+				type: 'integer',
+				length: 4,
+				startingPosition: 21
+			}, {
+				key: 'cont_nr',
+				type: 'integer',
+				length: 1,
+				startingPosition: 25
+			}, { //TODO B=all altitudes
+				key: 'level',
+				type: 'string',
+				length: 1,
+				startingPosition: 26,
+				defaultValue: 'B'
+			}, {
+				key: 'boundary_via',
+				type: 'string',
+				length: 2,
+				startingPosition: 31,
+				defaultValue: 'G '
+			}, //TODO G=great circle
+			{
+				key: 'latitude',
+				type: 'string',
+				length: 9,
+				startingPosition: 33
+			}, {
+				key: 'longitude',
+				type: 'string',
+				length: 10,
+				startingPosition: 42
+			}, {
+				key: 'lower',
+				type: 'integer',
+				length: 5,
+				startingPosition: 82
+			}, {
+				key: 'lower_unit',
+				type: 'string',
+				length: 1,
+				startingPosition: 87
+			}, // M = MSL, A = AGL
+			{
+				key: 'upper',
+				type: 'integer',
+				length: 5,
+				startingPosition: 88
+			}, {
+				key: 'upper_unit',
+				type: 'string',
+				length: 1,
+				startingPosition: 93
+			}, // M = MSL, A = AGL
+			{
+				key: 'name',
+				type: 'string',
+				length: 30,
+				startingPosition: 94
+			}, {
+				key: 'record_nr',
+				type: 'integer',
+				length: 5,
+				startingPosition: 124
+			}, {
+				key: 'cycle',
+				type: 'integer',
+				length: 4,
+				startingPosition: 129
+			},
+		]
+	},
+	2: {
+		length: 132,
+		fields: [ // restricted airspace
+		]
+	}
 };
 
 var arinc_spec_as_res = {
-	length: 132,
-	fields: [ // restricted airspace
-		{
-			key: 'record_type',
-			type: 'string',
-			length: 1,
-			startingPosition: 1,
-			defaultValue: 'S'
-		}, {
-			key: 'area',
-			type: 'string',
-			length: 3,
-			startingPosition: 2,
-			defaultValue: 'EUR'
-		}, {
-			key: 'section',
-			type: 'string',
-			length: 1,
-			startingPosition: 5,
-			defaultValue: 'U'
-		}, {
-			key: 'sub_section',
-			type: 'string',
-			length: 1,
-			startingPosition: 6,
-			defaultValue: 'R'
-		}, {
-			key: 'icao_code',
-			type: 'string',
-			length: 2,
-			startingPosition: 7
-		}, {
-			key: 'as_type',
-			type: 'string',
-			length: 1,
-			startingPosition: 9
-		}, {
-			key: 'designator',
-			type: 'string',
-			length: 10,
-			startingPosition: 10
-		}, {
-			key: 'multi_cd',
-			type: 'string',
-			length: 1,
-			startingPosition: 20
-		}, {
-			key: 'seq_nr',
-			type: 'integer',
-			length: 4,
-			startingPosition: 21
-		}, {
-			key: 'level',
-			type: 'string',
-			length: 1,
-			startingPosition: 26,
-			defaultValue: 'B'
-		}, //TODO B=all altitudes
-		{
-			key: 'boundary_via',
-			type: 'string',
-			length: 2,
-			startingPosition: 31,
-			defaultValue: 'G '
-		}, //TODO G=great circle
-		{
-			key: 'latitude',
-			type: 'string',
-			length: 9,
-			startingPosition: 33
-		}, {
-			key: 'longitude',
-			type: 'string',
-			length: 10,
-			startingPosition: 42
-		}, {
-			key: 'lower',
-			type: 'integer',
-			length: 5,
-			startingPosition: 82
-		}, {
-			key: 'lower_unit',
-			type: 'string',
-			length: 1,
-			startingPosition: 87
-		}, // M = MSL, A = AGL
-		{
-			key: 'upper',
-			type: 'integer',
-			length: 5,
-			startingPosition: 88
-		}, {
-			key: 'upper_unit',
-			type: 'string',
-			length: 1,
-			startingPosition: 93
-		}, // M = MSL, A = AGL
-		{
-			key: 'name',
-			type: 'string',
-			length: 30,
-			startingPosition: 94
-		}, {
-			key: 'record_nr',
-			type: 'integer',
-			length: 5,
-			startingPosition: 124
-		}, {
-			key: 'cycle',
-			type: 'integer',
-			length: 4,
-			startingPosition: 129
-		},
-	]
+	1: {
+		length: 132,
+		fields: [ // restricted airspace
+			{
+				key: 'record_type',
+				type: 'string',
+				length: 1,
+				startingPosition: 1,
+				defaultValue: 'S'
+			}, {
+				key: 'area',
+				type: 'string',
+				length: 3,
+				startingPosition: 2,
+				defaultValue: 'EUR'
+			}, {
+				key: 'section',
+				type: 'string',
+				length: 1,
+				startingPosition: 5,
+				defaultValue: 'U'
+			}, {
+				key: 'sub_section',
+				type: 'string',
+				length: 1,
+				startingPosition: 6,
+				defaultValue: 'R'
+			}, {
+				key: 'icao_code',
+				type: 'string',
+				length: 2,
+				startingPosition: 7
+			}, {
+				key: 'as_type',
+				type: 'string',
+				length: 1,
+				startingPosition: 9
+			}, {
+				key: 'designator',
+				type: 'string',
+				length: 10,
+				startingPosition: 10
+			}, {
+				key: 'multi_cd',
+				type: 'string',
+				length: 1,
+				startingPosition: 20
+			}, {
+				key: 'seq_nr',
+				type: 'integer',
+				length: 4,
+				startingPosition: 21
+			}, {
+				key: 'cont_nr',
+				type: 'integer',
+				length: 1,
+				startingPosition: 25
+			}, { //TODO B=all altitudes
+				key: 'level',
+				type: 'string',
+				length: 1,
+				startingPosition: 26,
+				defaultValue: 'B'
+			}, {
+				key: 'boundary_via',
+				type: 'string',
+				length: 2,
+				startingPosition: 31,
+				defaultValue: 'G '
+			}, //TODO G=great circle
+			{
+				key: 'latitude',
+				type: 'string',
+				length: 9,
+				startingPosition: 33
+			}, {
+				key: 'longitude',
+				type: 'string',
+				length: 10,
+				startingPosition: 42
+			}, {
+				key: 'lower',
+				type: 'integer',
+				length: 5,
+				startingPosition: 82
+			}, {
+				key: 'lower_unit',
+				type: 'string',
+				length: 1,
+				startingPosition: 87
+			}, // M = MSL, A = AGL
+			{
+				key: 'upper',
+				type: 'integer',
+				length: 5,
+				startingPosition: 88
+			}, {
+				key: 'upper_unit',
+				type: 'string',
+				length: 1,
+				startingPosition: 93
+			}, // M = MSL, A = AGL
+			{
+				key: 'name',
+				type: 'string',
+				length: 30,
+				startingPosition: 94
+			}, {
+				key: 'record_nr',
+				type: 'integer',
+				length: 5,
+				startingPosition: 124
+			}, {
+				key: 'cycle',
+				type: 'integer',
+				length: 4,
+				startingPosition: 129
+			},
+		]
+	},
+	2: {
+		length: 132,
+		fields: [ // restricted airspace, continuation record 2
+			{
+				key: 'record_type',
+				type: 'string',
+				length: 1,
+				startingPosition: 1,
+				defaultValue: 'S'
+			}, {
+				key: 'area',
+				type: 'string',
+				length: 3,
+				startingPosition: 2,
+				defaultValue: 'EUR'
+			}, {
+				key: 'section',
+				type: 'string',
+				length: 1,
+				startingPosition: 5,
+				defaultValue: 'U'
+			}, {
+				key: 'sub_section',
+				type: 'string',
+				length: 1,
+				startingPosition: 6,
+				defaultValue: 'R'
+			}, {
+				key: 'icao_code',
+				type: 'string',
+				length: 2,
+				startingPosition: 7
+			}, {
+				key: 'as_type',
+				type: 'string',
+				length: 1,
+				startingPosition: 9
+			}, {
+				key: 'designator',
+				type: 'string',
+				length: 10,
+				startingPosition: 10
+			}, {
+				key: 'multi_cd',
+				type: 'string',
+				length: 1,
+				startingPosition: 20
+			}, {
+				key: 'seq_nr',
+				type: 'integer',
+				length: 4,
+				startingPosition: 21
+			}, {
+				key: 'cont_nr',
+				type: 'integer',
+				length: 1,
+				startingPosition: 25
+			}
+		]
+	}
 };
 
 var current_record_nr = 1;
@@ -1155,17 +1237,21 @@ function convertUnit(val, fromUnit, toUnit) {
 	throw new Error("Invalid conversion from " + fromUnit + " to " + toUnit);
 }
 
-// generates an arinc424 record
-function generateRecord(template, data) {
-	return new fixed(template).generate(data);
-}
 
 function writeRecord(line) {
 	out_stream.write(line);
 }
 
-function generateAndWriteRecord(template, data) {
-	writeRecord(generateRecord(template, data));
+// generates an arinc424 record
+function generateAndWriteRecord(template, data, cont_nr) {
+	if (cont_nr == undefined) {
+		cont_nr = 0;
+	}
+	
+	var ft = new fixed(template[cont_nr == 0 ? 1 : cont_nr]);
+	data.cont_nr = cont_nr;
+	var record = ft.generate(data);
+	writeRecord(record);
 }
 
 function map_comm_type(ofm) {
@@ -1462,19 +1548,141 @@ xml.on('updateElement: Ase', function(data) {
 		console.log("WARNING: missing lower for " + data.txtName + ", setting to 0ft");
 	}
 
-	var arinc = arinc_spec_as_ctl;
-	if (data.AseUid.codeType == 'GLDR') { // restriced AS
-		arinc = arinc_spec_as_res;
-		console.log("restricted AS");
+
+	// record types:
+	// FIR/UIR (UF)
+	// Controlled airspace (UC) arinc_spec_as_ctl
+	// *5.213 Controlled Airspace Type (ARSP TYPE)
+	// *Field
+	// A - Class C Airspace (Was ARSA within the USA).
+	// C - Control Area, ICAO Designation (CTA).
+	// M - Terminal Control Area, ICAO Designation (TMA or TCA).
+	// R - Radar Zone or Radar Area (Was TRSA within the USA).
+	// T - Class B Airspace (Was TCA with the USA).
+	// Z - Class D Airspace within the USA, Control Zone, ICAO Designation (CTR).
+
+	// Restrictive airspaces (UR) arinc_spec_as_res
+	var as_types = {
+		'D': {
+			is_restricted: true,
+			cas_type: 'U',
+		},
+		'P': {
+			is_restricted: true,
+			res_type: 'P',
+		},
+		'R': {
+			is_restricted: true,
+			res_type: 'R',
+		},
+		'GLDR': {
+			is_restricted: true,
+			res_type: 'A',
+		},
+		'HPGLDR': {
+			is_restricted: true,
+			res_type: 'A',
+		},
+		'ACRO': {
+			is_restricted: true,
+			res_type: 'A',
+		 },
+		'CTR': {
+			is_controlled: true,
+			cas_type: 'Z',
+		},
+		'TMA': {
+			is_controlled: true,
+			cas_type: 'M',
+		},
+		'MTMA': {
+			is_controlled: true,
+			cas_type: 'M',
+		},
+		'CTA': {
+			is_controlled: true,
+			cas_type: 'C',
+			res_type: 'U',
+		},
+		'UTA': {
+			is_controlled: true,
+			is_restricted: false,
+			cas_type: 'C',
+			res_type: 'U',
+		},
+		'TSA': {
+			is_controlled: true,
+			is_restricted: false,
+			res_type: 'C',
+			cas_type: 'U',
+		},
+		'TRA': {
+			is_controlled: false,
+			is_restricted: false,
+			cas_type: 'U',
+			res_type: 'C',
+		},
+		'TMZ': {
+			is_controlled: false,
+			is_restricted: false,
+			cas_type: 'U',
+			res_type: 'C',
+		 },
+		'RMZ': {
+			is_controlled: false,
+			is_restricted: false,
+			cas_type: 'U',
+			res_type: 'C',
+		 },
+		'ATZ': {
+			is_controlled: true,
+			is_restricted: false,
+			cas_type: 'U',
+		 },
+		'MATZ': {
+			is_controlled: true,
+			is_restricted: true,
+			res_type: 'R',
+			cas_type: 'Z',
+		 },
+		'SECTOR': {
+			is_controlled: false,
+			is_restricted: false,
+			cas_type: 'U',
+			res_type: 'U',
+		}
+
+	}
+	function get_as_field(astype, field) {
+		var x = as_types[astype];
+		if (x)
+			return x[field]
+		else {
+			console.log("WARNING: get_as_field unknown airspace type: "+astype);
+			return '';
+		}	
+	}
+
+	var arinc_spec = arinc_spec_as_ctl;
+	
+	if (get_as_field(data.AseUid.codeType, "is_restricted")) {
+		arinc_spec = arinc_spec_as_res;
 		arinc_data.as_type = 'U'; //TODO: unknown
 	}
-	else {
+	else if (get_as_field(data.AseUid.codeType, "is_controlled")) {
+		arinc_data.as_type = get_as_field(data.AseUid.codeType, "cas_type");
+		
+	} else
+	{
 		arinc_data.as_type = 'X'; //TODO: unknown
+		console.log("WARNING: Unknown airspace type (neither restricted nor controlled): "+data.AseUid.codeType + " ignoring.");
+		return;
 	}
 
 	//console.log(data.RdnUid.RwyUid.AhpUid.codeId + " " + data.RdnUid.txtDesig + " " + data.xt_valDispTres + ":" + arinc_data.dsplcd_thr);
 	var ase =  xml_cache[data.AseUid.$.mid];
 	if (ase) {
+		var first = true;
 		var gmlPosList = ase.gmlPosList.split(" ");
 		for (var pos in gmlPosList) {
 			var x = gmlPosList[pos].split(",");
@@ -1488,9 +1696,14 @@ xml.on('updateElement: Ase', function(data) {
 			else {
 				// first record needs additional info
 				// add here, but only first
-
-				generateAndWriteRecord(arinc, arinc_data);
+				if (first) {
+					generateAndWriteRecord(arinc_spec, arinc_data, 1);
+					generateAndWriteRecord(arinc_spec, arinc_data, 2);
+				} else{
+					generateAndWriteRecord(arinc_spec, arinc_data, 0);
+				}
 			}
+			first = false;
 		}
 	} else {
 		console.log("ASE gml polygons not found for:" + data.txtName)
