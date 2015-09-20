@@ -5,7 +5,7 @@ var unidecode = require('unidecode');
 var merge = require('object-mapper').merge;
 
 var file_in = 'ofmdata/lsas.xml';
-//var file_in = 'ofmdata/lovv.xml';
+var file_in = 'ofmdata/lovv.xml';
 //var file_in = 'ofmdata/ed.xml';
 var file_out = "out.txt";
 
@@ -1137,7 +1137,7 @@ function decl2arinc(val) {
 
 function convertUnit(val, fromUnit, toUnit) {
 	var x = parseFloat(val);
-	if (x == NaN || val == undefined)
+	if (isNaN(x) || val == undefined)
 		return undefined;
 	if (fromUnit == toUnit)
 		return x;
@@ -1162,6 +1162,23 @@ function writeRecord(line) {
 function generateAndWriteRecord(template, data) {
 	writeRecord(generateRecord(template, data));
 }
+
+function map_comm_type(ofm) {
+	var map = {	
+		'ATIS': 'ATI',
+		'INFO': 'UNI',  // AD Info frequency, unicom
+		'FIC' : 'INF',  // Flight *Information* Center
+		'APP' : 'APP',
+		'TWR' : 'TWR',
+		'SMC' : 'GND',  // Surface movement control
+	}
+	var result = map[ofm];
+	if (result)
+		return result
+	else
+		console.log("unknown comm type: "+ofm);
+}
+
 
 //// Waypoints
 // VOR  
@@ -1317,6 +1334,8 @@ xml.on('updateElement: Fqy', function(data) {
 			sub_section: 'V', // Airport Comm
 			ident: apt.AhpUid.codeId, // identifier
 			icao_code: apt.$.xt_fir.substring(0, 2), // ICAO code
+			comm_type: map_comm_type(data.FqyUid.SerUid.codeType),
+			
 			//name: str2arinc(data.RdnUid.txtDesig),
 		};
 		generateAndWriteRecord(arinc_aprt_com, arinc_data);
@@ -1406,23 +1425,27 @@ xml.on('updateElement: Ase', function(data) {
 	}
 
 	//console.log(data.RdnUid.RwyUid.AhpUid.codeId + " " + data.RdnUid.txtDesig + " " + data.xt_valDispTres + ":" + arinc_data.dsplcd_thr);
+	var ase =  xml_cache[data.AseUid.$.mid];
+	if (ase) {
+		var gmlPosList = ase.gmlPosList.split(" ");
+		for (var pos in gmlPosList) {
+			var x = gmlPosList[pos].split(",");
+			arinc_data.longitude = long2arinc(x[0]);
+			arinc_data.latitude = lat2arinc(x[1]);
+			arinc_data.seq_nr += 1; // TODO: overflow
+			arinc_data.record_nr = current_record_nr++;
+			if (arinc_data.seq_nr >= 10000) {
+				console.log("WARNING: AS is too complex (more than 1000 elements) " + arinc_data.seq_nr + " for " + data.txtName + ", ignoring...");
+			}
+			else {
+				// first record needs additional info
+				// add here, but only first
 
-	var gmlPosList = xml_cache[data.AseUid.$.mid].gmlPosList.split(" ");
-	for (var pos in gmlPosList) {
-		var x = gmlPosList[pos].split(",");
-		arinc_data.longitude = long2arinc(x[0]);
-		arinc_data.latitude = lat2arinc(x[1]);
-		arinc_data.seq_nr += 1; // TODO: overflow
-		arinc_data.record_nr = current_record_nr++;
-		if (arinc_data.seq_nr >= 10000) {
-			console.log("WARNING: AS is too complex (more than 1000 elements) " + arinc_data.seq_nr + " for " + data.txtName + ", ignoring...");
+				generateAndWriteRecord(arinc, arinc_data);
+			}
 		}
-		else {
-			// first record needs additional info
-			// add here, but only first
-
-			generateAndWriteRecord(arinc, arinc_data);
-		}
+	} else {
+		console.log("ASE gml polygons not found for:" + data.txtName)
 	}
 });
 
