@@ -1051,13 +1051,13 @@ var arinc_spec_as_ctl = {
 				length: 1,
 				startingPosition: 26,
 				defaultValue: 'B'
-			}, {
+			}, {//TODO G=great circle
 				key: 'boundary_via',
 				type: 'string',
 				length: 2,
 				startingPosition: 31,
 				defaultValue: 'G '
-			}, //TODO G=great circle
+			}, 
 			{
 				key: 'latitude',
 				type: 'string',
@@ -1154,12 +1154,14 @@ var arinc_spec_as_ctl = {
 				key: 'sec_code2',
 				type: 'string',
 				length: 1,
-				startingPosition: 15
+				startingPosition: 15,
+				defaultValue: 'P',
 			}, {
 				key: 'sub_code2',
 				type: 'string',
 				length: 1,
-				startingPosition: 16
+				startingPosition: 16,
+				defaultValue: 'A',
 			}, {
 				key: 'as_class',
 				type: 'string',
@@ -1967,6 +1969,12 @@ xml.on('updateElement: Ase', function(data) {
 				console.log("WARNING: AS is too complex (more than 1000 elements) " + arinc_data.seq_nr + " for " + data.txtName + ", ignoring...");
 			}
 			else {
+
+				// last record needs termination flag set
+				if (pos == gmlPosList.length - 1) {
+					arinc_data.boundary_via = ' E';
+				}
+
 				// first record needs additional info
 				// add here, but only first
 				if (first) {
