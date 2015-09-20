@@ -5,3 +5,6 @@ mv tmp.xml ofmdata/lovv.xml
 
 curl "http://oliver.vorderegger.org/wp-content/themes/bones/library/getOfmData.php?fir=lsas&accessHash=k9DFf4wD88hZmuf" -o tmp.xml
 mv tmp.xml ofmdata/lsas.xml
+
+curl "http://oliver.vorderegger.org/wp-content/themes/bones/library/getOfmData.php?fir=ed&accessHash=k9DFf4wD88hZmuf" -o tmp.xml
+mv tmp.xml ofmdata/ed.xml
