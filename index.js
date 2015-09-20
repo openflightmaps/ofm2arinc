@@ -966,7 +966,62 @@ var arinc_spec_as_ctl = {
 	},
 	2: {
 		length: 132,
-		fields: [ // restricted airspace
+		fields: [ // controlled airspace
+			{
+				key: 'record_type',
+				type: 'string',
+				length: 1,
+				startingPosition: 1,
+				defaultValue: 'S'
+			}, {
+				key: 'area',
+				type: 'string',
+				length: 3,
+				startingPosition: 2,
+				defaultValue: 'EUR'
+			}, {
+				key: 'section',
+				type: 'string',
+				length: 1,
+				startingPosition: 5,
+				defaultValue: 'U'
+			}, {
+				key: 'sub_section',
+				type: 'string',
+				length: 1,
+				startingPosition: 6,
+				defaultValue: 'C'
+			}, {
+				key: 'icao_code',
+				type: 'string',
+				length: 2,
+				startingPosition: 7
+			}, {
+				key: 'as_type',
+				type: 'string',
+				length: 1,
+				startingPosition: 9
+			}, {
+				key: 'as_center',
+				type: 'string',
+				length: 5,
+				startingPosition: 10
+			}, {
+				key: 'multi_cd',
+				type: 'string',
+				length: 1,
+				startingPosition: 20
+			}, {
+				key: 'seq_nr',
+				type: 'integer',
+				length: 4,
+				startingPosition: 21
+			}, {
+				key: 'cont_nr',
+				type: 'integer',
+				length: 1,
+				startingPosition: 25
+			}
 		]
 	}
 };
@@ -1602,24 +1657,17 @@ xml.on('updateElement: Ase', function(data) {
 		'CTA': {
 			is_controlled: true,
 			cas_type: 'C',
-			res_type: 'U',
 		},
 		'UTA': {
 			is_controlled: true,
-			is_restricted: false,
 			cas_type: 'C',
-			res_type: 'U',
 		},
 		'TSA': {
-			is_controlled: true,
-			is_restricted: false,
+			is_restricted: true,
 			res_type: 'C',
-			cas_type: 'U',
-		},
+ 		},
 		'TRA': {
-			is_controlled: false,
-			is_restricted: false,
-			cas_type: 'U',
+			is_restricted: true,
 			res_type: 'C',
 		},
 		'TMZ': {
@@ -1629,27 +1677,18 @@ xml.on('updateElement: Ase', function(data) {
 			res_type: 'C',
 		 },
 		'RMZ': {
-			is_controlled: false,
-			is_restricted: false,
-			cas_type: 'U',
-			res_type: 'C',
+			is_restricted: true,
+			res_type: 'A',
 		 },
 		'ATZ': {
 			is_controlled: true,
-			is_restricted: false,
-			cas_type: 'U',
+			cas_type: 'Z',
 		 },
 		'MATZ': {
 			is_controlled: true,
 			is_restricted: true,
 			res_type: 'R',
 			cas_type: 'Z',
-		 },
-		'SECTOR': {
-			is_controlled: false,
-			is_restricted: false,
-			cas_type: 'U',
-			res_type: 'U',
 		}
 
 	}
