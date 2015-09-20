@@ -1014,15 +1014,17 @@ var arinc_spec_as_ctl = {
 				length: 5,
 				startingPosition: 10
 			}, {
-				key: 'sec_code2',
+				key: 'sec_code2', // PA=airport,EA=waypoint,DB=NDB navaid depending on center
 				type: 'string',
 				length: 1,
-				startingPosition: 15
+				startingPosition: 15,
+				defaultValue: 'P',
 			}, {
 				key: 'sub_code2',
 				type: 'string',
 				length: 1,
-				startingPosition: 16
+				startingPosition: 16,
+				defaultValue: 'A',
 			}, {
 				key: 'as_class',
 				type: 'string',
@@ -1734,7 +1736,7 @@ xml.on('updateElement: Fqy', function(data) {
 		};
 		generateAndWriteRecord(arinc_spec_aprt_com, arinc_data);
 	} else {
-		console.log("WARNING: frequency "+data.comm_freq+" has no APT, ignoring.");
+		console.log("WARNING: frequency "+freq+" has no APT, ignoring.");
 	}
 });
 
