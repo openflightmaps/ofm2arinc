@@ -887,6 +887,21 @@ var arinc_spec_as_ctl = {
 				length: 5,
 				startingPosition: 10
 			}, {
+				key: 'sec_code2',
+				type: 'string',
+				length: 1,
+				startingPosition: 15
+			}, {
+				key: 'sub_code2',
+				type: 'string',
+				length: 1,
+				startingPosition: 16
+			}, {
+				key: 'as_class',
+				type: 'string',
+				length: 1,
+				startingPosition: 17
+			}, {
 				key: 'multi_cd',
 				type: 'string',
 				length: 1,
@@ -940,12 +955,12 @@ var arinc_spec_as_ctl = {
 				type: 'integer',
 				length: 5,
 				startingPosition: 88
-			}, {
+			}, { // M = MSL, A = AGL
 				key: 'upper_unit',
 				type: 'string',
 				length: 1,
 				startingPosition: 93
-			}, // M = MSL, A = AGL
+			}, 
 			{
 				key: 'name',
 				type: 'string',
@@ -1007,6 +1022,21 @@ var arinc_spec_as_ctl = {
 				length: 5,
 				startingPosition: 10
 			}, {
+				key: 'sec_code2',
+				type: 'string',
+				length: 1,
+				startingPosition: 15
+			}, {
+				key: 'sub_code2',
+				type: 'string',
+				length: 1,
+				startingPosition: 16
+			}, {
+				key: 'as_class',
+				type: 'string',
+				length: 1,
+				startingPosition: 17
+			}, {
 				key: 'multi_cd',
 				type: 'string',
 				length: 1,
@@ -1021,7 +1051,27 @@ var arinc_spec_as_ctl = {
 				type: 'integer',
 				length: 1,
 				startingPosition: 25
-			}
+			}, {
+				key: 'appl_type',
+				type: 'string',
+				length: 1,
+				startingPosition: 26
+			}, {
+				key: 'ctrl_agency',
+				type: 'string',
+				length: 24,
+				startingPosition: 100
+			}, {
+				key: 'record_nr',
+				type: 'integer',
+				length: 5,
+				startingPosition: 124
+			}, {
+				key: 'cycle',
+				type: 'integer',
+				length: 4,
+				startingPosition: 129
+			},
 		]
 	}
 };
@@ -1204,7 +1254,27 @@ var arinc_spec_as_res = {
 				type: 'integer',
 				length: 1,
 				startingPosition: 25
-			}
+			}, {
+				key: 'appl_type',
+				type: 'string',
+				length: 1,
+				startingPosition: 26
+			}, {
+				key: 'ctrl_agency',
+				type: 'string',
+				length: 24,
+				startingPosition: 100
+			}, {
+				key: 'record_nr',
+				type: 'integer',
+				length: 5,
+				startingPosition: 124
+			}, {
+				key: 'cycle',
+				type: 'integer',
+				length: 4,
+				startingPosition: 129
+			},
 		]
 	}
 };
@@ -1583,10 +1653,13 @@ xml.on('updateElement: Ase', function(data) {
 		icao_code: data.$.xt_fir.substring(0, 2), // ICAO code
 		name: str2arinc(data.txtName),
 		designator: str2arinc(data.txtName).substring(0, 10), //TODO, missing designator field
+		as_class: data.codeClass,
+		appl_type: "T", // T = opening times, TODO??
 		lower: convertUnit(parseInt(data.valDistVerLower), data.uomDistVerLower, 'FT'),
 		lower_unit: 'M', // M = MSL, A = AGL
 		upper: convertUnit(parseInt(data.valDistVerUpper), data.uomDistVerUpper, 'FT'),
 		upper_unit: 'M', // M = MSL, A = AGL
+		ctrl_agency: "", // TODO
 		record_nr: current_record_nr++,
 		seq_nr: 0,
 		cycle: 1, //TODO
@@ -1618,9 +1691,17 @@ xml.on('updateElement: Ase', function(data) {
 
 	// Restrictive airspaces (UR) arinc_spec_as_res
 	var as_types = {
+		'FIR': {
+			is_firuir: true,
+			firuir_type: 'F',
+		},
+		'UIR': {
+			is_firuir: true,
+			firuir_type: 'U',
+		},
 		'D': {
 			is_restricted: true,
-			cas_type: 'U',
+			res_type: 'D',
 		},
 		'P': {
 			is_restricted: true,
@@ -1671,14 +1752,12 @@ xml.on('updateElement: Ase', function(data) {
 			res_type: 'C',
 		},
 		'TMZ': {
-			is_controlled: false,
-			is_restricted: false,
-			cas_type: 'U',
-			res_type: 'C',
+			is_controlled: true,
+			cas_type: 'Z',
 		 },
 		'RMZ': {
-			is_restricted: true,
-			res_type: 'A',
+			is_controlled: true,
+			cas_type: 'Z',
 		 },
 		'ATZ': {
 			is_controlled: true,
@@ -1686,11 +1765,21 @@ xml.on('updateElement: Ase', function(data) {
 		 },
 		'MATZ': {
 			is_controlled: true,
-			is_restricted: true,
-			res_type: 'R',
 			cas_type: 'Z',
+		},
+		'NRA': {
+			is_restricted: true,
+			res_type: 'D',
+		},
+		'CBA': {
+			is_restricted: true,
+			res_type: 'A',
+		},
+		// non codetype airspace, e.g. Class E in Germany
+		'': {	
+			is_restricted: false,
+	 		is_controlled: false,
 		}
-
 	}
 	function get_as_field(astype, field) {
 		var x = as_types[astype];
@@ -1706,15 +1795,16 @@ xml.on('updateElement: Ase', function(data) {
 	
 	if (get_as_field(data.AseUid.codeType, "is_restricted")) {
 		arinc_spec = arinc_spec_as_res;
-		arinc_data.as_type = 'U'; //TODO: unknown
-	}
-	else if (get_as_field(data.AseUid.codeType, "is_controlled")) {
+		arinc_data.as_type = get_as_field(data.AseUid.codeType, "res_type");
+	} else if (get_as_field(data.AseUid.codeType, "is_controlled")) {
 		arinc_data.as_type = get_as_field(data.AseUid.codeType, "cas_type");
-		
+		arinc_data.as_center = "LSXX"; // TODO, get center
+	} else if (get_as_field(data.AseUid.codeType, "is_firuir")) {
+		arinc_data.as_type = get_as_field(data.AseUid.codeType, "firuir_type");
 	} else
 	{
 		arinc_data.as_type = 'X'; //TODO: unknown
-		console.log("WARNING: Unknown airspace type (neither restricted nor controlled): "+data.AseUid.codeType + " ignoring.");
+		console.log("WARNING: Unknown airspace type: " + data.txtName + ": " + data.AseUid.codeType + " ignoring.");
 		return;
 	}
 
