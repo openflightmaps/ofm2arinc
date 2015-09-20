@@ -5,7 +5,7 @@ var unidecode = require('unidecode');
 var merge = require('object-mapper').merge;
 
 var file_in = 'ofmdata/lsas.xml';
-// var file_in = 'ofmdata/lovv.xml';
+//var file_in = 'ofmdata/lovv.xml';
 //var file_in = 'ofmdata/ed.xml';
 var file_out = "out.txt";
 
@@ -353,16 +353,26 @@ var arinc_spec_wp = {
 		length: 10,
 		startingPosition: 42
 	}, {
+		key: 'elevation',
+		type: 'string',
+		length: 5,
+		startingPosition: 80
+	}, {
 		key: 'datum_code',
 		type: 'string',
 		length: 3,
-		startingPosition: 91,
+		startingPosition: 85,
 		defaultValue: 'WGE'
+	}, {
+		key: 'name_ind',
+		type: 'string',
+		length: 3,
+		startingPosition: 96
 	}, {
 		key: 'name',
 		type: 'string',
-		length: 30,
-		startingPosition: 94
+		length: 25,
+		startingPosition: 99
 	}, {
 		key: 'record_nr',
 		type: 'integer',
@@ -1062,14 +1072,6 @@ var arinc_spec_as_res = {
 	]
 };
 
-var arinc_vordme = new fixed(arinc_spec_vordme);
-var arinc_ndb = new fixed(arinc_spec_ndb);
-var arinc_wp = new fixed(arinc_spec_wp);
-var arinc_aprt = new fixed(arinc_spec_aprt);
-var arinc_aprt_com = new fixed(arinc_spec_aprt_com);
-var arinc_rwy = new fixed(arinc_spec_rwy);
-var arinc_as_ctl = new fixed(arinc_spec_as_ctl);
-var arinc_as_res = new fixed(arinc_spec_as_res);
 var current_record_nr = 1;
 
 function fwidth(v, width) {
@@ -1155,7 +1157,7 @@ function convertUnit(val, fromUnit, toUnit) {
 
 // generates an arinc424 record
 function generateRecord(template, data) {
-	return template.generate(data);
+	return new fixed(template).generate(data);
 }
 
 function writeRecord(line) {
@@ -1228,7 +1230,7 @@ xml.on('updateElement: Vor', function(data) {
 		arinc_data.dme_longitude = long2arinc(data.VorUid.geoLong);
 		arinc_data.dme_elevation = parseInt(data.valElev);
 	}
-	generateAndWriteRecord(arinc_vordme, arinc_data);
+	generateAndWriteRecord(arinc_spec_vordme, arinc_data);
 });
 
 // DME
@@ -1254,7 +1256,7 @@ xml.on('updateElement: Dme', function(data) {
 		record_nr: current_record_nr++,
 		cycle: 1, //TODO
 	};
-	generateAndWriteRecord(arinc_vordme, arinc_data);
+	generateAndWriteRecord(arinc_spec_vordme, arinc_data);
 });
 
 // NDB
@@ -1280,16 +1282,21 @@ xml.on('updateElement: Ndb', function(data) {
 		record_nr: current_record_nr++,
 		cycle: 1, //TODO
 	};
-	generateAndWriteRecord(arinc_ndb, arinc_data);
+	generateAndWriteRecord(arinc_spec_ndb, arinc_data);
 });
 
 // Designated Point / Reporting Points
 xml.on('updateElement: Dpn', function(data) {
+	var ident = str2arinc(data.DpnUid.codeId, 5);
+	if (ident == "") {
+		console.log("WARNING: waypoint has no ident: "+data.txtName)
+	}
 	// Enroute Waypoints (EA) / Terminal Waypoint (PC)
 	var arinc_data = {
 		icao_code: data.$.xt_fir.substring(0, 2), // ICAO code
-		ident: str2arinc(data.DpnUid.codeId).substring(0, 5),
+		ident: ident,
 		cont_nr: 0,
+		wpt_type: 'V', // TODO: all are VFR RP
 		latitude: lat2arinc(data.DpnUid.geoLat),
 		longitude: long2arinc(data.DpnUid.geoLong),
 		name: str2arinc(data.txtName),
@@ -1306,8 +1313,9 @@ xml.on('updateElement: Dpn', function(data) {
 		arinc_data.section = 'E';
 		arinc_data.sub_section_6 = 'A';
 		arinc_data.aprt_ident = 'ENRT';
+		arinc_data.icao_code = data.$.xt_fir.substring(0, 2); // ICAO code
 	}
-	generateAndWriteRecord(arinc_wp, arinc_data);
+	generateAndWriteRecord(arinc_spec_wp, arinc_data);
 	//console.log(JSON.stringify(data) + "\n\n");
 });
 
@@ -1334,7 +1342,7 @@ xml.on('updateElement: Ahp', function(data) {
 		record_nr: current_record_nr++,
 		cycle: 1, //TODO
 	};
-	generateAndWriteRecord(arinc_aprt, arinc_data);
+	generateAndWriteRecord(arinc_spec_aprt, arinc_data);
 });
 
 // Unicast Frequency
@@ -1371,7 +1379,7 @@ xml.on('updateElement: Fqy', function(data) {
 			record_nr: current_record_nr++,
 			cycle: 1, //TODO
 		};
-		generateAndWriteRecord(arinc_aprt_com, arinc_data);
+		generateAndWriteRecord(arinc_spec_aprt_com, arinc_data);
 	} else {
 		console.log("WARNING: freqency has no APT, ignoring.");
 	}
@@ -1391,6 +1399,11 @@ xml.on('updateElement: Rdn', function(data) {
 		//console.log("Skipping RWY of AD " + rwy.AhpUid.codeId + " type: " + rwy.codeType);
 		return;
 	}
+	
+	if (lat2arinc(data.geoLat) == "" || long2arinc(data.geoLon) == "") {
+		console.log("WARNING: missing threshold coordinates");
+	}
+	
 	var arinc_data = {
 		section: 'P', // Runway
 		sub_section: 'G', // Runway
@@ -1408,7 +1421,7 @@ xml.on('updateElement: Rdn', function(data) {
 		record_nr: current_record_nr++,
 		cycle: 1, //TODO
 	};
-	generateAndWriteRecord(arinc_rwy, arinc_data);
+	generateAndWriteRecord(arinc_spec_rwy, arinc_data);
 });
 
 //// Other
@@ -1429,9 +1442,9 @@ xml.on('updateElement: Ase', function(data) {
 		icao_code: data.$.xt_fir.substring(0, 2), // ICAO code
 		name: str2arinc(data.txtName),
 		designator: str2arinc(data.txtName).substring(0, 10), //TODO, missing designator field
-		lower: convertUnit(data.valDistVerLower, data.uomDistVerLower, 'FT'),
+		lower: convertUnit(parseInt(data.valDistVerLower), data.uomDistVerLower, 'FT'),
 		lower_unit: 'M', // M = MSL, A = AGL
-		upper: convertUnit(data.valDistVerUpper, data.uomDistVerUpper, 'FT'),
+		upper: convertUnit(parseInt(data.valDistVerUpper), data.uomDistVerUpper, 'FT'),
 		upper_unit: 'M', // M = MSL, A = AGL
 		record_nr: current_record_nr++,
 		seq_nr: 0,
@@ -1449,9 +1462,9 @@ xml.on('updateElement: Ase', function(data) {
 		console.log("WARNING: missing lower for " + data.txtName + ", setting to 0ft");
 	}
 
-	var arinc = arinc_as_ctl;
+	var arinc = arinc_spec_as_ctl;
 	if (data.AseUid.codeType == 'GLDR') { // restriced AS
-		arinc = arinc_as_res;
+		arinc = arinc_spec_as_res;
 		console.log("restricted AS");
 		arinc_data.as_type = 'U'; //TODO: unknown
 	}
