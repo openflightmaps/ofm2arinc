@@ -5,7 +5,7 @@ var unidecode = require('unidecode');
 var merge = require('object-mapper').merge;
 
 var file_in = 'ofmdata/lsas.xml';
-var file_in = 'ofmdata/lovv.xml';
+// var file_in = 'ofmdata/lovv.xml';
 //var file_in = 'ofmdata/ed.xml';
 var file_out = "out.txt";
 
@@ -561,7 +561,7 @@ var arinc_spec_aprt_com = {
 		startingPosition: 14
 	}, {
 		key: 'comm_freq',
-		type: 'string',
+		type: 'integer',
 		length: 7,
 		startingPosition: 17
 	}, {
@@ -589,7 +589,6 @@ var arinc_spec_aprt_com = {
 		type: 'string',
 		length: 1,
 		startingPosition: 30,
-		defaultValue: 'N'
 	}, { // TODO
 		key: 'modulation',
 		type: 'string',
@@ -651,17 +650,17 @@ var arinc_spec_aprt_com = {
 		length: 4,
 		startingPosition: 80
 	}, { //TODO
-		key: 'icao_code',
+		key: 'icao_code2',
 		type: 'string',
 		length: 2,
 		startingPosition: 84
 	}, { //TODO
-		key: 'sec_code',
+		key: 'sec_code2',
 		type: 'string',
 		length: 1,
 		startingPosition: 86
 	}, { //TODO
-		key: 'sub_code',
+		key: 'sub_code2',
 		type: 'string',
 		length: 1,
 		startingPosition: 87
@@ -672,7 +671,7 @@ var arinc_spec_aprt_com = {
 		startingPosition: 88
 	}, { //TODO
 		key: 'comm_dist',
-		type: 'string',
+		type: 'integer',
 		length: 2,
 		startingPosition: 89
 	}, { //TODO
@@ -681,17 +680,17 @@ var arinc_spec_aprt_com = {
 		length: 4,
 		startingPosition: 91
 	}, { //TODO
-		key: 'icao_code',
+		key: 'icao_code3',
 		type: 'string',
 		length: 2,
 		startingPosition: 95
 	}, { //TODO
-		key: 'sec_code',
+		key: 'sec_code3',
 		type: 'string',
 		length: 1,
 		startingPosition: 97
 	}, { //TODO
-		key: 'sub_code',
+		key: 'sub_code3',
 		type: 'string',
 		length: 1,
 		startingPosition: 98
@@ -1083,7 +1082,7 @@ function fwidth(v, width) {
 
 function lat2arinc(val) {
 	var res = '';
-	if (val.length > 0) {
+	if (val && val.length > 0) {
 		var x = val[val.length - 1];
 		var v = val.substring(0, val.length - 1);
 		if (!isNaN(parseFloat(x))) { // gml syntax
@@ -1099,13 +1098,15 @@ function lat2arinc(val) {
 			var d = Math.floor(inms / 100 / 60 / 60);
 			res = x + fwidth(d, 2) + fwidth(m, 2) + fwidth(s, 2) + fwidth(ms, 2);
 		}
+	} else {
+		console.log ("WARNING: lat2arinc empty value");
 	}
 	return res;
 }
 
 function long2arinc(val) {
 	var res = '';
-	if (val.length > 0) {
+	if (val && val.length > 0) {
 		var x = val[val.length - 1];
 		var v = val.substring(0, val.length - 1);
 		if (!isNaN(parseFloat(x))) { // gml syntax
@@ -1121,13 +1122,15 @@ function long2arinc(val) {
 			var d = Math.floor(inms / 100 / 60 / 60);
 			res = x + fwidth(d, 3) + fwidth(m, 2) + fwidth(s, 2) + fwidth(ms, 2);
 		}
+	} else {
+		console.log ("WARNING: long2arinc empty value");
 	}
 	return res;
 }
 
-function str2arinc(val) {
+function str2arinc(val, maxlen) {
 	var val = val == undefined ? '' : val;
-	return unidecode(val).toUpperCase().substring(0, 30);
+	return unidecode(val).toUpperCase().substring(0, maxlen ? maxlen : 30);
 	// TODO remove special chars
 }
 
@@ -1166,7 +1169,7 @@ function generateAndWriteRecord(template, data) {
 function map_comm_type(ofm) {
 	var map = {	
 		'ATIS': 'ATI',
-		'INFO': 'UNI',  // AD Info frequency, unicom
+		'INFO': 'INF',  // AD Info frequency, UNI?, TODO
 		'FIC' : 'INF',  // Flight *Information* Center
 		'APP' : 'APP',
 		'TWR' : 'TWR',
@@ -1177,6 +1180,22 @@ function map_comm_type(ofm) {
 		return result
 	else
 		console.log("unknown comm type: "+ofm);
+}
+
+function map_comm_service(ofm) {
+	var map = {	
+		//'ATIS': 'ATI',
+		'INFO': 'S  ',  // AD Info frequency, unicom, some map this also to INF, TODO
+		'FIC' : 'F  ',  // Flight *Information* Center
+		//'APP' : '   ',
+		//'TWR' : '   ',
+		//'SMC' : '   ',  // Surface movement control
+	}
+	var result = map[ofm];
+	if (result)
+		return result
+	else
+		console.log("unknown comm service: "+ofm);
 }
 
 
@@ -1328,6 +1347,11 @@ xml.on('updateElement: Uni', function(data) {
 xml.on('updateElement: Fqy', function(data) {
 	var uni = xml_cache[data.FqyUid.SerUid.UniUid.$.mid];
 	var apt = xml_cache[uni.AhpUid.$.mid];
+	var freq = convertUnit(parseFloat(data.valFreqRec), data.uomFreq, "MHZ");
+	if (freq < 30 || freq > 200) {
+		console.log("WARNING: only VHF supported, ignoring.");
+		return;
+	}
 	if (apt) {
 		var arinc_data = {
 			section: 'P', // Airport Comm
@@ -1335,10 +1359,21 @@ xml.on('updateElement: Fqy', function(data) {
 			ident: apt.AhpUid.codeId, // identifier
 			icao_code: apt.$.xt_fir.substring(0, 2), // ICAO code
 			comm_type: map_comm_type(data.FqyUid.SerUid.codeType),
-			
-			//name: str2arinc(data.RdnUid.txtDesig),
+			comm_freq: Math.round(freq * 1000),
+			freq_unit: 'V', // only VHF supported so far. TODO
+			service_ind: map_comm_service(data.FqyUid.SerUid.codeType),
+			modulation: 'A', // only AM supported
+			latitude: lat2arinc(apt.geoLat),
+			longitude: long2arinc(apt.geoLong),
+			mag_variation: decl2arinc(apt.valMagVar),
+			elevation: convertUnit(apt.valElev, apt.uomElev, 'FT'),			
+			callsign: str2arinc(data.Cdl.txtCallSign, 25),
+			record_nr: current_record_nr++,
+			cycle: 1, //TODO
 		};
 		generateAndWriteRecord(arinc_aprt_com, arinc_data);
+	} else {
+		console.log("WARNING: freqency has no APT, ignoring.");
 	}
 });
 
