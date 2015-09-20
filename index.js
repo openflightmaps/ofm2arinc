@@ -137,7 +137,7 @@ var arinc_spec_header = {
 			type: 'string',
 			length: 30,
 			startingPosition: 59,
-			defaultValue: 'TEST! NOT FOR OPERATION USE',
+			defaultValue: 'TEST! NOT FOR OPERATIONAL USE',
 		}]
 	}
 }
@@ -1518,8 +1518,10 @@ function map_comm_type(ofm) {
 	var result = map[ofm];
 	if (result)
 		return result
-	else
-		console.log("unknown comm type: "+ofm);
+	else {
+		console.log("WARNING: Unknown comm type: "+ofm);
+		return undefined;
+	}
 }
 
 function map_comm_service(ofm) {
@@ -1534,8 +1536,10 @@ function map_comm_service(ofm) {
 	var result = map[ofm];
 	if (result)
 		return result
-	else
-		console.log("unknown comm service: "+ofm);
+	else {
+		console.log("WARNING: Unknown comm service: "+ofm);
+		return undefined;
+	}
 }
 
 
@@ -1673,7 +1677,7 @@ xml.on('updateElement: Ahp', function(data) {
 	// add to cache
 	xml_cache[data.AhpUid.$.mid] = data;
 	if (data.codeType != 'AD') {
-		//	console.log("Skipping AD " + data.AhpUid.codeId + " type: " + data.codeType);
+		console.log("WARNING: Skipping AD " + data.AhpUid.codeId + " type: " + data.codeType);
 		return;
 	}
 
@@ -1730,7 +1734,7 @@ xml.on('updateElement: Fqy', function(data) {
 		};
 		generateAndWriteRecord(arinc_spec_aprt_com, arinc_data);
 	} else {
-		console.log("WARNING: freqency has no APT, ignoring.");
+		console.log("WARNING: frequency "+data.comm_freq+" has no APT, ignoring.");
 	}
 });
 
@@ -1745,7 +1749,7 @@ xml.on('updateElement: Rwy', function(data) {
 xml.on('updateElement: Rdn', function(data) {
 	var rwy = xml_cache[data.RdnUid.RwyUid.AhpUid.$.mid];
 	if (rwy.codeType != 'AD') {
-		//console.log("Skipping RWY of AD " + rwy.AhpUid.codeId + " type: " + rwy.codeType);
+		console.log("WARNING: Skipping RWY of AD " + rwy.AhpUid.codeId + " type: " + rwy.codeType);
 		return;
 	}
 	
@@ -1782,7 +1786,7 @@ xml.on('updateElement: Ase', function(data) {
 		return;
 	}
 	if (!data.$ || !data.$.xt_fir) { // no FIR
-		//console.log("skipping AS, no FIR");
+		console.log("WARNING: skipping AS, no FIR: " +data.txtName);
 		return;
 	}
 
@@ -1938,11 +1942,11 @@ xml.on('updateElement: Ase', function(data) {
 		arinc_data.as_type = get_as_field(data.AseUid.codeType, "cas_type");
 		arinc_data.as_center = "LSXX"; // TODO, get center
 	} else if (get_as_field(data.AseUid.codeType, "is_firuir")) {
-		arinc_data.as_type = get_as_field(data.AseUid.codeType, "firuir_type");
-	} else
-	{
+	/*	arinc_data.as_type = get_as_field(data.AseUid.codeType, "firuir_type");
+	} else // Skip FIR for now 
+	{ */
 		arinc_data.as_type = 'X'; //TODO: unknown
-		console.log("WARNING: Unknown airspace type: " + data.txtName + ": " + data.AseUid.codeType + " ignoring.");
+		console.log("WARNING: Unknown airspace type: " + data.AseUid.codeType + " for "  + data.txtName + " ignoring.");
 		return;
 	}
 
@@ -1973,7 +1977,7 @@ xml.on('updateElement: Ase', function(data) {
 			first = false;
 		}
 	} else {
-		console.log("ASE gml polygons not found for:" + data.txtName)
+		console.log("WARNING: ASE gml polygons not found for:" + data.txtName)
 	}
 });
 
