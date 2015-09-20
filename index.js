@@ -4,8 +4,8 @@ var fixed = require('fixed');
 var unidecode = require('unidecode');
 var merge = require('object-mapper').merge;
 
-//var file_in = 'ofmdata/lsas.xml';
-var file_in = 'ofmdata/lovv.xml';
+var file_in = 'ofmdata/lsas.xml';
+//var file_in = 'ofmdata/lovv.xml';
 //var file_in = 'ofmdata/ed.xml';
 var file_out = "out.txt";
 
@@ -520,6 +520,200 @@ var arinc_spec_aprt = {
 	]
 };
 
+var arinc_spec_aprt_com = {
+	length: 132,
+	fields: [{
+		key: 'record_type',
+		type: 'string',
+		length: 1,
+		startingPosition: 1,
+		defaultValue: 'S'
+	}, {
+		key: 'area',
+		type: 'string',
+		length: 3,
+		startingPosition: 2,
+		defaultValue: 'EUR'
+	}, {
+		key: 'section',
+		type: 'string',
+		length: 1,
+		startingPosition: 5
+	}, {
+		key: 'ident',
+		type: 'string',
+		length: 4,
+		startingPosition: 7
+	}, {
+		key: 'icao_code',
+		type: 'string',
+		length: 2,
+		startingPosition: 11
+	}, {
+		key: 'sub_section',
+		type: 'string',
+		length: 1,
+		startingPosition: 13
+	}, {
+		key: 'comm_type',
+		type: 'string',
+		length: 3,
+		startingPosition: 14
+	}, {
+		key: 'comm_freq',
+		type: 'string',
+		length: 7,
+		startingPosition: 17
+	}, {
+		key: 'gt',
+		type: 'string',
+		length: 1,
+		startingPosition: 24
+	}, {
+		key: 'freq_unit',
+		type: 'string',
+		length: 1,
+		startingPosition: 25
+	}, {
+		key: 'cont_nr',
+		type: 'integer',
+		length: 1,
+		startingPosition: 26
+	}, { // TODO
+		key: 'service_ind',
+		type: 'string',
+		length: 3,
+		startingPosition: 27
+	}, { // TODO
+		key: 'radar',
+		type: 'string',
+		length: 1,
+		startingPosition: 30,
+		defaultValue: 'N'
+	}, { // TODO
+		key: 'modulation',
+		type: 'string',
+		length: 1,
+		startingPosition: 31
+	}, { // TODO
+		key: 'sig_em',
+		type: 'string',
+		length: 1,
+		startingPosition: 32
+	}, {
+		key: 'latitude',
+		type: 'string',
+		length: 9,
+		startingPosition: 33
+	}, {
+		key: 'longitude',
+		type: 'string',
+		length: 10,
+		startingPosition: 42
+	}, {
+		key: 'mag_variation',
+		type: 'string',
+		length: 5,
+		startingPosition: 52
+	}, {
+		key: 'elevation',
+		type: 'integer',
+		length: 5,
+		startingPosition: 57
+	}, { // TODO
+		key: 'h24_ind',
+		type: 'string',
+		length: 1,
+		startingPosition: 62
+	}, { // TODO
+		key: 'sector',
+		type: 'string',
+		length: 6,
+		startingPosition: 63
+	}, { //TODO
+		key: 'alt_desc',
+		type: 'string',
+		length: 1,
+		startingPosition: 69
+	}, { //TODO
+		key: 'altitude1',
+		type: 'string',
+		length: 5,
+		startingPosition: 70
+	}, { //TODO
+		key: 'altitude2',
+		type: 'string',
+		length: 5,
+		startingPosition: 75
+	}, { //TODO
+		key: 'sector_fac',
+		type: 'string',
+		length: 4,
+		startingPosition: 80
+	}, { //TODO
+		key: 'icao_code',
+		type: 'string',
+		length: 2,
+		startingPosition: 84
+	}, { //TODO
+		key: 'sec_code',
+		type: 'string',
+		length: 1,
+		startingPosition: 86
+	}, { //TODO
+		key: 'sub_code',
+		type: 'string',
+		length: 1,
+		startingPosition: 87
+	}, { //TODO
+		key: 'dist_desc',
+		type: 'string',
+		length: 1,
+		startingPosition: 88
+	}, { //TODO
+		key: 'comm_dist',
+		type: 'string',
+		length: 2,
+		startingPosition: 89
+	}, { //TODO
+		key: 'remote_fac',
+		type: 'string',
+		length: 4,
+		startingPosition: 91
+	}, { //TODO
+		key: 'icao_code',
+		type: 'string',
+		length: 2,
+		startingPosition: 95
+	}, { //TODO
+		key: 'sec_code',
+		type: 'string',
+		length: 1,
+		startingPosition: 97
+	}, { //TODO
+		key: 'sub_code',
+		type: 'string',
+		length: 1,
+		startingPosition: 98
+	}, {
+		key: 'callsign',
+		type: 'string',
+		length: 25,
+		startingPosition: 99
+	}, {
+		key: 'record_nr',
+		type: 'integer',
+		length: 5,
+		startingPosition: 124
+	}, {
+		key: 'cycle',
+		type: 'integer',
+		length: 4,
+		startingPosition: 129
+	}, ]
+};
+
+
 var arinc_spec_rwy = {
 	length: 132,
 	fields: [{
@@ -873,6 +1067,7 @@ var arinc_vordme = new fixed(arinc_spec_vordme);
 var arinc_ndb = new fixed(arinc_spec_ndb);
 var arinc_wp = new fixed(arinc_spec_wp);
 var arinc_aprt = new fixed(arinc_spec_aprt);
+var arinc_aprt_com = new fixed(arinc_spec_aprt_com);
 var arinc_rwy = new fixed(arinc_spec_rwy);
 var arinc_as_ctl = new fixed(arinc_spec_as_ctl);
 var arinc_as_res = new fixed(arinc_spec_as_res);
@@ -1103,6 +1298,30 @@ xml.on('updateElement: Ahp', function(data) {
 	writeRecord(line);
 });
 
+// Unicast Frequency
+xml.on('updateElement: Uni', function(data) {
+	// add to cache
+	xml_cache[data.UniUid.$.mid] = data;
+});
+
+// Frequency
+xml.on('updateElement: Fqy', function(data) {
+	var uni = xml_cache[data.FqyUid.SerUid.UniUid.$.mid];
+	var apt = xml_cache[uni.AhpUid.$.mid];
+	if (apt) {
+		var arinc_data = {
+			section: 'P', // Airport Comm
+			sub_section: 'V', // Airport Comm
+			ident: apt.AhpUid.codeId, // identifier
+			icao_code: apt.$.xt_fir.substring(0, 2), // ICAO code
+			//name: str2arinc(data.RdnUid.txtDesig),
+		};
+		var line = arinc_aprt_com.generate(arinc_data);
+		writeRecord(line);
+	}
+});
+
+
 // Runway
 xml.on('updateElement: Rwy', function(data) {
 	// add to cache
@@ -1167,14 +1386,14 @@ xml.on('updateElement: Ase', function(data) {
 	// FIXUPs, TODO
 	if (isNaN(arinc_data.upper)) {
 		arinc_data.upper = 10000;
-		console.log("WARNING: missing upper for "+data.txtName +", setting to 10000ft");
+		console.log("WARNING: missing upper for " + data.txtName + ", setting to 10000ft");
 	}
-	
+
 	if (isNaN(arinc_data.lower)) {
-		arinc_data.lower = 0;	
-		console.log("WARNING: missing lower for "+data.txtName +", setting to 0ft");
+		arinc_data.lower = 0;
+		console.log("WARNING: missing lower for " + data.txtName + ", setting to 0ft");
 	}
-	
+
 	var arinc = arinc_as_ctl;
 	if (data.AseUid.codeType == 'GLDR') { // restriced AS
 		arinc = arinc_as_res;
@@ -1195,14 +1414,18 @@ xml.on('updateElement: Ase', function(data) {
 		arinc_data.seq_nr += 1; // TODO: overflow
 		arinc_data.record_nr = current_record_nr++;
 		if (arinc_data.seq_nr >= 10000) {
-			console.log("WARNING: AS is too complex (more than 1000 elements) " + arinc_data.seq_nr + " for "+data.txtName +", ignoring...");	
-		} else {
+			console.log("WARNING: AS is too complex (more than 1000 elements) " + arinc_data.seq_nr + " for " + data.txtName + ", ignoring...");
+		}
+		else {
+			// first record needs additional info
+			// add here, but only first
+
 			var line = arinc.generate(arinc_data);
 			writeRecord(line);
 		}
 	}
 });
 
-xml.on('end', function(data){
+xml.on('end', function(data) {
 	console.log("done");
 });
