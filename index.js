@@ -10,7 +10,6 @@ var file_in = 'ofmdata/lovv.xml';
 var file_out = "out.txt";
 
 var out_stream = fs.createWriteStream(file_out);
-var in_stream = fs.createReadStream(file_in);
 
 var arinc_spec_header = {
 	1: {
@@ -1554,9 +1553,51 @@ generateAndWriteRecord(arinc_spec_header, {}, 1);
 generateAndWriteRecord(arinc_spec_header, {}, 2);
 
 // Cache Hack
-var xml = new xmlStream(in_stream);
+var in_cache_stream = fs.createReadStream(file_in);
+var xml1 = new xmlStream(in_cache_stream);
 var xml_cache = [];
 
+// Fill cache first
+// Airport
+xml1.on('updateElement: Ahp', function(data) {
+	// add to cache
+	xml_cache[data.AhpUid.$.mid] = data;
+});
+
+// Runway
+xml1.on('updateElement: Rwy', function(data) {
+	// add to cache
+	xml_cache[data.RwyUid.$.mid] = data;
+});
+
+// Unit
+xml1.on('updateElement: Uni', function(data) {
+	// add to cache
+	xml_cache[data.UniUid.$.mid] = data;
+});
+
+// Airspace with common geometry
+xml1.collect("AdgUid");
+xml1.on('updateElement: Adg', function(data) {
+	for (var ase in data.AdgUid) {
+		console.log("ASE: " + data.AdgUid[ase].AseUid.$.mid + " same as: " + data.AseUidSameExtent.$.mid);
+		xml_cache[data.AdgUid[ase].AseUid.$.mid] = xml_cache[data.AseUidSameExtent.$.mid];
+	}
+});
+
+// Airspace
+xml1.on('updateElement: Ase', function(data) {
+ 	if (data.gmlPosList) {
+		// gmlPosList record, add to cache
+		xml_cache[data.$.mid] = data;
+	}
+});
+
+xml1.on("end", function() {
+
+var in_stream = fs.createReadStream(file_in);
+// Parse XML
+var xml = new xmlStream(in_stream);
 
 //// Waypoints
 // VOR  
@@ -1680,7 +1721,6 @@ xml.on('updateElement: Dpn', function(data) {
 // Airport
 xml.on('updateElement: Ahp', function(data) {
 	// add to cache
-	xml_cache[data.AhpUid.$.mid] = data;
 	if (data.codeType != 'AD') {
 		console.log("WARNING: Skipping AD " + data.AhpUid.codeId + " type: " + data.codeType);
 		return;
@@ -1703,15 +1743,13 @@ xml.on('updateElement: Ahp', function(data) {
 	generateAndWriteRecord(arinc_spec_aprt, arinc_data);
 });
 
-// Unicast Frequency
-xml.on('updateElement: Uni', function(data) {
-	// add to cache
-	xml_cache[data.UniUid.$.mid] = data;
-});
 
 // Frequency
 xml.on('updateElement: Fqy', function(data) {
 	var uni = xml_cache[data.FqyUid.SerUid.UniUid.$.mid];
+	if (!uni) {
+		console.log("WARNING: frequency "+freq+" has no UNI, ignoring.");
+	}
 	var apt = xml_cache[uni.AhpUid.$.mid];
 	var freq = convertUnit(parseFloat(data.valFreqRec), data.uomFreq, "MHZ");
 	if (freq < 30 || freq > 200) {
@@ -1745,12 +1783,6 @@ xml.on('updateElement: Fqy', function(data) {
 
 
 // Runway
-xml.on('updateElement: Rwy', function(data) {
-	// add to cache
-	xml_cache[data.RwyUid.$.mid] = data;
-});
-
-// Runway
 xml.on('updateElement: Rdn', function(data) {
 	var rwy = xml_cache[data.RdnUid.RwyUid.AhpUid.$.mid];
 	if (rwy.codeType != 'AD') {
@@ -1782,14 +1814,11 @@ xml.on('updateElement: Rdn', function(data) {
 	generateAndWriteRecord(arinc_spec_rwy, arinc_data);
 });
 
-//// Other
+
 // Airspace
 xml.on('updateElement: Ase', function(data) {
-	return;
-
-	if (data.gmlPosList) {
-		// gmlPosList record, add to cache
-		xml_cache[data.$.mid] = data;
+ 	if (data.gmlPosList) {
+		// gmlPosList record, ignore
 		return;
 	}
 	if (!data.$ || !data.$.xt_fir) { // no FIR
@@ -1941,19 +1970,20 @@ xml.on('updateElement: Ase', function(data) {
 	}
 
 	var arinc_spec = arinc_spec_as_ctl;
+	var codeType = data.AseUid.codeType;
 	
-	if (get_as_field(data.AseUid.codeType, "is_restricted")) {
+	if (get_as_field(codeType, "is_restricted")) {
 		arinc_spec = arinc_spec_as_res;
-		arinc_data.as_type = get_as_field(data.AseUid.codeType, "res_type");
-	} else if (get_as_field(data.AseUid.codeType, "is_controlled")) {
-		arinc_data.as_type = get_as_field(data.AseUid.codeType, "cas_type");
-		arinc_data.as_center = "LSXX"; // TODO, get center
-	} else if (get_as_field(data.AseUid.codeType, "is_firuir")) {
-	/*	arinc_data.as_type = get_as_field(data.AseUid.codeType, "firuir_type");
+		arinc_data.as_type = get_as_field(codeType, "res_type");
+	} else if (get_as_field(codeType, "is_controlled")) {
+		arinc_data.as_type = get_as_field(codeType, "cas_type");
+		arinc_data.as_center = "LOXX"; // TODO, get center
+	} else if (get_as_field(codeType, "is_firuir")) {
+	/*	arinc_data.as_type = get_as_field(codeType, "firuir_type");
 	} else // Skip FIR for now 
 	{ */
 		arinc_data.as_type = 'X'; //TODO: unknown
-		console.log("WARNING: Unknown airspace type: " + data.AseUid.codeType + " for "  + data.txtName + " ignoring.");
+		console.log("WARNING: Unknown airspace type: " + codeType + " for "  + data.txtName + " ignoring.");
 		return;
 	}
 
@@ -1998,3 +2028,4 @@ xml.on('updateElement: Ase', function(data) {
 xml.on('end', function(data) {
 	console.log("done");
 });
+})
