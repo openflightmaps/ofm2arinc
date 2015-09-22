@@ -186,7 +186,8 @@ xml1.collect("AdgUid");
 xml1.on('updateElement: Adg', function(data) {
 	for (var ase in data.AdgUid) {
 		console.log("ASE: " + data.AdgUid[ase].AseUid.$.mid + " same as: " + data.AseUidSameExtent.$.mid);
-		xml_cache[data.AdgUid[ase].AseUid.$.mid] = xml_cache[data.AseUidSameExtent.$.mid];
+		// write mid of AseUidSameExtent into cache as AdgMap:XXX
+		xml_cache["AdgMap:" + data.AdgUid[ase].AseUid.$.mid] = data.AseUidSameExtent.$.mid;
 	}
 });
 
@@ -194,7 +195,10 @@ xml1.on('updateElement: Adg', function(data) {
 xml1.on('updateElement: Ase', function(data) {
 	if (data.gmlPosList) {
 		// gmlPosList record, add to cache
-		xml_cache[data.$.mid] = data;
+		xml_cache["gml:" + data.$.mid] = data;
+	} else {
+		// normal record, also cache
+		xml_cache[data.AseUid.$.mid] = data;
 	}
 });
 
@@ -439,7 +443,21 @@ xml1.on("end", function() {
 		}
 		if (!data.$ || !data.$.xt_fir) { // no FIR
 			console.log("WARNING: skipping AS, no FIR: " + data.txtName);
-			return;
+			//return;
+			data.$ = {xt_fir: "LOVV"}; //TODO, remove HACK!!!
+		}
+		
+		var codeType = data.AseUid.codeType;
+		var baseLayer = data; // baseLayer = self, by default
+		
+		// Class layer of airspace, fetch base layer
+		if (codeType == "CLASS") {
+			baseLayer = xml_cache[xml_cache["AdgMap:"+data.AseUid.$.mid]];
+			if (!baseLayer) {
+				console.log("WARNING: base layer of AS "+ data.txtName + " not found, ignoring.")
+				return;
+			}
+			codeType = baseLayer.AseUid.codeType;
 		}
 
 		//console.log(JSON.stringify(data) + "\n\n");
@@ -587,7 +605,7 @@ xml1.on("end", function() {
 		}
 
 		var spec = arinc_spec.as_ctl;
-		var codeType = data.AseUid.codeType;
+		
 
 		if (get_as_field(codeType, "is_restricted")) {
 			spec = arinc_spec.as_res;
@@ -607,7 +625,7 @@ xml1.on("end", function() {
 		}
 
 		//console.log(data.RdnUid.RwyUid.AhpUid.codeId + " " + data.RdnUid.txtDesig + " " + data.xt_valDispTres + ":" + arinc_data.dsplcd_thr);
-		var ase = xml_cache[data.AseUid.$.mid];
+		var ase = xml_cache["gml:" + baseLayer.AseUid.$.mid];
 		if (ase) {
 			var first = true;
 			var gmlPosList = ase.gmlPosList.split(" ");
