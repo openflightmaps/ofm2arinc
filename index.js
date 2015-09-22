@@ -97,6 +97,41 @@ function convertUnit(val, fromUnit, toUnit) {
 	throw new Error("Invalid conversion from " + fromUnit + " to " + toUnit);
 }
 
+function formatAltitude(val, uom, code) {
+	if (isNaN(val)) {
+		console.log("WARNING: formatAltitude, not a number:" + val + " " + uom + " for "+code);
+		return;
+	}
+	if (code == "HEI") {
+		if (uom != 'FT' && uom != 'M') {
+			console.log("WARNING: invalid uom: " + uom + " for "+code);
+			return;
+		}
+		if (val == 0) { // special case for GND
+			return "GND";
+		}
+		return fwidth(convertUnit(val, uom, 'FT'), 5);
+	} else if (code == "ALT") {
+		if (uom != 'FT' && uom != 'M') {
+			console.log("WARNING: invalid uom: " + uom + " for "+code);
+			return;
+		}
+		return fwidth(convertUnit(val, uom, 'FT'), 5);
+	} else if (code == "STD") {
+		if (uom != 'FL') {
+			console.log("WARNING: invalid uom: " + uom + " for "+code);
+			return;
+		}
+		if (val == 0) { // special case for MSL
+			return "MSL";
+		}
+		return "FL" + fwidth(val, 3);	
+	} else {
+		console.log("WARNING: invalid alt code: "+code);
+		return;	
+	}
+}
+
 
 function writeRecord(line) {
 	out_stream.write(line);
@@ -137,7 +172,8 @@ function map_comm_service(ofm) {
 		//'ATIS': 'ATI',
 		'INFO': 'S  ', // AD Info frequency, unicom, some map this also to INF, TODO
 		'FIC': 'F  ', // Flight *Information* Center
-		//'APP' : '   ',
+		'ATIS':'   ',
+		'APP' :'   ',
 		'TWR': '   ',
 		'SMC': '   ', // Surface movement control
 	}
@@ -185,7 +221,6 @@ xml1.on('updateElement: Uni', function(data) {
 xml1.collect("AdgUid");
 xml1.on('updateElement: Adg', function(data) {
 	for (var ase in data.AdgUid) {
-		console.log("ASE: " + data.AdgUid[ase].AseUid.$.mid + " same as: " + data.AseUidSameExtent.$.mid);
 		// write mid of AseUidSameExtent into cache as AdgMap:XXX
 		xml_cache["AdgMap:" + data.AdgUid[ase].AseUid.$.mid] = data.AseUidSameExtent.$.mid;
 	}
@@ -330,7 +365,7 @@ xml1.on("end", function() {
 	xml.on('updateElement: Ahp', function(data) {
 		// add to cache
 		if (data.codeType != 'AD') {
-			console.log("WARNING: Skipping AD " + data.AhpUid.codeId + " type: " + data.codeType);
+			console.log("INFO: Skipping AD " + data.AhpUid.codeId + " type: " + data.codeType);
 			return;
 		}
 
@@ -467,10 +502,10 @@ xml1.on("end", function() {
 			designator: str2arinc(data.txtName).substring(0, 10), //TODO, missing designator field
 			as_class: data.codeClass,
 			appl_type: "T", // T = opening times, TODO??
-			lower: convertUnit(parseInt(data.valDistVerLower), data.uomDistVerLower, 'FT'),
-			lower_unit: 'M', // M = MSL, A = AGL
-			upper: convertUnit(parseInt(data.valDistVerUpper), data.uomDistVerUpper, 'FT'),
-			upper_unit: 'M', // M = MSL, A = AGL
+			lower: formatAltitude(parseInt(data.valDistVerLower), data.uomDistVerLower, data.codeDistVerLower),
+			lower_unit: data.codeDistVerLower == 'HEI' ? 'A' : 'M', // M = MSL, A = AGL
+			upper: formatAltitude(parseInt(data.valDistVerUpper), data.uomDistVerUpper, data.codeDistVerUpper),
+			upper_unit: data.codeDistVerUpper == 'HEI' ? 'A' : 'M', // M = MSL, A = AGL
 			ctrl_agency: "", // TODO
 			record_nr: current_record_nr++,
 			seq_nr: 0,
@@ -478,12 +513,12 @@ xml1.on("end", function() {
 		};
 
 		// FIXUPs, TODO
-		if (isNaN(arinc_data.upper)) {
+		if (!arinc_data.upper) {
 			arinc_data.upper = 10000;
 			console.log("WARNING: missing upper for " + data.txtName + ", setting to 10000ft");
 		}
 
-		if (isNaN(arinc_data.lower)) {
+		if (!arinc_data.lower) {
 			arinc_data.lower = 0;
 			console.log("WARNING: missing lower for " + data.txtName + ", setting to 0ft");
 		}
@@ -541,7 +576,8 @@ xml1.on("end", function() {
 			},
 			'TMA': {
 				is_controlled: true,
-				cas_type: 'M',
+				//cas_type: 'M', //TODO, check, other uses X
+				cas_type: 'X',
 			},
 			'MTMA': {
 				is_controlled: true,
@@ -642,7 +678,7 @@ xml1.on("end", function() {
 
 					// last record needs termination flag set
 					if (pos == gmlPosList.length - 1) {
-						arinc_data.boundary_via = ' E';
+						arinc_data.boundary_via = 'GE'; // great circle, end
 					}
 
 					// first record needs additional info
@@ -650,6 +686,13 @@ xml1.on("end", function() {
 					if (first) {
 						generateAndWriteRecord(spec, arinc_data, 1);
 						generateAndWriteRecord(spec, arinc_data, 2);
+						// only first record contains all data, clear rest
+						arinc_data.lower_unit = undefined;
+						arinc_data.upper_unit = undefined;
+						arinc_data.lower = undefined;
+						arinc_data.upper = undefined;
+						arinc_data.name = undefined;
+						arinc_data.ctrl_agency = undefined;
 					}
 					else {
 						generateAndWriteRecord(spec, arinc_data, 0);
