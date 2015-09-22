@@ -8,7 +8,8 @@ var arinc_spec = require('./arinc/spec');
 
 //var file_in = 'ofmdata/lsas.xml';
 //var file_in = 'ofmdata/lovv.xml';
-var file_in = 'ofmdata/ed.xml';
+var file_in = 'ofmdata/limm.xml';
+//var file_in = 'ofmdata/ed.xml';
 var file_out = "out.txt";
 
 var out_stream = fs.createWriteStream(file_out);
@@ -93,6 +94,9 @@ function convertUnit(val, fromUnit, toUnit) {
 	}
 	if (fromUnit == 'FL' && toUnit == 'FT') {
 		return x * 100;
+	}
+	if (fromUnit == 'KHZ' && toUnit == 'MHZ') {
+		return Math.round(x / 1000);
 	}
 	throw new Error("Invalid conversion from " + fromUnit + " to " + toUnit);
 }
@@ -252,6 +256,12 @@ xml1.on("end", function() {
 	//// Waypoints
 	// VOR  
 	xml.on('updateElement: Vor', function(data) {
+		
+		if (isNaN(data.valFreq)){
+			console.log("WARNING: VOR frequency " +  data.VorUid.codeId + " is NaN, ignoring.");
+			return;
+		}
+		
 		var arinc_data = {
 			section: 'D', // NAVAID
 			vor_ident: data.VorUid.codeId, // VOR identifier
@@ -260,7 +270,7 @@ xml1.on("end", function() {
 			vor_freq: data.valFreq * 100, // VOR frequency
 			navaid_class_type1: 'V',
 			navaid_class_range: 'U', // TODO: range undefined
-			navaid_class_addinfo: 'W', // no voice on frequency
+			navaid_class_addinfo: 'W', // TODO: no voice on frequency
 			navaid_class_colocation: '', // no colocated facility
 			vor_latitude: lat2arinc(data.VorUid.geoLat),
 			vor_longitude: long2arinc(data.VorUid.geoLong),
@@ -277,11 +287,21 @@ xml1.on("end", function() {
 			arinc_data.dme_longitude = long2arinc(data.VorUid.geoLong);
 			arinc_data.dme_elevation = parseInt(data.valElev);
 		}
+		if (isNaN(arinc_data.dme_elevation)) {
+			console.log("WARNING: VOR dme_elevation missing. ignoring."+ data.VorUid.codeId);
+			return;
+		}
 		generateAndWriteRecord(arinc_spec.vordme, arinc_data);
 	});
 
 	// DME
 	xml.on('updateElement: Dme', function(data) {
+		
+		if (isNaN(data.valFreq)){
+			console.log("WARNING: DME frequency " + data.DmeUid.codeId + " is NaN, ignoring.");
+			return;
+		}
+		
 		var arinc_data = {
 			section: 'D', // NAVAID
 			vor_ident: data.DmeUid.codeId, // DME identifier
@@ -374,6 +394,11 @@ xml1.on("end", function() {
 			console.log("INFO: Skipping AD " + data.AhpUid.codeId + " type: " + data.codeType);
 			return;
 		}
+		
+		if (data.AhpUid.codeId.length != 4) {
+			console.log("INFO: Skipping AD " + data.AhpUid.codeId + " code not 4 chars: " + data.AhpUid.codeId);
+			return;
+		}
 
 		var arinc_data = {
 			section: 'P', // Airport
@@ -395,17 +420,29 @@ xml1.on("end", function() {
 
 	// Frequency
 	xml.on('updateElement: Fqy', function(data) {
-		var uni = xml_cache[data.FqyUid.SerUid.UniUid.$.mid];
-		if (!uni) {
-			console.log("WARNING: frequency " + freq + " has no UNI, ignoring.");
+		if (!data.uomFreq) {
+			console.log("WARNING: uomFreq missing. ignoring."+ data.valFreqRec);
+			return;
 		}
-		var apt = xml_cache[uni.AhpUid.$.mid];
 		var freq = convertUnit(parseFloat(data.valFreqRec), data.uomFreq, "MHZ");
 		if (freq < 30 || freq > 200) {
 			console.log("WARNING: only VHF supported, ignoring.");
 			return;
 		}
-		if (apt) {
+
+		var uni = xml_cache[data.FqyUid.SerUid.UniUid.$.mid];
+		if (!uni) {
+			console.log("WARNING: frequency " + freq + " has no UNI, ignoring.");
+		}
+		
+		if (isNaN(freq)){
+			console.log("WARNING: frequency " + freq + " is NaN, ignoring.");
+			return;
+		}
+		
+		var apt = xml_cache[uni.AhpUid.$.mid];
+
+		if (apt && apt.codeType == 'AD') {
 			var arinc_data = {
 				section: 'P', // Airport Comm
 				sub_section: 'V', // Airport Comm
@@ -427,7 +464,7 @@ xml1.on("end", function() {
 			generateAndWriteRecord(arinc_spec.aprt_com, arinc_data);
 		}
 		else {
-			console.log("WARNING: frequency " + freq + " has no APT, ignoring.");
+			console.log("WARNING: frequency " + freq + " has no real APT, ignoring.");
 		}
 	});
 
@@ -439,6 +476,11 @@ xml1.on("end", function() {
 			console.log("WARNING: Skipping RWY of AD " + apt.AhpUid.codeId + " missing APT.");
 			return;
 		}		
+
+		if (apt.AhpUid.codeId.length != 4) {
+			console.log("INFO: Skipping AD " + apt.AhpUid.codeId + " code not 4 chars: " + apt.AhpUid.codeId);
+			return;
+		}
 
 		if (apt.codeType != 'AD') {
 			console.log("INFO: Skipping RWY of AD " + apt.AhpUid.codeId + " type: " + apt.codeType);
@@ -452,11 +494,11 @@ xml1.on("end", function() {
 		}		
 
 		if (lat2arinc(data.geoLat) == "" || long2arinc(data.geoLon) == "") {
-			console.log("WARNING: missing threshold coordinates");
+			console.log("WARNING: missing threshold coordinates:"+ apt.AhpUid.codeId);
 		}
 
 		if (!rwy.uomDimRwy) {
-			console.log("WARNING: invalid Rwy Dimensions, ignnoring RWY "+  apt.AhpUid.codeId);
+			console.log("WARNING: invalid Rwy Dimensions, ignoring RWY "+  apt.AhpUid.codeId);
 			return;
 		}
 		
@@ -636,8 +678,8 @@ xml1.on("end", function() {
 			},
 			// non codetype airspace, e.g. Class E in Germany
 			'': {
-				is_restricted: false,
-				is_controlled: false,
+				is_controlled: true, // typical echo airspace
+				cas_type: 'K',
 			}
 		};
 
