@@ -97,7 +97,7 @@ var arinc_spec_as_ctl = {
 			startingPosition: 42
 		}, {
 			key: 'lower',
-			type: 'integer',
+			type: 'string',
 			length: 5,
 			startingPosition: 82
 		}, {
@@ -107,7 +107,7 @@ var arinc_spec_as_ctl = {
 			startingPosition: 87
 		}, { // M = MSL, A = AGL
 			key: 'upper',
-			type: 'integer',
+			type: 'string',
 			length: 5,
 			startingPosition: 88
 		}, { // M = MSL, A = AGL
