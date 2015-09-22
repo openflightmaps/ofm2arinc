@@ -1,6 +1,7 @@
 var arinc_spec_aprt = {
 	1: {
 		length: 132,
+		defaultRequired: false,
 		fields: [{
 			key: 'record_type',
 			type: 'string',
@@ -17,7 +18,8 @@ var arinc_spec_aprt = {
 			key: 'section',
 			type: 'string',
 			length: 1,
-			startingPosition: 5
+			startingPosition: 5,
+			defaultValue: 'P',
 		}, {
 			key: 'ident',
 			type: 'string',
@@ -32,7 +34,8 @@ var arinc_spec_aprt = {
 			key: 'sub_section',
 			type: 'string',
 			length: 1,
-			startingPosition: 13
+			startingPosition: 13,
+			defaultValue: 'A',
 		}, {
 			key: 'iata',
 			type: 'string',

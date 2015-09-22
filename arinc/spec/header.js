@@ -1,6 +1,7 @@
 var arinc_spec_header = {
     1: {
         length: 132,
+        defaultRequired: false,
         fields: [{
             key: 'header_ident',
             type: 'string',
@@ -88,6 +89,7 @@ var arinc_spec_header = {
     },
     2: {
         length: 132,
+        defaultRequired: false,
         fields: [{
             key: 'header_ident',
             type: 'string',

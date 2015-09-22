@@ -7,8 +7,8 @@ var merge = require('object-mapper').merge;
 var arinc_spec = require('./arinc/spec');
 
 //var file_in = 'ofmdata/lsas.xml';
-var file_in = 'ofmdata/lovv.xml';
-//var file_in = 'ofmdata/ed.xml';
+//var file_in = 'ofmdata/lovv.xml';
+var file_in = 'ofmdata/ed.xml';
 var file_out = "out.txt";
 
 var out_stream = fs.createWriteStream(file_out);
@@ -97,38 +97,45 @@ function convertUnit(val, fromUnit, toUnit) {
 	throw new Error("Invalid conversion from " + fromUnit + " to " + toUnit);
 }
 
-function formatAltitude(val, uom, code) {
-	if (isNaN(val)) {
-		console.log("WARNING: formatAltitude, not a number:" + val + " " + uom + " for "+code);
-		return;
+function formatAltitude(v, uom, code) {
+	// return {limit: 'value', unit: 'M'} unit M = MSL, A = AGL
+	var invalid = undefined;
+	var v = parseInt(v);
+	
+	if ((v == undefined) || isNaN(v)) {
+		console.log("WARNING: formatAltitude, not a number:" + v + " " + uom + " for "+code);
+		return invalid;
 	}
+	
 	if (code == "HEI") {
 		if (uom != 'FT' && uom != 'M') {
 			console.log("WARNING: invalid uom: " + uom + " for "+code);
-			return;
+			return invalid;
 		}
-		if (val == 0) { // special case for GND
-			return "GND";
+		if (v == 0) { // special case for GND
+			return {limit: 'GND', unit: ''};
 		}
-		return fwidth(convertUnit(val, uom, 'FT'), 5);
+		return {limit: fwidth(convertUnit(v, uom, 'FT'), 5), base: 'A'};
 	} else if (code == "ALT") {
 		if (uom != 'FT' && uom != 'M') {
 			console.log("WARNING: invalid uom: " + uom + " for "+code);
-			return;
+			return invalid;
 		}
-		return fwidth(convertUnit(val, uom, 'FT'), 5);
+		return {limit: fwidth(convertUnit(v, uom, 'FT'), 5), base: 'M'};
 	} else if (code == "STD") {
 		if (uom != 'FL') {
 			console.log("WARNING: invalid uom: " + uom + " for "+code);
-			return;
+			return invalid;
 		}
-		if (val == 0) { // special case for MSL
-			return "MSL";
+		if (v == 0) { // special case for MSL
+			return {limit: 'MSL', unit:''};
+		} else if (v >= 500)  { // special case for unlimited
+			return {limit: 'UNLTD', unit:''};
 		}
-		return "FL" + fwidth(val, 3);	
+		return {limit: "FL" + fwidth(v, 3), unit: 'M'};	
 	} else {
 		console.log("WARNING: invalid alt code: "+code);
-		return;	
+		return invalid;	
 	}
 }
 
@@ -185,7 +192,6 @@ function map_comm_service(ofm) {
 		return undefined;
 	}
 }
-
 
 var current_record_nr = 1;
 
@@ -449,6 +455,11 @@ xml1.on("end", function() {
 			console.log("WARNING: missing threshold coordinates");
 		}
 
+		if (!rwy.uomDimRwy) {
+			console.log("WARNING: invalid Rwy Dimensions, ignnoring RWY "+  apt.AhpUid.codeId);
+			return;
+		}
+		
 		var arinc_data = {
 			section: 'P', // Runway
 			sub_section: 'G', // Runway
@@ -489,10 +500,23 @@ xml1.on("end", function() {
 		if (codeType == "CLASS") {
 			baseLayer = xml_cache[xml_cache["AdgMap:"+data.AseUid.$.mid]];
 			if (!baseLayer) {
-				console.log("WARNING: base layer of AS "+ data.txtName + " not found, ignoring.")
+				console.log("WARNING: base layer of AS "+ data.txtName + " not found, ignoring.");
 				return;
 			}
 			codeType = baseLayer.AseUid.codeType;
+		}
+
+		var lower = formatAltitude(data.valDistVerLower, data.uomDistVerLower, data.codeDistVerLower);
+		var upper = formatAltitude(data.valDistVerUpper, data.uomDistVerUpper, data.codeDistVerUpper);
+		
+		// FIXUPs, TODO
+        if (!upper) {
+            console.log("WARNING: missing upper for " + data.txtName + ", ignoring");
+        	return;
+        }
+		if (!lower) {
+			console.log("WARNING: missing lower for " + data.txtName + ", ignoring");
+			return;
 		}
 
 		//console.log(JSON.stringify(data) + "\n\n");
@@ -502,27 +526,15 @@ xml1.on("end", function() {
 			designator: str2arinc(data.txtName).substring(0, 10), //TODO, missing designator field
 			as_class: data.codeClass,
 			appl_type: "T", // T = opening times, TODO??
-			lower: formatAltitude(parseInt(data.valDistVerLower), data.uomDistVerLower, data.codeDistVerLower),
-			lower_unit: data.codeDistVerLower == 'HEI' ? 'A' : 'M', // M = MSL, A = AGL
-			upper: formatAltitude(parseInt(data.valDistVerUpper), data.uomDistVerUpper, data.codeDistVerUpper),
-			upper_unit: data.codeDistVerUpper == 'HEI' ? 'A' : 'M', // M = MSL, A = AGL
+			lower: lower.limit,
+			lower_unit: lower.unit,
+			upper: upper.limit,
+			upper_unit: upper.unit,
 			ctrl_agency: "", // TODO
 			record_nr: current_record_nr++,
-			seq_nr: 0,
+			seq_nr: 9, // TODO, HACK, start at 10, bug in some importers
 			cycle: 1, //TODO
 		};
-
-		// FIXUPs, TODO
-		if (!arinc_data.upper) {
-			arinc_data.upper = 10000;
-			console.log("WARNING: missing upper for " + data.txtName + ", setting to 10000ft");
-		}
-
-		if (!arinc_data.lower) {
-			arinc_data.lower = 0;
-			console.log("WARNING: missing lower for " + data.txtName + ", setting to 0ft");
-		}
-
 
 		// record types:
 		// FIR/UIR (UF)
@@ -538,14 +550,6 @@ xml1.on("end", function() {
 
 		// Restrictive airspaces (UR) arinc_spec.as_res
 		var as_types = {
-			'FIR': {
-				is_firuir: true,
-				firuir_type: 'F',
-			},
-			'UIR': {
-				is_firuir: true,
-				firuir_type: 'U',
-			},
 			'D': {
 				is_restricted: true,
 				res_type: 'D',
@@ -572,7 +576,8 @@ xml1.on("end", function() {
 			},
 			'CTR': {
 				is_controlled: true,
-				cas_type: 'Z',
+			//	cas_type: 'C', // TODO: for euronav test disabeld
+				cas_type: 'M',
 			},
 			'TMA': {
 				is_controlled: true,
@@ -585,35 +590,38 @@ xml1.on("end", function() {
 			},
 			'CTA': {
 				is_controlled: true,
-				cas_type: 'C',
+			//	cas_type: 'C', // TODO: for euronav test disabeld
+				cas_type: 'K',
 			},
 			'UTA': {
 				is_controlled: true,
-				cas_type: 'C',
+			//	cas_type: 'C', // TODO: for euronav test disabeld
+				cas_type: 'X',
 			},
 			'TSA': {
 				is_restricted: true,
-				res_type: 'C',
+				res_type: 'A',	
 			},
 			'TRA': {
 				is_restricted: true,
-				res_type: 'C',
+				res_type: 'G',	
 			},
 			'TMZ': {
-				is_controlled: true,
-				cas_type: 'Z',
+				is_restricted: true,
+			//	cas_type: 'C', // TODO: for euronav test disabeld
+				res_type: 'R',	
 			},
 			'RMZ': {
-				is_controlled: true,
-				cas_type: 'Z',
+				is_restricted: true,
+				res_type: 'R',			
 			},
 			'ATZ': {
-				is_controlled: true,
-				cas_type: 'Z',
+				is_restricted: true,
+				res_type: 'A',			
 			},
 			'MATZ': {
-				is_controlled: true,
-				cas_type: 'Z',
+				is_restricted: true,
+				res_type: 'D',				
 			},
 			'NRA': {
 				is_restricted: true,
@@ -623,12 +631,15 @@ xml1.on("end", function() {
 				is_restricted: true,
 				res_type: 'A',
 			},
+			'FIR': {
+				is_firuir: true,
+			},
 			// non codetype airspace, e.g. Class E in Germany
 			'': {
 				is_restricted: false,
 				is_controlled: false,
 			}
-		}
+		};
 
 		function get_as_field(astype, field) {
 			var x = as_types[astype];
@@ -641,7 +652,6 @@ xml1.on("end", function() {
 		}
 
 		var spec = arinc_spec.as_ctl;
-		
 
 		if (get_as_field(codeType, "is_restricted")) {
 			spec = arinc_spec.as_res;
@@ -649,12 +659,16 @@ xml1.on("end", function() {
 		}
 		else if (get_as_field(codeType, "is_controlled")) {
 			arinc_data.as_type = get_as_field(codeType, "cas_type");
-			arinc_data.as_center = "LOXX"; // TODO, get center
-		}
-		else if (get_as_field(codeType, "is_firuir")) {
-			/*	arinc_data.as_type = get_as_field(codeType, "firuir_type");
-			} else // Skip FIR for now 
-			{ */
+			arinc_data.as_center = "LOXX"; // TODO, HACK, get center
+			
+			// Ignore controlled AS without class
+			if (!data.codeClass || data.codeClass=='' || data.codeClass == ' ') {
+				console.log("WARNING: AS has no code "+ arinc_data.name+ " ignoring.");
+				return;
+			}
+		} else if (get_as_field(codeType, "is_firuir")) {
+			spec = arinc_spec.fir_uir;
+		} else {  
 			arinc_data.as_type = 'X'; //TODO: unknown
 			console.log("WARNING: Unknown airspace type: " + codeType + " for " + data.txtName + " ignoring.");
 			return;
@@ -684,8 +698,12 @@ xml1.on("end", function() {
 					// first record needs additional info
 					// add here, but only first
 					if (first) {
-						generateAndWriteRecord(spec, arinc_data, 1);
-						generateAndWriteRecord(spec, arinc_data, 2);
+						if (get_as_field(codeType, "is_firuir")) { // bah, only 1 record for FIR
+							generateAndWriteRecord(spec, arinc_data, 0);
+						} else {
+							generateAndWriteRecord(spec, arinc_data, 1);
+							generateAndWriteRecord(spec, arinc_data, 2);
+						}
 						// only first record contains all data, clear rest
 						arinc_data.lower_unit = undefined;
 						arinc_data.upper_unit = undefined;
@@ -705,7 +723,6 @@ xml1.on("end", function() {
 			console.log("WARNING: ASE gml polygons not found for:" + data.txtName)
 		}
 	});
-
 
 	xml.on('end', function(data) {
 		console.log("done");

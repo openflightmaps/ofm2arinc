@@ -1,5 +1,5 @@
-// controlled airspace
-var arinc_spec_as_ctl = {
+// FIR/UIR
+var arinc_spec_fir_uir = {
 	1: {
 		length: 132,
 		defaultRequired: false,
@@ -8,7 +8,7 @@ var arinc_spec_as_ctl = {
 			type: 'string',
 			length: 1,
 			startingPosition: 1,
-			defaultValue: 'S'
+			defaultValue: 'U',
 		}, {
 			key: 'area',
 			type: 'string',
@@ -26,101 +26,118 @@ var arinc_spec_as_ctl = {
 			type: 'string',
 			length: 1,
 			startingPosition: 6,
-			defaultValue: 'C'
+			defaultValue: 'F',
 		}, {
-			key: 'icao_code',
+			key: 'ident',
 			type: 'string',
-			length: 2,
-			startingPosition: 7
+			length: 4,
+			startingPosition: 7,
 		}, {
-			key: 'as_type',
+			key: 'fir_address',
 			type: 'string',
-			length: 1,
-			startingPosition: 9
+			length: 4,
+			startingPosition: 11,
 		}, {
-			key: 'as_center',
-			type: 'string',
-			length: 5,
-			startingPosition: 10
-		}, { // PA=airport,EA=waypoint,DB=NDB navaid depending on center
-			key: 'sec_code2',
+			key: 'indicator',
 			type: 'string',
 			length: 1,
 			startingPosition: 15,
-			defaultValue: 'P',
-		}, {
-			key: 'sub_code2',
-			type: 'string',
-			length: 1,
-			startingPosition: 16,
-			defaultValue: 'A',
-		}, {
-			key: 'as_class',
-			type: 'string',
-			length: 1,
-			startingPosition: 17
-		}, {
-			key: 'multi_cd',
-			type: 'string',
-			length: 1,
-			startingPosition: 20
 		}, {
 			key: 'seq_nr',
-			type: 'integer',
+			type: 'string',
 			length: 4,
-			startingPosition: 21
+			startingPosition: 16,
 		}, {
 			key: 'cont_nr',
 			type: 'integer',
 			length: 1,
+			startingPosition: 20,
+		}, {
+			key: 'adj_fir',
+			type: 'string',
+			length: 4,
+			startingPosition: 21,
+		}, {
+			key: 'adj_uir',
+			type: 'string',
+			length: 4,
 			startingPosition: 25
-		}, { //TODO B=all altitudes
-			key: 'level',
+		}, {
+			key: 'rus',
 			type: 'string',
 			length: 1,
-			startingPosition: 26,
-			defaultValue: 'B'
+			startingPosition: 29,
+		}, {
+			key: 'rua',
+			type: 'string',
+			length: 1,
+			startingPosition: 30,
+		}, {
+			key: 'entry',
+			type: 'string',
+			length: 1,
+			startingPosition: 31,
 		}, { //TODO G=great circle
 			key: 'boundary_via',
 			type: 'string',
 			length: 2,
-			startingPosition: 31,
+			startingPosition: 33,
 			defaultValue: 'G '
 		}, {
 			key: 'latitude',
 			type: 'string',
 			length: 9,
-			startingPosition: 33
+			startingPosition: 35,
 		}, {
 			key: 'longitude',
 			type: 'string',
 			length: 10,
-			startingPosition: 42
+			startingPosition: 44,
 		}, {
-			key: 'lower',
+			key: 'arc_latitude',
+			type: 'string',
+			length: 9,
+			startingPosition: 54,
+		}, {
+			key: 'arc_longitude',
+			type: 'string',
+			length: 10,
+			startingPosition: 63,
+		}, {
+			key: 'arc_dist',
+			type: 'string',
+			length: 4,
+			startingPosition: 73,
+		}, {
+			key: 'arc_brg',
+			type: 'string',
+			length: 4,
+			startingPosition: 77,
+		}, {
+			key: 'fir_upper',
 			type: 'string',
 			length: 5,
-			startingPosition: 82
+			startingPosition: 81
 		}, {
-			key: 'lower_unit',
-			type: 'string',
-			length: 1,
-			startingPosition: 87
-		}, { // M = MSL, A = AGL
-			key: 'upper',
+			key: 'uir_lower',
 			type: 'string',
 			length: 5,
-			startingPosition: 88
-		}, { // M = MSL, A = AGL
-			key: 'upper_unit',
+			startingPosition: 86
+		}, {
+			key: 'uir_upper',
 			type: 'string',
-			length: 1,
-			startingPosition: 93
+			length: 5,
+			startingPosition: 91
+		}, {
+			key: 'tc_ind',
+			type: 'string',
+			length: 2,
+			startingPosition: 96
 		}, {
 			key: 'name',
 			type: 'string',
-			length: 30,
-			startingPosition: 94
+			length: 25,
+			startingPosition: 99
 		}, {
 			key: 'record_nr',
 			type: 'integer',
@@ -161,62 +178,40 @@ var arinc_spec_as_ctl = {
 			startingPosition: 6,
 			defaultValue: 'C'
 		}, {
-			key: 'icao_code',
+			key: 'ident',
 			type: 'string',
-			length: 2,
-			startingPosition: 7
+			length: 4,
+			startingPosition: 7,
 		}, {
-			key: 'as_type',
+			key: 'fir_address',
 			type: 'string',
-			length: 1,
-			startingPosition: 9
+			length: 4,
+			startingPosition: 11,
 		}, {
-			key: 'as_center',
-			type: 'string',
-			length: 5,
-			startingPosition: 10
-		}, {
-			key: 'sec_code2',
+			key: 'indicator',
 			type: 'string',
 			length: 1,
 			startingPosition: 15,
-			defaultValue: 'P',
-		}, {
-			key: 'sub_code2',
-			type: 'string',
-			length: 1,
-			startingPosition: 16,
-			defaultValue: 'A',
-		}, {
-			key: 'as_class',
-			type: 'string',
-			length: 1,
-			startingPosition: 17
-		}, {
-			key: 'multi_cd',
-			type: 'string',
-			length: 1,
-			startingPosition: 20
 		}, {
 			key: 'seq_nr',
-			type: 'integer',
+			type: 'string',
 			length: 4,
-			startingPosition: 21
+			startingPosition: 16,
 		}, {
 			key: 'cont_nr',
 			type: 'integer',
 			length: 1,
-			startingPosition: 25
+			startingPosition: 20,
 		}, {
 			key: 'appl_type',
 			type: 'string',
 			length: 1,
-			startingPosition: 26
+			startingPosition: 21,
 		}, {
-			key: 'ctrl_agency',
+			key: 'name',
 			type: 'string',
-			length: 24,
-			startingPosition: 100
+			length: 25,
+			startingPosition: 99
 		}, {
 			key: 'record_nr',
 			type: 'integer',
@@ -228,7 +223,7 @@ var arinc_spec_as_ctl = {
 			length: 4,
 			startingPosition: 129
 		}, ]
-	}
+	},
 };
 
-module.exports = arinc_spec_as_ctl;
+module.exports = arinc_spec_fir_uir;

@@ -1,6 +1,7 @@
 var arinc_spec_rwy = {
 	1: {
 		length: 132,
+		defaultRequired: false,
 		fields: [{
 			key: 'record_type',
 			type: 'string',

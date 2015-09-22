@@ -3,6 +3,7 @@
 var arinc_spec_as_res = {
 	1: {
 		length: 132,
+		defaultRequired: false,
 		fields: [{
 			key: 'record_type',
 			type: 'string',
@@ -118,6 +119,7 @@ var arinc_spec_as_res = {
 	},
 	2: { // restricted airspace, continuation record 2
 		length: 132,
+		defaultRequired: false,
 		fields: [{
 			key: 'record_type',
 			type: 'string',
