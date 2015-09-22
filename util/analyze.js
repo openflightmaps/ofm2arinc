@@ -140,7 +140,7 @@ var recordtype = {
         },
         'F': {
           name: 'FIR/UIR (UF)',
-          //spec: arinc_spec.firuir,
+          spec: arinc_spec.fir_uir,
         }
       },
     },

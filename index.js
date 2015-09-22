@@ -6,9 +6,9 @@ var merge = require('object-mapper').merge;
 
 var arinc_spec = require('./arinc/spec');
 
-//var file_in = 'ofmdata/lsas.xml';
 //var file_in = 'ofmdata/lovv.xml';
-var file_in = 'ofmdata/limm.xml';
+var file_in = 'ofmdata/lsas.xml';
+//var file_in = 'ofmdata/lovv.xml';
 //var file_in = 'ofmdata/ed.xml';
 var file_out = "out.txt";
 
@@ -565,7 +565,8 @@ xml1.on("end", function() {
 		var arinc_data = {
 			icao_code: data.$.xt_fir.substring(0, 2), // ICAO code
 			name: str2arinc(data.txtName),
-			designator: str2arinc(data.txtName).substring(0, 10), //TODO, missing designator field
+			designator: str2arinc(data.txtName, 10), //TODO, missing designator field
+			ident: str2arinc(data.txtName, 4), // TODO, for FIR/UIR only
 			as_class: data.codeClass,
 			appl_type: "T", // T = opening times, TODO??
 			lower: lower.limit,
@@ -710,6 +711,9 @@ xml1.on("end", function() {
 			}
 		} else if (get_as_field(codeType, "is_firuir")) {
 			spec = arinc_spec.fir_uir;
+			arinc_data.fir_upper = upper.limit;
+			arinc_data.uir_lower = upper.limit; // TODO
+			arinc_data.uir_upper = 'UNLTD'; // TODO
 		} else {  
 			arinc_data.as_type = 'X'; //TODO: unknown
 			console.log("WARNING: Unknown airspace type: " + codeType + " for " + data.txtName + " ignoring.");
@@ -753,6 +757,10 @@ xml1.on("end", function() {
 						arinc_data.upper = undefined;
 						arinc_data.name = undefined;
 						arinc_data.ctrl_agency = undefined;
+						// fir/uir
+						arinc_data.fir_upper = undefined;
+						arinc_data.uir_lower = undefined;
+						arinc_data.uir_upper = undefined;
 					}
 					else {
 						generateAndWriteRecord(spec, arinc_data, 0);

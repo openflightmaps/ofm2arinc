@@ -8,7 +8,7 @@ var arinc_spec_fir_uir = {
 			type: 'string',
 			length: 1,
 			startingPosition: 1,
-			defaultValue: 'U',
+			defaultValue: 'S',
 		}, {
 			key: 'area',
 			type: 'string',
@@ -44,7 +44,7 @@ var arinc_spec_fir_uir = {
 			startingPosition: 15,
 		}, {
 			key: 'seq_nr',
-			type: 'string',
+			type: 'integer',
 			length: 4,
 			startingPosition: 16,
 		}, {
@@ -129,7 +129,7 @@ var arinc_spec_fir_uir = {
 			length: 5,
 			startingPosition: 91
 		}, {
-			key: 'tc_ind',
+			key: 'tc_ind', //XX
 			type: 'string',
 			length: 2,
 			startingPosition: 96
