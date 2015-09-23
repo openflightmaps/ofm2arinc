@@ -22,6 +22,7 @@ var rl = readline.createInterface({
 
 var recordtype = {
   section_field: 4,
+  cont_nr_field: 21,
   sections: {
     'D': {
       sub_section_field1: 5,
@@ -186,8 +187,6 @@ rl.on('line', function(line) {
         console.log("INFO: unknown type: "+sid+ssid);
         return;
       }
-      var f = new fixed(sstype.spec[1]);
-      var parsed = f.parse(line);
       var match = 1;
       if (options.section) {
         match = 0;
@@ -196,6 +195,21 @@ rl.on('line', function(line) {
               match = 1;
         }
       }
+      if (!match)
+	return;
+      var cont_nr_field = sstype.cont_nr_field || stype.cont_nr_field || recordtype.cont_nr_field;
+      var cont_nr = line[cont_nr_field];
+      if (cont_nr < 1 || cont_nr > Object.keys(sstype.spec).length)
+	cont_nr = 1;
+      var f = new fixed(sstype.spec[cont_nr]);
+      var parsed;
+      try {
+        parsed = f.parse(line);
+      } catch (ex) {
+	console.log("WARNING: Can not parse " + ex.toString());
+        return;
+      }
+      var match = 1;
       if (options.filter) {
         for (var i in options.filter) {
           var f = options.filter[i].split("=");
