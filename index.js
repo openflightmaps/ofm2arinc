@@ -6,13 +6,16 @@ var merge = require('object-mapper').merge;
 
 var arinc_spec = require('./arinc/spec');
 
-//var file_in = 'ofmdata/lovv.xml';
-var file_in = 'ofmdata/lsas.xml';
+var file_in = 'ofmdata/merged.xml';
+//var file_in = 'ofmdata/lsas.xml';
 //var file_in = 'ofmdata/lovv.xml';
 //var file_in = 'ofmdata/ed.xml';
 var file_out = "out.txt";
 
 var out_stream = fs.createWriteStream(file_out);
+
+// before running out of record ids, reset (as in example file)
+var maxRecIdBeforReset = 80000;
 
 
 function fwidth(v, width) {
@@ -80,6 +83,11 @@ function str2arinc(val, maxlen) {
 }
 
 function decl2arinc(val) {
+    
+    if (val == undefined) {
+            val = 0;
+    }
+
 	return (val < 0 ? 'W' : 'E') + fwidth(Math.round(val * 10), 4);
 }
 
@@ -119,13 +127,13 @@ function formatAltitude(v, uom, code) {
 		if (v == 0) { // special case for GND
 			return {limit: 'GND', unit: ''};
 		}
-		return {limit: fwidth(convertUnit(v, uom, 'FT'), 5), base: 'A'};
+		return {limit: fwidth(convertUnit(v, uom, 'FT'), 5), unit: 'A'};
 	} else if (code == "ALT") {
 		if (uom != 'FT' && uom != 'M') {
 			console.log("WARNING: invalid uom: " + uom + " for "+code);
 			return invalid;
 		}
-		return {limit: fwidth(convertUnit(v, uom, 'FT'), 5), base: 'M'};
+		return {limit: fwidth(convertUnit(v, uom, 'FT'), 5), unit: 'M'};
 	} else if (code == "STD") {
 		if (uom != 'FL') {
 			console.log("WARNING: invalid uom: " + uom + " for "+code);
@@ -256,12 +264,16 @@ xml1.on("end", function() {
 	//// Waypoints
 	// VOR  
 	xml.on('updateElement: Vor', function(data) {
-		
+		try{
 		if (isNaN(data.valFreq)){
 			console.log("WARNING: VOR frequency " +  data.VorUid.codeId + " is NaN, ignoring.");
 			return;
 		}
-		
+			
+			if (current_record_nr >= maxRecIdBeforReset) {
+				current_record_nr = 1
+			};	
+
 		var arinc_data = {
 			section: 'D', // NAVAID
 			vor_ident: data.VorUid.codeId, // VOR identifier
@@ -284,50 +296,69 @@ xml1.on("end", function() {
 		if (data.codeType == 'DVOR') {
 			arinc_data.navaid_class_type2 = 'D';
 			arinc_data.dme_latitude = lat2arinc(data.VorUid.geoLat);
-			arinc_data.dme_longitude = long2arinc(data.VorUid.geoLong);
-			arinc_data.dme_elevation = parseInt(data.valElev);
+		    arinc_data.dme_longitude = long2arinc(data.VorUid.geoLong);
+            arinc_data.dme_elevation = parseInt(data.valElev);
+            if (isNaN(arinc_data.dme_elevation)) {
+                console.log("WARNING: VOR dme_elevation missing. ignoring." + data.VorUid.codeId);
+                return;
+            }
 		}
-		if (isNaN(arinc_data.dme_elevation)) {
-			console.log("WARNING: VOR dme_elevation missing. ignoring."+ data.VorUid.codeId);
-			return;
-		}
+
 		generateAndWriteRecord(arinc_spec.vordme, arinc_data);
+		}
+			catch (err) {
+			console.log("ERROR parsing VOR: " + err);
+		}
 	});
 
 	// DME
 	xml.on('updateElement: Dme', function(data) {
-		
-		if (isNaN(data.valFreq)){
-			console.log("WARNING: DME frequency " + data.DmeUid.codeId + " is NaN, ignoring.");
-			return;
+		try {
+			if (isNaN(data.valFreq)) {
+				console.log("WARNING: DME frequency " + data.DmeUid.codeId + " is NaN, ignoring.");
+				return;
+			}
+			
+			if (current_record_nr >= maxRecIdBeforReset) {
+				current_record_nr = 1
+			};	
+			
+			var arinc_data = {
+				section: 'D', // NAVAID
+				vor_ident: data.DmeUid.codeId, // DME identifier
+				vor_icao_code: data.$.xt_fir.substring(0, 2), // ICAO code
+				cont_nr: 0,
+				vor_freq: data.valFreq * 100, // VOR-equivalent frequency
+				navaid_class_type1: '',
+				navaid_class_type2: 'D',
+				navaid_class_range: '', // TODO: range undefined
+				navaid_class_addinfo: '', // no voice on frequency
+				navaid_class_colocation: '', // no colocated facility
+				dme_ident: data.DmeUid.codeId, // DME identifier
+				dme_latitude: lat2arinc(data.DmeUid.geoLat),
+				dme_longitude: long2arinc(data.DmeUid.geoLong),
+				dme_elevation: parseInt(data.valElev),
+				merit: 1, // TODO: 0=Terminal, 1=Low, 2=High
+				//freq_pro:, // TODO
+				navaid_name: str2arinc(data.txtName),
+				record_nr: current_record_nr++,
+				cycle: 1, //TODO
+			};
+			generateAndWriteRecord(arinc_spec.vordme, arinc_data);
 		}
-		
-		var arinc_data = {
-			section: 'D', // NAVAID
-			vor_ident: data.DmeUid.codeId, // DME identifier
-			vor_icao_code: data.$.xt_fir.substring(0, 2), // ICAO code
-			cont_nr: 0,
-			vor_freq: data.valFreq * 100, // VOR-equivalent frequency
-			navaid_class_type1: '',
-			navaid_class_type2: 'D',
-			navaid_class_range: '', // TODO: range undefined
-			navaid_class_addinfo: '', // no voice on frequency
-			navaid_class_colocation: '', // no colocated facility
-			dme_ident: data.DmeUid.codeId, // DME identifier
-			dme_latitude: lat2arinc(data.DmeUid.geoLat),
-			dme_longitude: long2arinc(data.DmeUid.geoLong),
-			dme_elevation: parseInt(data.valElev),
-			merit: 1, // TODO: 0=Terminal, 1=Low, 2=High
-			//freq_pro:, // TODO
-			navaid_name: str2arinc(data.txtName),
-			record_nr: current_record_nr++,
-			cycle: 1, //TODO
-		};
-		generateAndWriteRecord(arinc_spec.vordme, arinc_data);
+			catch (err) {
+			console.log("ERROR parsing DME: " + err);
+		}
 	});
 
 	// NDB
-	xml.on('updateElement: Ndb', function(data) {
+	xml.on('updateElement: Ndb', function (data) {
+		try {
+			
+			if (current_record_nr >= maxRecIdBeforReset) {
+				current_record_nr = 1
+			};	
+
 		var arinc_data = {
 			section: 'D', // NAVAID
 			sub_section: 'B', // NDB
@@ -349,11 +380,22 @@ xml1.on("end", function() {
 			record_nr: current_record_nr++,
 			cycle: 1, //TODO
 		};
-		generateAndWriteRecord(arinc_spec.ndb, arinc_data);
+			generateAndWriteRecord(arinc_spec.ndb, arinc_data);
+		}
+			catch (err) {
+			console.log("ERROR parsing NDB: " + err);
+		}
 	});
 
 	// Designated Point / Reporting Points
-	xml.on('updateElement: Dpn', function(data) {
+	xml.on('updateElement: Dpn', function (data) {
+		
+		try {
+			
+			if (current_record_nr >= maxRecIdBeforReset) {
+				current_record_nr = 1
+			};	
+
 		var ident = str2arinc(data.DpnUid.codeId, 5);
 		if (ident == "") {
 			console.log("INFO: waypoint has no ident: " + data.txtName)
@@ -385,10 +427,16 @@ xml1.on("end", function() {
 		}
 		generateAndWriteRecord(arinc_spec.wp, arinc_data);
 		//console.log(JSON.stringify(data) + "\n\n");
+		}
+			catch (err) {
+			console.log("ERROR parsing Point: " + err);
+		}
 	});
 
 	// Airport
-	xml.on('updateElement: Ahp', function(data) {
+	xml.on('updateElement: Ahp', function (data) {
+		
+		try{
 		// add to cache
 		if (data.codeType != 'AD') {
 			console.log("INFO: Skipping AD " + data.AhpUid.codeId + " type: " + data.codeType);
@@ -398,7 +446,11 @@ xml1.on("end", function() {
 		if (data.AhpUid.codeId.length != 4) {
 			console.log("INFO: Skipping AD " + data.AhpUid.codeId + " code not 4 chars: " + data.AhpUid.codeId);
 			return;
-		}
+			}
+			
+			if (current_record_nr >= maxRecIdBeforReset) {
+				current_record_nr = 1
+			};	
 
 		var arinc_data = {
 			section: 'P', // Airport
@@ -414,69 +466,127 @@ xml1.on("end", function() {
 			record_nr: current_record_nr++,
 			cycle: 1, //TODO
 		};
-		generateAndWriteRecord(arinc_spec.aprt, arinc_data);
+			generateAndWriteRecord(arinc_spec.aprt, arinc_data);
+       
+
+        // also put frequency record, if available
+            if (data.xt_addFreq != undefined) {
+                freq = convertUnit(parseFloat(data.xt_addFreq), "MHZ", "MHZ");
+                
+                if (data && data.codeType == 'AD') {
+                    var arinc_data = {
+                        section: 'P', // Airport Comm
+                        sub_section: 'V', // Airport Comm
+                        ident: data.codeIcao, // identifier
+                        icao_code: data.$.xt_fir.substring(0, 2), // ICAO code
+                        comm_type: map_comm_type('INFO'),
+                        comm_freq: Math.round(freq * 1000),
+                        freq_unit: 'V', // only VHF supported so far. TODO
+                        service_ind: map_comm_service('INFO'),
+                        modulation: 'A', // only AM supported
+                        latitude: lat2arinc(data.geoLat),
+                        longitude: long2arinc(data.geoLong),
+                        mag_variation: decl2arinc(data.valMagVar),
+                        elevation: convertUnit(data.valElev, data.uomElev, 'FT'),
+                        callsign: str2arinc(data.codeIcao + ' INFO', 25),
+                        record_nr: current_record_nr++,
+                        cycle: 1, //TODO
+                    };
+                    
+                    generateAndWriteRecord(arinc_spec.aprt_com, arinc_data);
+                }
+            }
+            
+                } catch(err) {
+			console.log("ERROR parsing Airport: " + err);
+		}
 	});
 
 
 	// Frequency
-	xml.on('updateElement: Fqy', function(data) {
-		if (!data.uomFreq) {
-			console.log("WARNING: uomFreq missing. ignoring."+ data.valFreqRec);
-			return;
-		}
-		var freq = convertUnit(parseFloat(data.valFreqRec), data.uomFreq, "MHZ");
-		if (freq < 30 || freq > 200) {
-			console.log("WARNING: only VHF supported, ignoring.");
-			return;
-		}
-
-		var uni = xml_cache[data.FqyUid.SerUid.UniUid.$.mid];
-		if (!uni) {
-			console.log("WARNING: frequency " + freq + " has no UNI, ignoring.");
-		}
+	xml.on('updateElement: Fqy', function (data) {
 		
-		if (isNaN(freq)){
-			console.log("WARNING: frequency " + freq + " is NaN, ignoring.");
-			return;
-		}
-		
-		var apt = xml_cache[uni.AhpUid.$.mid];
+		try {
+			
+			if (current_record_nr >= maxRecIdBeforReset) {
+				current_record_nr = 1
+			};	
+            
 
-		if (apt && apt.codeType == 'AD') {
-			var arinc_data = {
-				section: 'P', // Airport Comm
-				sub_section: 'V', // Airport Comm
-				ident: apt.AhpUid.codeId, // identifier
-				icao_code: apt.$.xt_fir.substring(0, 2), // ICAO code
-				comm_type: map_comm_type(data.FqyUid.SerUid.codeType),
-				comm_freq: Math.round(freq * 1000),
-				freq_unit: 'V', // only VHF supported so far. TODO
-				service_ind: map_comm_service(data.FqyUid.SerUid.codeType),
-				modulation: 'A', // only AM supported
-				latitude: lat2arinc(apt.geoLat),
-				longitude: long2arinc(apt.geoLong),
-				mag_variation: decl2arinc(apt.valMagVar),
-				elevation: convertUnit(apt.valElev, apt.uomElev, 'FT'),
-				callsign: str2arinc(data.Cdl.txtCallSign, 25),
-				record_nr: current_record_nr++,
-				cycle: 1, //TODO
-			};
-			generateAndWriteRecord(arinc_spec.aprt_com, arinc_data);
+			if (!data.uomFreq) {
+				console.log("WARNING: uomFreq missing. ignoring." + data.valFreqRec);
+				return;
+			}
+			var freq = convertUnit(parseFloat(data.valFreqRec), data.uomFreq, "MHZ");
+			if (freq < 30 || freq > 200) {
+				console.log("WARNING: only VHF supported, ignoring.");
+				return;
+			}
+			
+			var uni = xml_cache[data.FqyUid.SerUid.UniUid.$.mid];
+			if (!uni) {
+				console.log("WARNING: frequency " + freq + " has no UNI, ignoring.");
+			}
+			
+			if (isNaN(freq)) {
+				console.log("WARNING: frequency " + freq + " is NaN, ignoring.");
+				return;
+			}
+            
+            if (uni.AhpUid.$ != undefined){
+			var apt = xml_cache[uni.AhpUid.$.mid];
+			
+            if (apt && apt.codeType == 'AD') {
+                var arinc_data = {
+                    section: 'P', // Airport Comm
+                    sub_section: 'V', // Airport Comm
+                    ident: apt.AhpUid.codeId, // identifier
+                    icao_code: apt.$.xt_fir.substring(0, 2), // ICAO code
+                    comm_type: map_comm_type(data.FqyUid.SerUid.codeType),
+                    comm_freq: Math.round(freq * 1000),
+                    freq_unit: 'V', // only VHF supported so far. TODO
+                    service_ind: map_comm_service(data.FqyUid.SerUid.codeType),
+                    modulation: 'A', // only AM supported
+                    latitude: lat2arinc(apt.geoLat),
+                    longitude: long2arinc(apt.geoLong),
+                    mag_variation: decl2arinc(apt.valMagVar),
+                    elevation: convertUnit(apt.valElev, apt.uomElev, 'FT'),
+                    callsign: str2arinc(data.Cdl.txtCallSign, 25),
+                    record_nr: current_record_nr++,
+                    cycle: 1, //TODO
+                };
+           
+				generateAndWriteRecord(arinc_spec.aprt_com, arinc_data);
+            }
+        }
+			else {
+				console.log("WARNING: frequency " + freq + " has no real APT, ignoring.");
+			}
 		}
-		else {
-			console.log("WARNING: frequency " + freq + " has no real APT, ignoring.");
+			catch (err) {
+			console.log("ERROR parsing Frequency: " + err);
 		}
 	});
 
 
 	// Runway
-	xml.on('updateElement: Rdn', function(data) {
+	xml.on('updateElement: Rdn', function (data) {
+		
+		
+        try {
+            
+
+			
+			if (current_record_nr >= maxRecIdBeforReset) {
+				current_record_nr = 1
+			};	
+
 		var apt = xml_cache[data.RdnUid.RwyUid.AhpUid.$.mid];
 		if (!apt) {
 			console.log("WARNING: Skipping RWY of AD " + apt.AhpUid.codeId + " missing APT.");
 			return;
-		}		
-
+            }
+            
 		if (apt.AhpUid.codeId.length != 4) {
 			console.log("INFO: Skipping AD " + apt.AhpUid.codeId + " code not 4 chars: " + apt.AhpUid.codeId);
 			return;
@@ -501,7 +611,13 @@ xml1.on("end", function() {
 			console.log("WARNING: invalid Rwy Dimensions, ignoring RWY "+  apt.AhpUid.codeId);
 			return;
 		}
-		
+			
+		if (parseFloat(data.valueTruBrg) < 0) { data.valueTruBrg = parseFloat(data.valueTruBrg) + 360; }	
+            
+            if (data.valueTruBrg == 0) {
+                console.log("WARNING: bearing is ZERO " + apt.AhpUid.codeId);
+            }    
+
 		var arinc_data = {
 			section: 'P', // Runway
 			sub_section: 'G', // Runway
@@ -509,22 +625,57 @@ xml1.on("end", function() {
 			aprt_ident: data.RdnUid.RwyUid.AhpUid.codeId, // identifier
 			ident: 'RW' + str2arinc(data.RdnUid.txtDesig).substring(0, 3), //name
 			icao_code: data.RdnUid.RwyUid.AhpUid.codeId.substring(0, 2), // ICAO code
-			rwy_len: convertUnit(rwy.valLen, rwy.uomDimRwy, 'FT'),
-			rwy_brg: Math.round(parseFloat(data.valMagBrg) * 10),
-			latitude: lat2arinc(data.geoLat),
-			longitude: long2arinc(data.geoLon),
-			elevation: convertUnit(apt.valElev, apt.uomElev, 'FT'),
-			dsplcd_thr: convertUnit(data.xt_valDispTres, data.xt_uomDispTres, 'FT'),
-			rwy_width: convertUnit(rwy.valWid, rwy.uomDimRwy, 'FT'),
-			record_nr: current_record_nr++,
-			cycle: 1, //TODO
+				rwy_len: convertUnit(rwy.valLen, rwy.uomDimRwy, 'FT'),
+				
+				
+				rwy_brg: Math.round(parseFloat(data.valueTruBrg) * 10),
+				latitude: lat2arinc(data.geoLat),
+				longitude: long2arinc(data.geoLon),
+				elevation: convertUnit(apt.valElev, apt.uomElev, 'FT'),
+				dsplcd_thr: convertUnit(data.xt_valDispTres, data.xt_uomDispTres, 'FT'),
+				rwy_width: convertUnit(rwy.valWid, rwy.uomDimRwy, 'FT'),
+				record_nr: current_record_nr++,
+				cycle: 1, //TODO
 		};
-		generateAndWriteRecord(arinc_spec.rwy, arinc_data);
+			generateAndWriteRecord(arinc_spec.rwy, arinc_data);
+
+		}
+		catch (err) {
+			console.log("ERROR parsing Runway: " + err );
+		}
+
 	});
 
 
 	// Airspace
-	xml.on('updateElement: Ase', function(data) {
+	xml.on('updateElement: Ase', function (data) {
+        try {
+            
+          // DEBUG
+          //  if ((data.AseUid.$.mid == '7094')) {
+          //      var z = 4;
+          //  }
+            
+            
+        
+            
+            
+            switch (data.$.xt_fir) {
+                case 'LOVV':
+                    // exclude national parks (NRAs) in austria
+                    if (data.AseUid.codeType == 'NRA') {
+                        console.log("INFO: Filtering (ignoring) NRAs for region " + data.$.xt_fir);
+                        return;
+                    }
+                    break;
+               
+                default:     
+            } 
+	 
+			if (current_record_nr >= maxRecIdBeforReset) {
+				current_record_nr = 1
+			};	
+
 		if (data.gmlPosList) {
 			// gmlPosList record, ignore
 			return;
@@ -559,12 +710,13 @@ xml1.on("end", function() {
 		if (!lower) {
 			console.log("WARNING: missing lower for " + data.txtName + ", ignoring");
 			return;
-		}
-
+            }
+  
 		//console.log(JSON.stringify(data) + "\n\n");
 		var arinc_data = {
 			icao_code: data.$.xt_fir.substring(0, 2), // ICAO code
-			name: str2arinc(data.txtName),
+			name: str2arinc(codeType + ' ' + data.txtName), // added codetype in Name
+																 // instead LOWW 3 -> LOWW 3 TM
 			designator: str2arinc(data.txtName, 10), //TODO, missing designator field
 			ident: str2arinc(data.txtName, 4), // TODO, for FIR/UIR only
 			as_class: data.codeClass,
@@ -606,15 +758,15 @@ xml1.on("end", function() {
 				res_type: 'R',
 			},
 			'GLDR': {
-				is_restricted: true,
+				is_restricted: false,
 				res_type: 'A',
 			},
 			'HPGLDR': {
 				is_restricted: true,
-				res_type: 'A',
+				res_type: 'W',
 			},
 			'ACRO': {
-				is_restricted: true,
+				is_restricted: false,
 				res_type: 'A',
 			},
 			'CTR': {
@@ -628,8 +780,9 @@ xml1.on("end", function() {
 				cas_type: 'X',
 			},
 			'MTMA': {
-				is_controlled: true,
-				cas_type: 'M',
+					is_controlled: true,
+					 cas_type: 'R', // TODO:
+		
 			},
 			'CTA': {
 				is_controlled: true,
@@ -637,12 +790,12 @@ xml1.on("end", function() {
 				cas_type: 'K',
 			},
 			'UTA': {
-				is_controlled: true,
+				is_controlled: false,
 			//	cas_type: 'C', // TODO: for euronav test disabeld
 				cas_type: 'X',
 			},
 			'TSA': {
-				is_restricted: true,
+				is_restricted: false,
 				res_type: 'A',	
 			},
 			'TRA': {
@@ -650,28 +803,28 @@ xml1.on("end", function() {
 				res_type: 'G',	
 			},
 			'TMZ': {
-				is_restricted: true,
+				is_restricted: false,
 			//	cas_type: 'C', // TODO: for euronav test disabeld
 				res_type: 'R',	
 			},
 			'RMZ': {
-				is_restricted: true,
+				is_restricted: false,
 				res_type: 'R',			
 			},
 			'ATZ': {
-				is_restricted: true,
+				is_restricted: false,
 				res_type: 'A',			
 			},
 			'MATZ': {
-				is_restricted: true,
+				is_restricted: false,
 				res_type: 'D',				
 			},
 			'NRA': {
 				is_restricted: true,
-				res_type: 'D',
+				res_type: 'P',
 			},
 			'CBA': {
-				is_restricted: true,
+				is_restricted: false,
 				res_type: 'A',
 			},
 			'FIR': {
@@ -690,38 +843,47 @@ xml1.on("end", function() {
 				return x[field]
 			else {
 				console.log("WARNING: get_as_field unknown airspace type: " + astype);
+
 				return '';
 			}
 		}
 
 		var spec = arinc_spec.as_ctl;
 
-		if (get_as_field(codeType, "is_restricted")) {
-			spec = arinc_spec.as_res;
-			arinc_data.as_type = get_as_field(codeType, "res_type");
-		}
-		else if (get_as_field(codeType, "is_controlled")) {
-			arinc_data.as_type = get_as_field(codeType, "cas_type");
-			arinc_data.as_center = "LOXX"; // TODO, HACK, get center
-			
-			// Ignore controlled AS without class
-			if (!data.codeClass || data.codeClass=='' || data.codeClass == ' ') {
-				console.log("WARNING: AS has no code "+ arinc_data.name+ " ignoring.");
-				return;
+			if (get_as_field(codeType, "is_restricted")) {
+				spec = arinc_spec.as_res;
+				arinc_data.as_type = get_as_field(codeType, "res_type");
 			}
-		} else if (get_as_field(codeType, "is_firuir")) {
-			spec = arinc_spec.fir_uir;
-			arinc_data.fir_upper = upper.limit;
-			arinc_data.uir_lower = upper.limit; // TODO
-			arinc_data.uir_upper = 'UNLTD'; // TODO
-		} else {  
-			arinc_data.as_type = 'X'; //TODO: unknown
-			console.log("WARNING: Unknown airspace type: " + codeType + " for " + data.txtName + " ignoring.");
-			return;
-		}
+			else if (get_as_field(codeType, "is_controlled")) {
+				arinc_data.as_type = get_as_field(codeType, "cas_type");
+				arinc_data.as_center = "LOXX"; // TODO, HACK, get center
+				
+				// Ignore controlled AS without class
+				if (!data.codeClass || data.codeClass == '' || data.codeClass == ' ') {
+					console.log("WARNING: AS has no code " + arinc_data.name + " ignoring.");
+					return;
+				}
+			} else if (get_as_field(codeType, "is_firuir")) {
+				spec = arinc_spec.fir_uir;
+				arinc_data.fir_upper = upper.limit;
+				arinc_data.uir_lower = upper.limit; // TODO
+				arinc_data.uir_upper = 'UNLTD'; // TODO
+			} else {
+				arinc_data.as_type = 'X'; //TODO: unknown
+				console.log("WARNING: Unknown airspace type: " + codeType + " for " + data.txtName + " ignoring.");
+				return;
+
+			}
+
+
 
 		//console.log(data.RdnUid.RwyUid.AhpUid.codeId + " " + data.RdnUid.txtDesig + " " + data.xt_valDispTres + ":" + arinc_data.dsplcd_thr);
-		var ase = xml_cache["gml:" + baseLayer.AseUid.$.mid];
+			var ase = xml_cache["gml:" + baseLayer.AseUid.$.mid];
+			
+			if (current_record_nr >= maxRecIdBeforReset) {
+				current_record_nr = 1
+			};
+
 		if (ase) {
 			var first = true;
 			var gmlPosList = ase.gmlPosList.split(" ");
@@ -772,7 +934,14 @@ xml1.on("end", function() {
 		else {
 			console.log("WARNING: ASE gml polygons not found for:" + data.txtName)
 		}
-	});
+	
+		}
+		catch (err) {
+			console.log("ERROR parsing Airspace: " + err);
+		}
+			
+		
+		});
 
 	xml.on('end', function(data) {
 		console.log("done");

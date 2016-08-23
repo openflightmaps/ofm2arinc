@@ -1,0 +1,139 @@
+
+grep "^SEURP.LS....C" reference/euroav15.pc                                                                                               
+
+jepp:
+
+SEURP LSGCLSCVP039 LS0    V     N46572200E006422200                                 WGE           S                        454481509
+SEURP LSGCLSCVP040 LS0    V     N46592900E006374600                                 WGE           W                        454491509
+SEURP LSGCLSCVP042 LS0    V     N47013800E006441800                                 WGE           SW                       454501509
+SEURP LSGCLSCVP044 LS0    V     N47040600E006531300                                 WGE           V                        454511509
+SEURP LSGCLSCVP045 LS0    V     N47060900E006531300                                 WGE           SE                       454521509
+SEURP LSGCLSCVP047 LS0    V     N47081400E006583300                                 WGE           E                        454531509
+SEURP LSGCLSCVP049 LS0    V     N47082400E006503000                                 WGE           NE                       454541509
+SEURP LSGCLSCVP052 LS0    V     N47112300E006550600                                 WGE           N                        454551509
+SEURP LSGGLSCVP005 LS0    V     N46071900E005535700                                 WGE           SW                       454671509
+SEURP LSGGLSCVP006 LS0    V     N46080100E006055800                                 WGE           S                        454681509
+SEURP LSGGLSCVP009 LS0    V     N46124600E006102100                                 WGE           SE                       454691509
+SEURP LSGGLSCVP011 LS0    V     N46133400E006082800                                 WGE           GE                       454701509
+SEURP LSGGLSCVP012 LS0    V     N46134300E005594200                                 WGE           W                        454711509
+SEURP LSGGLSCVP015 LS0    V     N46153200E006033100                                 WGE           GW                       454721509
+SEURP LSGGLSCVP016 LS0    V     N46160900E006012400                                 WGE           NW                       454731509
+SEURP LSGGLSCVP021 LS0    V     N46205000E006214700                                 WGE           E                        454741509
+SEURP LSGGLSCVP022 LS0    V     N46211600E006090900                                 WGE           N                        454751509
+SEURP LSGSLSCVP007 LS0    V     N46102000E007125100                                 WGE           W                        455231509
+SEURP LSGSLSCVP008 LS0    V     N46103600E007113300                                 WGE           NW                       455241509
+SEURP LSGSLSCVP014 LS0    V     N46150800E007250400                                 WGE           E2                       455251509
+SEURP LSGSLSCVP017 LS0    V     N46164000E007323700                                 WGE           Z1                       455261509
+SEURP LSGSLSCVP018 LS0    V     N46174600E007420900                                 WGE           Z                        455271509
+SEURP LSGSLSCVP019 LS0    V     N46175000E007313500                                 WGE           E1                       455281509
+SEURP LSGSLSCVP020 LS0    V     N46191500E007402400                                 WGE           E                        455291509
+SEURP LSZALSCVP001 LS0    V     N45540900E008541700                                 WGE           S                        456781509
+SEURP LSZALSCVP002 LS0    V     N45591600E008492500                                 WGE           W                        456791509
+SEURP LSZALSCVP003 LS0    V     N45593000E008585600                                 WGE           E                        456801509
+SEURP LSZALSCVP004 LS0    V     N46003000E008534200                                 WGE           B                        456811509
+SEURP LSZBLSCVP027 LS0    V     N46464300E007303800                                 WGE           S                        456911509
+SEURP LSZBLSCVP029 LS0    V     N46464800E007361200                                 WGE           Z                        456921509
+SEURP LSZBLSCVP034 LS0    V     N46541600E007154300                                 WGE           W                        456931509
+SEURP LSZBLSCVP041 LS0    V     N47001700E007385100                                 WGE           E                        456941509
+SEURP LSZBLSCVP043 LS0    V     N47021600E007333900                                 WGE           N                        456951509
+SEURP LSZGLSCVP046 LS0    V     N47072200E007304400                                 WGE           S                        457231509
+SEURP LSZGLSCVP048 LS0    V     N47074800E007134700                                 WGE           W                        457241509
+SEURP LSZGLSCVP050 LS0    V     N47091600E007212600                                 WGE           W1                       457251509
+SEURP LSZGLSCVP051 LS0    V     N47110900E007265800                                 WGE           ABM ALTREU               457261509
+SEURP LSZGLSCVP053 LS0    V     N47113800E007285700                                 WGE           E1                       457271509
+SEURP LSZGLSCVP054 LS0    V     N47123800E007360000                                 WGE           E                        457281509
+SEURP LSZHLSCVP055 LS0    V     N47204500E008191600                                 WGE           W                        457391509
+SEURP LSZHLSCVP056 LS0    V     N47212200E008312400                                 WGE           S                        457401509
+SEURP LSZHLSCVP057 LS0    V     N47240600E008274600                                 WGE           W1                       457411509
+SEURP LSZHLSCVP058 LS0    V     N47255500E008302600                                 WGE           W2                       457421509
+SEURP LSZHLSCVP061 LS0    V     N47301500E008381200                                 WGE           E2                       457431509
+SEURP LSZHLSCVP062 LS0    V     N47312700E008420600                                 WGE           E1                       457441509
+SEURP LSZHLSCVP064 LS0    V     N47315500E008472400                                 WGE           E                        457451509
+SEURP LSZRLSCVP059 LS0    V     N47270600E009392000                                 WGE           S                        458341509
+SEURP LSZRLSCVP060 LS0    V     N47274000E009260000                                 WGE           Z                        458351509
+SEURP LSZRLSCVP063 LS0    V     N47313000E009411000                                 WGE           E                        458361509
+SEURP LSZRLSCVP065 LS0    V     N47325000E009240000                                 WGE           V                        458371509
+SEURP LSZSLSCVP023 LS0    V     N46294200E009511200                                 WGE           W                        458491509
+SEURP LSZSLSCVP024 LS0    V     N46294800E009533000                                 WGE           S                        458501509
+SEURP LSZSLSCVP025 LS0    V     N46343600E009551800                                 WGE           E                        458511509
+
+ofm:
+SEURP LSGCLSCNE    LS0    V     N47082400E006503000                                 WGE           NE                       004200001
+SEURP LSGCLSCN     LS0    V     N47112300E006550600                                 WGE           N                        004210001
+SEURP LSGCLSCE     LS0    V     N47081400E006583300                                 WGE           E                        004220001
+SEURP LSGCLSCSE    LS0    V     N47060900E006531300                                 WGE           SE                       004230001
+SEURP LSGCLSCV     LS0    V     N47040600E006531300                                 WGE           V                        004240001
+SEURP LSGCLSCSW    LS0    V     N47013800E006441800                                 WGE           SW                       004250001
+SEURP LSGCLSCS     LS0    V     N46572200E006422200                                 WGE           S                        004260001
+SEURP LSGCLSCW     LS0    V     N46592900E006374600                                 WGE           W                        004270001
+SEURP LSGGLSCSW    LS0    V     N46071900E005535700                                 WGE           SW                       004280001
+SEURP LSGGLSCN     LS0    V     N46211600E006090900                                 WGE           N                        004290001
+SEURP LSGGLSCW     LS0    V     N46134300E005594200                                 WGE           W                        004300001
+SEURP LSGGLSCE     LS0    V     N46205000E006214700                                 WGE           E                        004310001
+SEURP LSGGLSCS     LS0    V     N46080100E006055800                                 WGE           S                        004320001
+SEURP LSGGLSCNW    LS0    V     N46160900E006012400                                 WGE           NW                       004330001
+SEURP LSGGLSCGW    LS0    V     N46153200E006033100                                 WGE           GW                       004340001
+SEURP LSGGLSCSE    LS0    V     N46124600E006102100                                 WGE           SE                       004350001
+SEURP LSGGLSCGE    LS0    V     N46133400E006082800                                 WGE           GE                       004360001
+SEURP LSZALSC      LS0    V     N45591600E008492500                                 WGE           W                        004370001
+SEURP LSZALSC      LS0    V     N45593000E008585600                                 WGE           E                        004380001
+SEURP LSZALSC      LS0    V     N45540900E008541700                                 WGE           S                        004390001
+SEURP LSZSLSC      LS0    V     N46292840E009511107                                 WGE           W                        004480001
+SEURP LSZSLSC      LS0    V     N46293627E009531436                                 WGE           S                        004490001
+SEURP LSZSLSCE     LS0    V     N46342685E009551950                                 WGE           E                        004500001
+SEURP LSZSLSC      LS0    V     N46420000E010053717                                 WGE           ZERNEZ                   004510001
+SEURP LSZSLSC      LS0    V     N47325000E009240000                                 WGE           V                        004560001
+SEURP LSZRLSCE     LS0    V     N47313000E009411000                                 WGE           E                        004570001
+SEURP LSZRLSC      LS0    V     N47270600E009392000                                 WGE           S                        004580001
+SEURP LSZRLSC      LS0    V     N47274000E009260000                                 WGE           Z                        004590001
+SEURP LSZRLSC      LS0    V     N47361002E009170572                                 WGE           GUTTINGEN                004600001
+SEURP LSZRLSC      LS0    V     N47230852E009391386                                 WGE           DIEPOLTSAU               004610001
+SEURP LSZRLSCLANGE LS0    V     N47354587E009330000                                 WGE           LANGENARGEN              004620001
+SEURP LSZRLSC      LS0    V     N47410096E009501645                                 WGE           ABM WANGEN               004630001
+SEURP LSZRLSC      LS0    V     N47245848E009153234                                 WGE           GOSSAU                   004640001
+SEURP LSGSLSC      LS0    V     N46142200E007212300                                 WGE           N                        004690001
+SEURP LSGSLSC      LS0    V     N46123600E007181900                                 WGE           S                        004700001
+SEURP LSGSLSC      LS0    V     N46102000E007125100                                 WGE           W                        004710001
+SEURP LSGSLSC      LS0    V     N46175000E007313500                                 WGE           E1                       004720001
+SEURP LSGSLSC      LS0    V     N46150800E007250400                                 WGE           E2                       004730001
+SEURP LSGSLSC      LS0    V     N46070000E007062468                                 WGE           MARTIGNY                 004740001
+SEURP LSGSLSC      LS0    V     N46190996E007374300                                 WGE           LEUK                     004750001
+SEURP LSGSLSC      LS0    V     N46172254E007111848                                 WGE           PAS DE CHEVILLE          004760001
+SEURP LSGSLSC      LS0    V     N46105201E007241959                                 WGE           HEREMENCE                004770001
+SEURP LSGSLSC      LS0    V     N46195769E007170952                                 WGE           SANETSCH                 004780001
+SEURP LSZHLSC      LS0    V     N47204500E008191600                                 WGE           W                        004790001
+SEURP LSZHLSC      LS0    V     N47240600E008274600                                 WGE           W1                       004800001
+SEURP LSZHLSC      LS0    V     N47255500E008302600                                 WGE           W2                       004810001
+SEURP LSZHLSC      LS0    V     N47220100E008322500                                 WGE           S                        004820001
+SEURP LSZHLSC      LS0    V     N47315500E008472400                                 WGE           E                        004830001
+SEURP LSZHLSC      LS0    V     N47312700E008420600                                 WGE           E1                       004840001
+SEURP LSZHLSC      LS0    V     N47301500E008381200                                 WGE           E2                       004850001
+
+
+
+--- Enroute Waypoints EA
+philhug@ofm2arinc:~/workspace (master) $ grep "^SEUREA.............LS.....V" reference/euroav15.pc SEUREAENRT   VP010 LS0    V     N46123600E007181900                                 WGE           S                        238571509
+jepp:
+
+SEUREAENRT   VP013 LS0    V     N46142200E007212300                                 WGE           N                        238791509
+SEUREAENRT   VP026 LS0    V     N46460100E006524400                                 WGE           S                        239561509
+SEUREAENRT   VP028 LS0    V     N46470200E006444100                                 WGE           W                        239651509
+SEUREAENRT   VP030 LS0    V     N46512300E007294700                                 WGE           S1                       239731509
+SEUREAENRT   VP031 LS0    V     N46520300E007325200                                 WGE           Z1                       239781509
+SEUREAENRT   VP032 LS0    V     N46532300E007274100                                 WGE           HW                       239831509
+SEUREAENRT   VP033 LS0    V     N46534500E007032200                                 WGE           E                        239911509
+SEUREAENRT   VP035 LS0    V     N46545900E007235000                                 WGE           W1                       240021509
+SEUREAENRT   VP036 LS0    V     N46545900E007335700                                 WGE           HE                       240061509
+SEUREAENRT   VP037 LS0    V     N46554900E006595700                                 WGE           N                        240121509
+SEUREAENRT   VP038 LS0    V     N46564500E007325100                                 WGE           E1                       240161509
+
+ofm:
+
+
+
+test:
+hugtest@unknown:~/dev/ofm/arinc424$ grep 'MIKE 3' reference/euroav15.pc 
+SEURP LOWILOCVP037 LO0    V     N47143000E011250600                                 WGE           MIKE 3                   447541509
+hugtest@unknown:~/dev/ofm/arinc424$ grep 'MIKE 3' out.txt 
+SEURP LOWILOCM3    LO0    V     N47142552E011250630                                 WGE           MIKE 3                   000090001
+

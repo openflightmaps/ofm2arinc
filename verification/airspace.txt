@@ -1,0 +1,728 @@
+ofm:
+
+SEURUCLOX           00100B    G N47470200E013091000                              19500M24500MLOWS 4                        069390001
+SEURUCLOX           00200B    G N47481400E013192800                              19500M24500MLOWS 4                        069400001
+SEURUCLOX           00300B    G N47462800E013190400                              19500M24500MLOWS 4                        069410001
+SEURUCLOX           00400B    G N47450000E013184500                              19500M24500MLOWS 4                        069420001
+SEURUCLOX           00500B    G N47423100E013211700                              19500M24500MLOWS 4                        069430001
+SEURUCLOX           00600B    G N47401300E013123600                              19500M24500MLOWS 4                        069440001
+SEURUCLOX           00700B    G N47425200E013105800                              19500M24500MLOWS 4                        069450001
+SEURUCLOX           00800B    G N47470200E013091000                              19500M24500MLOWS 4                        069460001
+
+SEURUCLSZLSXX PAD   00011B    G N47330800E009312800                              00000M05500MLSZR                          010120001
+SEURUCLSZLSXX PAD   00012T                                                                                                 010120001
+SEURUCLSZLSXX PAD   00020B    G N47325600E009313600                              00000M05500MLSZR                          010130001
+...
+SEURUCLSZLSXX PAD   00290B     EN47330800E009312800                              00000M05500MLSZR                          010400001
+
+SEURUCLOMLOXX PAC   00011B    G N47470200E013091000                              19500M24500MLOWS 4                        057700001
+SEURUCLOMLOXX PAC   00012T                                                                                                 057700001
+SEURUCLOMLOXX PAC   00020B    G N47481400E013192800                              19500 24500                               057710001
+SEURUCLOMLOXX PAC   00030B    G N47462800E013190400                              19500 24500                               057720001
+SEURUCLOMLOXX PAC   00040B    G N47450000E013184500                              19500 24500                               057730001
+SEURUCLOMLOXX PAC   00050B    G N47423100E013211700                              19500 24500                               057740001
+SEURUCLOMLOXX PAC   00060B    G N47401300E013123600                              19500 24500                               057750001
+SEURUCLOMLOXX PAC   00070B    G N47425200E013105800                              19500 24500                               057760001
+SEURUCLOMLOXX PAC   00080B     EN47470200E013091000                              19500 24500                               057770001
+SEURUCLOMLOXX PAC   00011B    G N47470200E013091000                              19500M24500MLOWS 4                        057790001
+SEURUCLOMLOXX PAC   00012T                                                                                                 057790001
+SEURUCLOMLOXX PAC   00020B    G N47481400E013192800                              19500 24500                               057800001
+SEURUCLOMLOXX PAC   00030B    G N47462800E013190400                              19500 24500                               057810001
+SEURUCLOMLOXX PAC   00040B    G N47450000E013184500                              19500 24500                               057820001
+SEURUCLOMLOXX PAC   00050B    G N47423100E013211700                              19500 24500                               057830001
+SEURUCLOMLOXX PAC   00060B    G N47401300E013123600                              19500 24500                               057840001
+SEURUCLOMLOXX PAC   00070B    G N47425200E013105800                              19500 24500                               057850001
+SEURUCLOMLOXX PAC   00080B     EN47470200E013091000                              19500 24500                               057860001
+SEURUCLOMLOXX PAD   00011B    G N47470200E013091000                              07500M19500MLOWS 4                        057880001
+SEURUCLOMLOXX PAD   00012T                                                                                                 057880001
+SEURUCLOMLOXX PAD   00020B    G N47481400E013192800                              07500 19500                               057890001
+SEURUCLOMLOXX PAD   00030B    G N47462800E013190400                              07500 19500                               057900001
+SEURUCLOMLOXX PAD   00040B    G N47450000E013184500                              07500 19500                               057910001
+SEURUCLOMLOXX PAD   00050B    G N47423100E013211700                              07500 19500                               057920001
+SEURUCLOMLOXX PAD   00060B    G N47401300E013123600                              07500 19500                               057930001
+SEURUCLOMLOXX PAD   00070B    G N47425200E013105800                              07500 19500                               057940001
+SEURUCLOMLOXX PAD   00080B     EN47470200E013091000                              07500 19500                               057950001
+SEURUCLOMLOXX PAE   00011B    G N47470200E013091000                              04500M07500MLOWS 4                        057970001
+SEURUCLOMLOXX PAE   00012T                                                                                                 057970001
+SEURUCLOMLOXX PAE   00020B    G N47481400E013192800                              04500 07500                               057980001
+SEURUCLOMLOXX PAE   00030B    G N47462800E013190400                              04500 07500                               057990001
+SEURUCLOMLOXX PAE   00040B    G N47450000E013184500                              04500 07500                               058000001
+SEURUCLOMLOXX PAE   00050B    G N47423100E013211700                              04500 07500                               058010001
+SEURUCLOMLOXX PAE   00060B    G N47401300E013123600                              04500 07500                               058020001
+SEURUCLOMLOXX PAE   00070B    G N47425200E013105800                              04500 07500                               058030001
+SEURUCLOMLOXX PAE   00080B     EN47470200E013091000                              04500 07500                               058040001
+
+jepp:
+SEURUCLSXLSZR PAD   00101LN   G N47320600E009195600                              03500M05500MST GALLEN-ALTENRHEIN TMA      820401003
+SEURUCLSXLSZR PAD   00102T                                                                        ST.GALLEN TWR            820411003
+SEURUCLSXLSZR PAD   00200     G N47313800E009241200                                                                        820421003
+SEURUCLSXLSZR PAD   00300     G N47311300E009233600                                                                        820431003
+SEURUCLSXLSZR PAD   00400     G N47284000E009230900                                                                        820441003
+SEURUCLSXLSZR PAD   00500     GEN47290900E009191400                                                                        820451003
+
+
+SEURUCLOXLOWS PAE  I00101LC   G N47481400E013192800                              01000A07500MSALZBURG TMA 4                789661413
+SEURUCLOXLOWS PAE  I00102T                                                                        LOWW ACC/FIC/LOWS APP    789671413
+SEURUCLOXLOWS PAE  I00200     G N47462800E013190400                                                                        789681413
+SEURUCLOXLOWS PAE  I00300     G N47450000E013184500                                                                        789691413
+SEURUCLOXLOWS PAE  I00400     G N47423100E013211700                                                                        789701413
+SEURUCLOXLOWS PAE  I00500     G N47401300E013123600                                                                        789711413
+SEURUCLOXLOWS PAE  I00600     G N47425200E013105800                                                                        789721413
+SEURUCLOXLOWS PAE  I00700     GEN47470200E013091000                                                                        789731413
+
+SEURUCLOXLOWS PAD  J00101LC   G N47481400E013192800                              07500MFL195MSALZBURG TMA 4                789241413
+SEURUCLOXLOWS PAD  J00102T                                                                        LOWW ACC/FIC/LOWS APP    789251413
+SEURUCLOXLOWS PAD  J00200     G N47462800E013190400                                                                        789261413
+SEURUCLOXLOWS PAD  J00300     G N47450000E013184500                                                                        789271413
+SEURUCLOXLOWS PAD  J00400     G N47423100E013211700                                                                        789281413
+SEURUCLOXLOWS PAD  J00500     G N47401300E013123600                                                                        789291413
+SEURUCLOXLOWS PAD  J00600     G N47425200E013105800                                                                        789301413
+SEURUCLOXLOWS PAD  J00700     GEN47470200E013091000                                                                        789311413
+
+
+SEURUCLOXLOWS PAC  K00101LC   G N47481400E013192800                              FL195MFL245MSALZBURG TMA 4                788591413
+SEURUCLOXLOWS PAC  K00102T                                                                        LOWW ACC/FIC/LOWS APP    788601413
+SEURUCLOXLOWS PAC  K00200     G N47462800E013190400                                                                        788611413
+SEURUCLOXLOWS PAC  K00300     G N47450000E013184500                                                                        788621413
+SEURUCLOXLOWS PAC  K00400     G N47423100E013211700                                                                        788631413
+SEURUCLOXLOWS PAC  K00500     G N47401300E013123600                                                                        788641413
+SEURUCLOXLOWS PAC  K00600     G N47425200E013105800                                                                        788651413
+SEURUCLOXLOWS PAC  K00700     GEN47470200E013091000                                                                        788661413
+
+
+comparee:
+SEURURLSALS-T 81 LE 00011B    G N46343400E006063900                              07500M08500MLS-T 81 LE BRASSUS            054110001
+
+SEURUCLSMLSXX PAE   00011B    G N46345500E006295700                              03500M05500MLSGG 2                        011810001
+
+jepp:
+SEURUCLSXLSGG PAE  C00101LC   G N46345500E006295700                              01000A05500MGENEVA TMA SECTOR 2           815960611
+
+
+SEURURLST81        A00101LN   G N46382851E006122747                              FL075MFL085MGLIDER AREA LE BRASSUS        199821103
+SEURURLST81        B00101BN   G N46382851E006122747                              FL085MNOTSP GLIDER AREA LE BRASSUS        199921103
+
+
+
+
+ofm: restricted
+SEURURLSRLS-R2 HOHG 00011B    G N46471600E008022800                              FL100MFL130MLS-R2 HOHGANT                 010990001
+SEURURLSRLS-R2 HOHG 00012T                                                                                                 010990001
+SEURURLSRLS-R2 HOHG 00020B    G N46471600E008005300                                                                        011000001
+...
+SEURURLSRLS-R2 HOHG 00130B    GEN46471600E008022800                                                                        011110001
+
+jepp: restricted
+SEURURLSR2          00101LN   G N47030400E008093800                              FL100MFL130MHOHGANT                       193341103
+SEURURLSR2          00102N  BY NOTAM & ATC, VFR ONLY & PUBLISHED DAILY BY ATS (AUP).              ZURICH INFO/GENEVA INFO  193351204
+SEURURLSR2          00200     G N46575300E008193800                                                                        193361103
+...
+SEURURLSR2          01100     G N47022900E008001000                                                                        193451103
+SEURURLSR2          01200     GEN47025500E008012800                                                                        193461103
+
+
+ofm: LOWI 1 ofm und JEPP?
+
+SEURUCLOXLOXX PAD   00101B    G N47165900E010523200                              07000MFL195MLOWI 1                        089820001
+SEURUCLOXLOXX PAD   00102T                                                                                                 089820001
+SEURUCLOXLOXX PAD   00110B    G N47175200E010522800                                                                        089830001
+SEURUCLOXLOXX PAD   00120B    G N47185400E010531500                                                                        089840001
+SEURUCLOXLOXX PAD   00130B    G N47191700E011012500                                                                        089850001
+SEURUCLOXLOXX PAD   00140B    G N47193000E011043000                                                                        089860001
+SEURUCLOXLOXX PAD   00150B    G N47172300E011131400                                                                        089870001
+SEURUCLOXLOXX PAD   00160B    G N47250000E011442000                                                                        089880001
+SEURUCLOXLOXX PAD   00170B    G N47234000E011450400                                                                        089890001
+SEURUCLOXLOXX PAD   00180B    G N47230400E011452700                                                                        089900001
+SEURUCLOXLOXX PAD   00190B    G N47182000E011481000                                                                        089910001
+SEURUCLOXLOXX PAD   00200B    G N47123000E011264500                                                                        089920001
+SEURUCLOXLOXX PAD   00210B    G N47074000E011293500                                                                        089930001
+SEURUCLOXLOXX PAD   00220B    G N47074000E011245900                                                                        089940001
+SEURUCLOXLOXX PAD   00230B    G N47111500E011221000                                                                        089950001
+SEURUCLOXLOXX PAD   00240B    G N47075500E011100500                                                                        089960001
+SEURUCLOXLOXX PAD   00250B    G N47104000E011004500                                                                        089970001
+SEURUCLOXLOXX PAD   00260B    G N47151200E011024000                                                                        089980001
+SEURUCLOXLOXX PAD   00270B    G N47154800E011005000                                                                        089990001
+SEURUCLOXLOXX PAD   00280B    GEN47165900E010523200                                                                        090000001
+
+SEURUCLOXLOWI PAD  A00101LC   G N47250000E011442000                              07000MFL195MINNSBRUCK TMA 1               784691413
+SEURUCLOXLOWI PAD  A00102T                                                                        LOWW ACC/FIC/LOWI APP    784701413
+SEURUCLOXLOWI PAD  A00200     G N47240600E011445100                                                                        784711413
+SEURUCLOXLOWI PAD  A00300     G N47234000E011450400                                                                        784721413
+SEURUCLOXLOWI PAD  A00400     G N47230400E011452700                                                                        784731413
+SEURUCLOXLOWI PAD  A00500     G N47182000E011481000                                                                        784741413
+SEURUCLOXLOWI PAD  A00600     G N47123000E011264500                                                                        784751413
+SEURUCLOXLOWI PAD  A00700     H N47074000E011293500                                                                        784761413
+SEURUCLOXLOWI PAD  A00800     G N47074000E011245900                                                                        784771413
+SEURUCLOXLOWI PAD  A00900     G N47111500E011221000                                                                        784781413
+SEURUCLOXLOWI PAD  A01000     G N47075500E011100500                                                                        784791413
+SEURUCLOXLOWI PAD  A01100     G N47104000E011004500                                                                        784801413
+SEURUCLOXLOWI PAD  A01200     G N47151200E011024000                                                                        784811413
+SEURUCLOXLOWI PAD  A01300     G N47154800E011005000                                                                        784821413
+SEURUCLOXLOWI PAD  A01400     G N47165900E010523200                                                                        784831413
+SEURUCLOXLOWI PAD  A01500     G N47175200E010522800                                                                        784841413
+SEURUCLOXLOWI PAD  A01600     G N47185400E010531500                                                                        784851413
+SEURUCLOXLOWI PAD  A01700     G N47191700E011012500                                                                        784861413
+SEURUCLOXLOWI PAD  A01800     G N47193000E011043000                                                                        784871413
+SEURUCLOXLOWI PAD  A01900     GEN47172300E011131400                                                                        784881413
+
+philhug@ofm2arinc:~/workspace (master) $ grep "SEURUCLO.LO..... " out.txt                                                                                                                           
+SEURUCLOXLOXX PA    00101B    G N47414279E012262424                              11000MFL125MLOWI E                        249130001
+SEURUCLOXLOXX PA    00102T                                                                                                 249130001
+SEURUCLOXLOXX PA    00110B    G N47193600E012243200                                                                        249140001
+SEURUCLOXLOXX PA    00120B    G N47173000E012055000                                                                        249150001
+SEURUCLOXLOXX PA    00130B    G N47074000E011293500                                                                        249160001
+SEURUCLOXLOXX PA    00140B    G N47123000E011264500                                                                        249170001
+SEURUCLOXLOXX PA    00150B    G N47182000E011481000                                                                        249180001
+SEURUCLOXLOXX PA    00160B    G N47221300E012074100                                                                        249190001
+SEURUCLOXLOXX PA    00170B    G N47352000E012130000                                                                        249200001
+SEURUCLOXLOXX PA    00180B    GEN47414279E012262424                                                                        249210001
+SEURUCLOXLOXX PA    00101B    G N47351722E011442089                              11000MFL125MLOWI W                        249230001
+SEURUCLOXLOXX PA    00102T                                                                                                 249230001
+SEURUCLOXLOXX PA    00110B    G N47250000E011442000                                                                        249240001
+SEURUCLOXLOXX PA    00120B    G N47172300E011131400                                                                        249250001
+SEURUCLOXLOXX PA    00130B    G N47193000E011043000                                                                        249260001
+SEURUCLOXLOXX PA    00140B    G N47191700E011012500                                                                        249270001
+SEURUCLOXLOXX PA    00150B    G N47185400E010531500                                                                        249280001
+SEURUCLOXLOXX PA    00160B    G N47182300E010473400                                                                        249290001
+SEURUCLOXLOXX PA    00170B    G N47181100E010451500                                                                        249300001
+SEURUCLOXLOXX PA    00180B    G N47180300E010414500                                                                        249310001
+SEURUCLOXLOXX PA    00190B    G N47172371E010403633                                                                        249320001
+SEURUCLOXLOXX PA    00200B    G N47165600E010413400                                                                        249330001
+SEURUCLOXLOXX PA    00210B    G N47165800E010474200                                                                        249340001
+SEURUCLOXLOXX PA    00220B    G N47165900E010523200                                                                        249350001
+SEURUCLOXLOXX PA    00230B    G N47154800E011005000                                                                        249360001
+SEURUCLOXLOXX PA    00240B    G N47151200E011024000                                                                        249370001
+SEURUCLOXLOXX PA    00250B    G N47104000E011004500                                                                        249380001
+SEURUCLOXLOXX PA    00260B    G N47112800E010281900                                                                        249390001
+SEURUCLOXLOXX PA    00270B    G N47255436E010282243                                                                        249400001
+SEURUCLOXLOXX PA    00280B    G N47255400E010282200                                                                        249410001
+SEURUCLOXLOXX PA    00290B    G N47255300E010283000                                                                        249420001
+SEURUCLOXLOXX PA    00300B    G N47261200E010282300                                                                        249430001
+SEURUCLOXLOXX PA    00310B    G N47262600E010281900                                                                        249440001
+SEURUCLOXLOXX PA    00320B    G N47264100E010281200                                                                        249450001
+SEURUCLOXLOXX PA    00330B    G N47265400E010281300                                                                        249460001
+SEURUCLOXLOXX PA    00340B    G N47271300E010275600                                                                        249470001
+SEURUCLOXLOXX PA    00350B    G N47273200E010280500                                                                        249480001
+SEURUCLOXLOXX PA    00360B    G N47273900E010280300                                                                        249490001
+SEURUCLOXLOXX PA    00370B    G N47275300E010275900                                                                        249500001
+SEURUCLOXLOXX PA    00380B    G N47280700E010281100                                                                        249510001
+SEURUCLOXLOXX PA    00390B    G N47283000E010280000                                                                        249520001
+SEURUCLOXLOXX PA    00400B    G N47283800E010280100                                                                        249530001
+SEURUCLOXLOXX PA    00410B    G N47284200E010275900                                                                        249540001
+SEURUCLOXLOXX PA    00420B    G N47284300E010275600                                                                        249550001
+SEURUCLOXLOXX PA    00430B    G N47284600E010275200                                                                        249560001
+SEURUCLOXLOXX PA    00440B    G N47285700E010274900                                                                        249570001
+SEURUCLOXLOXX PA    00450B    G N47285700E010272700                                                                        249580001
+SEURUCLOXLOXX PA    00460B    G N47290500E010271300                                                                        249590001
+SEURUCLOXLOXX PA    00470B    G N47290300E010265100                                                                        249600001
+SEURUCLOXLOXX PA    00480B    G N47290500E010263300                                                                        249610001
+SEURUCLOXLOXX PA    00490B    G N47291100E010262500                                                                        249620001
+SEURUCLOXLOXX PA    00500B    G N47292300E010262300                                                                        249630001
+SEURUCLOXLOXX PA    00510B    G N47292800E010261400                                                                        249640001
+SEURUCLOXLOXX PA    00520B    G N47301300E010255300                                                                        249650001
+SEURUCLOXLOXX PA    00530B    G N47303400E010261000                                                                        249660001
+SEURUCLOXLOXX PA    00540B    G N47310700E010263100                                                                        249670001
+SEURUCLOXLOXX PA    00550B    G N47332000E010271500                                                                        249680001
+SEURUCLOXLOXX PA    00560B    G N47331800E010270100                                                                        249690001
+SEURUCLOXLOXX PA    00570B    G N47332400E010270000                                                                        249700001
+SEURUCLOXLOXX PA    00580B    G N47340400E010260700                                                                        249710001
+SEURUCLOXLOXX PA    00590B    G N47341000E010255900                                                                        249720001
+SEURUCLOXLOXX PA    00600B    G N47342100E010260000                                                                        249730001
+SEURUCLOXLOXX PA    00610B    G N47343100E010255300                                                                        249740001
+SEURUCLOXLOXX PA    00620B    G N47344500E010260700                                                                        249750001
+SEURUCLOXLOXX PA    00630B    G N47345200E010255800                                                                        249760001
+SEURUCLOXLOXX PA    00640B    G N47350300E010261900                                                                        249770001
+SEURUCLOXLOXX PA    00650B    G N47350100E010262900                                                                        249780001
+SEURUCLOXLOXX PA    00660B    G N47350000E010263300                                                                        249790001
+SEURUCLOXLOXX PA    00670B    G N47350200E010265700                                                                        249800001
+SEURUCLOXLOXX PA    00680B    G N47345700E010272000                                                                        249810001
+SEURUCLOXLOXX PA    00690B    G N47350300E010273800                                                                        249820001
+SEURUCLOXLOXX PA    00700B    G N47350800E010275100                                                                        249830001
+SEURUCLOXLOXX PA    00710B    G N47351200E010282000                                                                        249840001
+SEURUCLOXLOXX PA    00720B    G N47350400E010285500                                                                        249850001
+SEURUCLOXLOXX PA    00730B    G N47344500E010282300                                                                        249860001
+SEURUCLOXLOXX PA    00740B    G N47344000E010281300                                                                        249870001
+SEURUCLOXLOXX PA    00750B    G N47341500E010282400                                                                        249880001
+SEURUCLOXLOXX PA    00760B    G N47341200E010281500                                                                        249890001
+SEURUCLOXLOXX PA    00770B    G N47340600E010280700                                                                        249900001
+SEURUCLOXLOXX PA    00780B    G N47334700E010274600                                                                        249910001
+SEURUCLOXLOXX PA    00790B    G N47333000E010272400                                                                        249920001
+SEURUCLOXLOXX PA    00800B    G N47332000E010271600                                                                        249930001
+SEURUCLOXLOXX PA    00810B    G N47330300E010282000                                                                        249940001
+SEURUCLOXLOXX PA    00820B    G N47320600E010312800                                                                        249950001
+SEURUCLOXLOXX PA    00830B    G N47321400E010333200                                                                        249960001
+SEURUCLOXLOXX PA    00840B    G N47321000E010334600                                                                        249970001
+SEURUCLOXLOXX PA    00850B    G N47320300E010334900                                                                        249980001
+SEURUCLOXLOXX PA    00860B    G N47320100E010340300                                                                        249990001
+SEURUCLOXLOXX PA    00870B    G N47320100E010340700                                                                        250000001
+SEURUCLOXLOXX PA    00880B    G N47320000E010341100                                                                        250010001
+SEURUCLOXLOXX PA    00890B    G N47320000E010341600                                                                        250020001
+SEURUCLOXLOXX PA    00900B    G N47320200E010342400                                                                        250030001
+SEURUCLOXLOXX PA    00910B    G N47323200E010344200                                                                        250040001
+SEURUCLOXLOXX PA    00920B    G N47330000E010345600                                                                        250050001
+SEURUCLOXLOXX PA    00930B    G N47331200E010344500                                                                        250060001
+SEURUCLOXLOXX PA    00940B    G N47331600E010344700                                                                        250070001
+SEURUCLOXLOXX PA    00950B    G N47332000E010345400                                                                        250080001
+SEURUCLOXLOXX PA    00960B    G N47332700E010350300                                                                        250090001
+SEURUCLOXLOXX PA    00970B    G N47333100E010351400                                                                        250100001
+SEURUCLOXLOXX PA    00980B    G N47334900E010353500                                                                        250110001
+SEURUCLOXLOXX PA    00990B    G N47340100E010354400                                                                        250120001
+SEURUCLOXLOXX PA    01000B    G N47340500E010360300                                                                        250130001
+SEURUCLOXLOXX PA    01010B    G N47340600E010360900                                                                        250140001
+SEURUCLOXLOXX PA    01020B    G N47340200E010361700                                                                        250150001
+SEURUCLOXLOXX PA    01030B    G N47335900E010362200                                                                        250160001
+SEURUCLOXLOXX PA    01040B    G N47335600E010363300                                                                        250170001
+SEURUCLOXLOXX PA    01050B    G N47335500E010364200                                                                        250180001
+SEURUCLOXLOXX PA    01060B    G N47335700E010365100                                                                        250190001
+SEURUCLOXLOXX PA    01070B    G N47340000E010370800                                                                        250200001
+SEURUCLOXLOXX PA    01080B    G N47335200E010372300                                                                        250210001
+SEURUCLOXLOXX PA    01090B    G N47334600E010373300                                                                        250220001
+SEURUCLOXLOXX PA    01100B    G N47333900E010373300                                                                        250230001
+SEURUCLOXLOXX PA    01110B    G N47333900E010373900                                                                        250240001
+SEURUCLOXLOXX PA    01120B    G N47333200E010381000                                                                        250250001
+SEURUCLOXLOXX PA    01130B    G N47333100E010390600                                                                        250260001
+SEURUCLOXLOXX PA    01140B    G N47333200E010393000                                                                        250270001
+SEURUCLOXLOXX PA    01150B    G N47333000E010395100                                                                        250280001
+SEURUCLOXLOXX PA    01160B    G N47333100E010401500                                                                        250290001
+SEURUCLOXLOXX PA    01170B    G N47332500E010403900                                                                        250300001
+SEURUCLOXLOXX PA    01180B    G N47332900E010411400                                                                        250310001
+SEURUCLOXLOXX PA    01190B    G N47333000E010412800                                                                        250320001
+SEURUCLOXLOXX PA    01200B    G N47331900E010412400                                                                        250330001
+SEURUCLOXLOXX PA    01210B    G N47323600E010420000                                                                        250340001
+SEURUCLOXLOXX PA    01220B    G N47323700E010423200                                                                        250350001
+SEURUCLOXLOXX PA    01230B    G N47323300E010424200                                                                        250360001
+SEURUCLOXLOXX PA    01240B    G N47322600E010425600                                                                        250370001
+SEURUCLOXLOXX PA    01250B    G N47321700E010430900                                                                        250380001
+SEURUCLOXLOXX PA    01260B    G N47322000E010434900                                                                        250390001
+SEURUCLOXLOXX PA    01270B    G N47321900E010435800                                                                        250400001
+SEURUCLOXLOXX PA    01280B    G N47321900E010441000                                                                        250410001
+SEURUCLOXLOXX PA    01290B    G N47321500E010443700                                                                        250420001
+SEURUCLOXLOXX PA    01300B    G N47321500E010444800                                                                        250430001
+SEURUCLOXLOXX PA    01310B    G N47321400E010445200                                                                        250440001
+SEURUCLOXLOXX PA    01320B    G N47320800E010451400                                                                        250450001
+SEURUCLOXLOXX PA    01330B    G N47320600E010451600                                                                        250460001
+SEURUCLOXLOXX PA    01340B    G N47320500E010452400                                                                        250470001
+SEURUCLOXLOXX PA    01350B    G N47315700E010453600                                                                        250480001
+SEURUCLOXLOXX PA    01360B    G N47315300E010453800                                                                        250490001
+SEURUCLOXLOXX PA    01370B    G N47315000E010454100                                                                        250500001
+SEURUCLOXLOXX PA    01380B    G N47313700E010454800                                                                        250510001
+SEURUCLOXLOXX PA    01390B    G N47312200E010454400                                                                        250520001
+SEURUCLOXLOXX PA    01400B    G N47311100E010454900                                                                        250530001
+SEURUCLOXLOXX PA    01410B    G N47310700E010460000                                                                        250540001
+SEURUCLOXLOXX PA    01420B    G N47305700E010463200                                                                        250550001
+SEURUCLOXLOXX PA    01430B    G N47305000E010463900                                                                        250560001
+SEURUCLOXLOXX PA    01440B    G N47310100E010465700                                                                        250570001
+SEURUCLOXLOXX PA    01450B    G N47310400E010470700                                                                        250580001
+SEURUCLOXLOXX PA    01460B    G N47311600E010474300                                                                        250590001
+SEURUCLOXLOXX PA    01470B    G N47311200E010475500                                                                        250600001
+SEURUCLOXLOXX PA    01480B    G N47311200E010481000                                                                        250610001
+SEURUCLOXLOXX PA    01490B    G N47311400E010482400                                                                        250620001
+SEURUCLOXLOXX PA    01500B    G N47311200E010483900                                                                        250630001
+SEURUCLOXLOXX PA    01510B    G N47312700E010483900                                                                        250640001
+SEURUCLOXLOXX PA    01520B    G N47313500E010484700                                                                        250650001
+SEURUCLOXLOXX PA    01530B    G N47313400E010490800                                                                        250660001
+SEURUCLOXLOXX PA    01540B    G N47313900E010492700                                                                        250670001
+SEURUCLOXLOXX PA    01550B    G N47314100E010493800                                                                        250680001
+SEURUCLOXLOXX PA    01560B    G N47314100E010500300                                                                        250690001
+SEURUCLOXLOXX PA    01570B    G N47313100E010501800                                                                        250700001
+SEURUCLOXLOXX PA    01580B    G N47314100E010502800                                                                        250710001
+SEURUCLOXLOXX PA    01590B    G N47314800E010504800                                                                        250720001
+SEURUCLOXLOXX PA    01600B    G N47320000E010511100                                                                        250730001
+SEURUCLOXLOXX PA    01610B    G N47320200E010512600                                                                        250740001
+SEURUCLOXLOXX PA    01620B    G N47320200E010514300                                                                        250750001
+SEURUCLOXLOXX PA    01630B    G N47320800E010520000                                                                        250760001
+SEURUCLOXLOXX PA    01640B    G N47321400E010532500                                                                        250770001
+SEURUCLOXLOXX PA    01650B    G N47314100E010534400                                                                        250780001
+SEURUCLOXLOXX PA    01660B    G N47311100E010541200                                                                        250790001
+SEURUCLOXLOXX PA    01670B    G N47310200E010541900                                                                        250800001
+SEURUCLOXLOXX PA    01680B    G N47310900E010544700                                                                        250810001
+SEURUCLOXLOXX PA    01690B    G N47310200E010550600                                                                        250820001
+SEURUCLOXLOXX PA    01700B    G N47304900E010550400                                                                        250830001
+SEURUCLOXLOXX PA    01710B    G N47304100E010543100                                                                        250840001
+SEURUCLOXLOXX PA    01720B    G N47303500E010541400                                                                        250850001
+SEURUCLOXLOXX PA    01730B    G N47302900E010535100                                                                        250860001
+SEURUCLOXLOXX PA    01740B    G N47302800E010533300                                                                        250870001
+SEURUCLOXLOXX PA    01750B    G N47302700E010532600                                                                        250880001
+SEURUCLOXLOXX PA    01760B    G N47302400E010532100                                                                        250890001
+SEURUCLOXLOXX PA    01770B    G N47302000E010531200                                                                        250900001
+SEURUCLOXLOXX PA    01780B    G N47301900E010530800                                                                        250910001
+SEURUCLOXLOXX PA    01790B    G N47301400E010525500                                                                        250920001
+SEURUCLOXLOXX PA    01800B    G N47301400E010524800                                                                        250930001
+SEURUCLOXLOXX PA    01810B    G N47301100E010524100                                                                        250940001
+SEURUCLOXLOXX PA    01820B    G N47300200E010522300                                                                        250950001
+SEURUCLOXLOXX PA    01830B    G N47295700E010521700                                                                        250960001
+SEURUCLOXLOXX PA    01840B    G N47295300E010521200                                                                        250970001
+SEURUCLOXLOXX PA    01850B    G N47294600E010521700                                                                        250980001
+SEURUCLOXLOXX PA    01860B    G N47293900E010521500                                                                        250990001
+SEURUCLOXLOXX PA    01870B    G N47293400E010521800                                                                        251000001
+SEURUCLOXLOXX PA    01880B    G N47292700E010521600                                                                        251010001
+SEURUCLOXLOXX PA    01890B    G N47290300E010521000                                                                        251020001
+SEURUCLOXLOXX PA    01900B    G N47290000E010521100                                                                        251030001
+SEURUCLOXLOXX PA    01910B    G N47285400E010521900                                                                        251040001
+SEURUCLOXLOXX PA    01920B    G N47285000E010522600                                                                        251050001
+SEURUCLOXLOXX PA    01930B    G N47284900E010523500                                                                        251060001
+SEURUCLOXLOXX PA    01940B    G N47284600E010524800                                                                        251070001
+SEURUCLOXLOXX PA    01950B    G N47284600E010525700                                                                        251080001
+SEURUCLOXLOXX PA    01960B    G N47284600E010530900                                                                        251090001
+SEURUCLOXLOXX PA    01970B    G N47285200E010532500                                                                        251100001
+SEURUCLOXLOXX PA    01980B    G N47285200E010533100                                                                        251110001
+SEURUCLOXLOXX PA    01990B    G N47285800E010534100                                                                        251120001
+SEURUCLOXLOXX PA    02000B    G N47285900E010534800                                                                        251130001
+SEURUCLOXLOXX PA    02010B    G N47290100E010535600                                                                        251140001
+SEURUCLOXLOXX PA    02020B    G N47290100E010540500                                                                        251150001
+SEURUCLOXLOXX PA    02030B    G N47290200E010541200                                                                        251160001
+SEURUCLOXLOXX PA    02040B    G N47290600E010543300                                                                        251170001
+SEURUCLOXLOXX PA    02050B    G N47290600E010544400                                                                        251180001
+SEURUCLOXLOXX PA    02060B    G N47290500E010545400                                                                        251190001
+SEURUCLOXLOXX PA    02070B    G N47290300E010550500                                                                        251200001
+SEURUCLOXLOXX PA    02080B    G N47285700E010553100                                                                        251210001
+SEURUCLOXLOXX PA    02090B    G N47285800E010555700                                                                        251220001
+SEURUCLOXLOXX PA    02100B    G N47284700E010561800                                                                        251230001
+SEURUCLOXLOXX PA    02110B    G N47282300E010554300                                                                        251240001
+SEURUCLOXLOXX PA    02120B    G N47281200E010554700                                                                        251250001
+SEURUCLOXLOXX PA    02130B    G N47280000E010560500                                                                        251260001
+SEURUCLOXLOXX PA    02140B    G N47272200E010570400                                                                        251270001
+SEURUCLOXLOXX PA    02150B    G N47265400E010573800                                                                        251280001
+SEURUCLOXLOXX PA    02160B    G N47251500E010590400                                                                        251290001
+SEURUCLOXLOXX PA    02170B    G N47250200E010581800                                                                        251300001
+SEURUCLOXLOXX PA    02180B    G N47242900E010581500                                                                        251310001
+SEURUCLOXLOXX PA    02190B    G N47241400E010581000                                                                        251320001
+SEURUCLOXLOXX PA    02200B    G N47240000E010581300                                                                        251330001
+SEURUCLOXLOXX PA    02210B    G N47234900E010585800                                                                        251340001
+SEURUCLOXLOXX PA    02220B    G N47234700E010593300                                                                        251350001
+SEURUCLOXLOXX PA    02230B    G N47234100E010594800                                                                        251360001
+SEURUCLOXLOXX PA    02240B    G N47233800E011002100                                                                        251370001
+SEURUCLOXLOXX PA    02250B    G N47234800E011010500                                                                        251380001
+SEURUCLOXLOXX PA    02260B    G N47234900E011012400                                                                        251390001
+SEURUCLOXLOXX PA    02270B    G N47233600E011014200                                                                        251400001
+SEURUCLOXLOXX PA    02280B    G N47233600E011015300                                                                        251410001
+SEURUCLOXLOXX PA    02290B    G N47234600E011021300                                                                        251420001
+SEURUCLOXLOXX PA    02300B    G N47234500E011022600                                                                        251430001
+SEURUCLOXLOXX PA    02310B    G N47234000E011024400                                                                        251440001
+SEURUCLOXLOXX PA    02320B    G N47233800E011025400                                                                        251450001
+SEURUCLOXLOXX PA    02330B    G N47234100E011030600                                                                        251460001
+SEURUCLOXLOXX PA    02340B    G N47234300E011033200                                                                        251470001
+SEURUCLOXLOXX PA    02350B    G N47234700E011034200                                                                        251480001
+SEURUCLOXLOXX PA    02360B    G N47234400E011040900                                                                        251490001
+SEURUCLOXLOXX PA    02370B    G N47234500E011043600                                                                        251500001
+SEURUCLOXLOXX PA    02380B    G N47234500E011050500                                                                        251510001
+SEURUCLOXLOXX PA    02390B    G N47234500E011053800                                                                        251520001
+SEURUCLOXLOXX PA    02400B    G N47233900E011060000                                                                        251530001
+SEURUCLOXLOXX PA    02410B    G N47234200E011062600                                                                        251540001
+SEURUCLOXLOXX PA    02420B    G N47234400E011064400                                                                        251550001
+SEURUCLOXLOXX PA    02430B    G N47235300E011071900                                                                        251560001
+SEURUCLOXLOXX PA    02440B    G N47240200E011072300                                                                        251570001
+SEURUCLOXLOXX PA    02450B    G N47242900E011072600                                                                        251580001
+SEURUCLOXLOXX PA    02460B    G N47244300E011074000                                                                        251590001
+SEURUCLOXLOXX PA    02470B    G N47244400E011075400                                                                        251600001
+SEURUCLOXLOXX PA    02480B    G N47245100E011082900                                                                        251610001
+SEURUCLOXLOXX PA    02490B    G N47250100E011084900                                                                        251620001
+SEURUCLOXLOXX PA    02500B    G N47250900E011090500                                                                        251630001
+SEURUCLOXLOXX PA    02510B    G N47251700E011092800                                                                        251640001
+SEURUCLOXLOXX PA    02520B    G N47252300E011101700                                                                        251650001
+SEURUCLOXLOXX PA    02530B    G N47253100E011103800                                                                        251660001
+SEURUCLOXLOXX PA    02540B    G N47253900E011115200                                                                        251670001
+SEURUCLOXLOXX PA    02550B    G N47260200E011121900                                                                        251680001
+SEURUCLOXLOXX PA    02560B    G N47260000E011122700                                                                        251690001
+SEURUCLOXLOXX PA    02570B    G N47255300E011130700                                                                        251700001
+SEURUCLOXLOXX PA    02580B    G N47255300E011131800                                                                        251710001
+SEURUCLOXLOXX PA    02590B    G N47255600E011141100                                                                        251720001
+SEURUCLOXLOXX PA    02600B    G N47255300E011142700                                                                        251730001
+SEURUCLOXLOXX PA    02610B    G N47255600E011145900                                                                        251740001
+SEURUCLOXLOXX PA    02620B    G N47252900E011145300                                                                        251750001
+SEURUCLOXLOXX PA    02630B    G N47251500E011143900                                                                        251760001
+SEURUCLOXLOXX PA    02640B    G N47245600E011142300                                                                        251770001
+SEURUCLOXLOXX PA    02650B    G N47244200E011140300                                                                        251780001
+SEURUCLOXLOXX PA    02660B    G N47243200E011135600                                                                        251790001
+SEURUCLOXLOXX PA    02670B    G N47242300E011135000                                                                        251800001
+SEURUCLOXLOXX PA    02680B    G N47241600E011134200                                                                        251810001
+SEURUCLOXLOXX PA    02690B    G N47241000E011133500                                                                        251820001
+SEURUCLOXLOXX PA    02700B    G N47240500E011132600                                                                        251830001
+SEURUCLOXLOXX PA    02710B    G N47235200E011132300                                                                        251840001
+SEURUCLOXLOXX PA    02720B    G N47234200E011132900                                                                        251850001
+SEURUCLOXLOXX PA    02730B    G N47234500E011135000                                                                        251860001
+SEURUCLOXLOXX PA    02740B    G N47235500E011151700                                                                        251870001
+SEURUCLOXLOXX PA    02750B    G N47235700E011154600                                                                        251880001
+SEURUCLOXLOXX PA    02760B    G N47235100E011161100                                                                        251890001
+SEURUCLOXLOXX PA    02770B    G N47235200E011162100                                                                        251900001
+SEURUCLOXLOXX PA    02780B    G N47240100E011164900                                                                        251910001
+SEURUCLOXLOXX PA    02790B    G N47242300E011171700                                                                        251920001
+SEURUCLOXLOXX PA    02800B    G N47244100E011172400                                                                        251930001
+SEURUCLOXLOXX PA    02810B    G N47244900E011172700                                                                        251940001
+SEURUCLOXLOXX PA    02820B    G N47250500E011173200                                                                        251950001
+SEURUCLOXLOXX PA    02830B    G N47251600E011173100                                                                        251960001
+SEURUCLOXLOXX PA    02840B    G N47252500E011172600                                                                        251970001
+SEURUCLOXLOXX PA    02850B    G N47254000E011173400                                                                        251980001
+SEURUCLOXLOXX PA    02860B    G N47253900E011174300                                                                        251990001
+SEURUCLOXLOXX PA    02870B    G N47255000E011175700                                                                        252000001
+SEURUCLOXLOXX PA    02880B    G N47254900E011180300                                                                        252010001
+SEURUCLOXLOXX PA    02890B    G N47254800E011182100                                                                        252020001
+SEURUCLOXLOXX PA    02900B    G N47254800E011183900                                                                        252030001
+SEURUCLOXLOXX PA    02910B    G N47255400E011185600                                                                        252040001
+SEURUCLOXLOXX PA    02920B    G N47261100E011191600                                                                        252050001
+SEURUCLOXLOXX PA    02930B    G N47261400E011192900                                                                        252060001
+SEURUCLOXLOXX PA    02940B    G N47262000E011195200                                                                        252070001
+SEURUCLOXLOXX PA    02950B    G N47264000E011195200                                                                        252080001
+SEURUCLOXLOXX PA    02960B    G N47264900E011200200                                                                        252090001
+SEURUCLOXLOXX PA    02970B    G N47265600E011201100                                                                        252100001
+SEURUCLOXLOXX PA    02980B    G N47265800E011202400                                                                        252110001
+SEURUCLOXLOXX PA    02990B    G N47265600E011204400                                                                        252120001
+SEURUCLOXLOXX PA    03000B    G N47265100E011210000                                                                        252130001
+SEURUCLOXLOXX PA    03010B    G N47264800E011214400                                                                        252140001
+SEURUCLOXLOXX PA    03020B    G N47264300E011221600                                                                        252150001
+SEURUCLOXLOXX PA    03030B    G N47265400E011230600                                                                        252160001
+SEURUCLOXLOXX PA    03040B    G N47264700E011231800                                                                        252170001
+SEURUCLOXLOXX PA    03050B    G N47265000E011235200                                                                        252180001
+SEURUCLOXLOXX PA    03060B    G N47265100E011241300                                                                        252190001
+SEURUCLOXLOXX PA    03070B    G N47264900E011241700                                                                        252200001
+SEURUCLOXLOXX PA    03080B    G N47264900E011243100                                                                        252210001
+SEURUCLOXLOXX PA    03090B    G N47264700E011244000                                                                        252220001
+SEURUCLOXLOXX PA    03100B    G N47264800E011244600                                                                        252230001
+SEURUCLOXLOXX PA    03110B    G N47264500E011250200                                                                        252240001
+SEURUCLOXLOXX PA    03120B    G N47264100E011250700                                                                        252250001
+SEURUCLOXLOXX PA    03130B    G N47263900E011251300                                                                        252260001
+SEURUCLOXLOXX PA    03140B    G N47264100E011251700                                                                        252270001
+SEURUCLOXLOXX PA    03150B    G N47272800E011244500                                                                        252280001
+SEURUCLOXLOXX PA    03160B    G N47275100E011243000                                                                        252290001
+SEURUCLOXLOXX PA    03170B    G N47275800E011243300                                                                        252300001
+SEURUCLOXLOXX PA    03180B    G N47280000E011242300                                                                        252310001
+SEURUCLOXLOXX PA    03190B    G N47280100E011235900                                                                        252320001
+SEURUCLOXLOXX PA    03200B    G N47280100E011235300                                                                        252330001
+SEURUCLOXLOXX PA    03210B    G N47275800E011233900                                                                        252340001
+SEURUCLOXLOXX PA    03220B    G N47280100E011232300                                                                        252350001
+SEURUCLOXLOXX PA    03230B    G N47280700E011231800                                                                        252360001
+SEURUCLOXLOXX PA    03240B    G N47281600E011230600                                                                        252370001
+SEURUCLOXLOXX PA    03250B    G N47282600E011230600                                                                        252380001
+SEURUCLOXLOXX PA    03260B    G N47283800E011231200                                                                        252390001
+SEURUCLOXLOXX PA    03270B    G N47284500E011231900                                                                        252400001
+SEURUCLOXLOXX PA    03280B    G N47285300E011232800                                                                        252410001
+SEURUCLOXLOXX PA    03290B    G N47285600E011232800                                                                        252420001
+SEURUCLOXLOXX PA    03300B    G N47285500E011233800                                                                        252430001
+SEURUCLOXLOXX PA    03310B    G N47285900E011234600                                                                        252440001
+SEURUCLOXLOXX PA    03320B    G N47290200E011235200                                                                        252450001
+SEURUCLOXLOXX PA    03330B    G N47290900E011235400                                                                        252460001
+SEURUCLOXLOXX PA    03340B    G N47291400E011240300                                                                        252470001
+SEURUCLOXLOXX PA    03350B    G N47291600E011240900                                                                        252480001
+SEURUCLOXLOXX PA    03360B    G N47292000E011241700                                                                        252490001
+SEURUCLOXLOXX PA    03370B    G N47292200E011242100                                                                        252500001
+SEURUCLOXLOXX PA    03380B    G N47292500E011242600                                                                        252510001
+SEURUCLOXLOXX PA    03390B    G N47293700E011243000                                                                        252520001
+SEURUCLOXLOXX PA    03400B    G N47294100E011243500                                                                        252530001
+SEURUCLOXLOXX PA    03410B    G N47295500E011244600                                                                        252540001
+SEURUCLOXLOXX PA    03420B    G N47300800E011245900                                                                        252550001
+SEURUCLOXLOXX PA    03430B    G N47301100E011250700                                                                        252560001
+SEURUCLOXLOXX PA    03440B    G N47301600E011251500                                                                        252570001
+SEURUCLOXLOXX PA    03450B    G N47302200E011251800                                                                        252580001
+SEURUCLOXLOXX PA    03460B    G N47302500E011252200                                                                        252590001
+SEURUCLOXLOXX PA    03470B    G N47303100E011253200                                                                        252600001
+SEURUCLOXLOXX PA    03480B    G N47303900E011254900                                                                        252610001
+SEURUCLOXLOXX PA    03490B    G N47304600E011255700                                                                        252620001
+SEURUCLOXLOXX PA    03500B    G N47305700E011261400                                                                        252630001
+SEURUCLOXLOXX PA    03510B    G N47305900E011262100                                                                        252640001
+SEURUCLOXLOXX PA    03520B    G N47310400E011263100                                                                        252650001
+SEURUCLOXLOXX PA    03530B    G N47304100E011264400                                                                        252660001
+SEURUCLOXLOXX PA    03540B    G N47302600E011265700                                                                        252670001
+SEURUCLOXLOXX PA    03550B    G N47303100E011271900                                                                        252680001
+SEURUCLOXLOXX PA    03560B    G N47303000E011272600                                                                        252690001
+SEURUCLOXLOXX PA    03570B    G N47303000E011273800                                                                        252700001
+SEURUCLOXLOXX PA    03580B    G N47303100E011275000                                                                        252710001
+SEURUCLOXLOXX PA    03590B    G N47303000E011275800                                                                        252720001
+SEURUCLOXLOXX PA    03600B    G N47303100E011282800                                                                        252730001
+SEURUCLOXLOXX PA    03610B    G N47303100E011290700                                                                        252740001
+SEURUCLOXLOXX PA    03620B    G N47302800E011291700                                                                        252750001
+SEURUCLOXLOXX PA    03630B    G N47302400E011292800                                                                        252760001
+SEURUCLOXLOXX PA    03640B    G N47302600E011293800                                                                        252770001
+SEURUCLOXLOXX PA    03650B    G N47302400E011300800                                                                        252780001
+SEURUCLOXLOXX PA    03660B    G N47302200E011303300                                                                        252790001
+SEURUCLOXLOXX PA    03670B    G N47303900E011310600                                                                        252800001
+SEURUCLOXLOXX PA    03680B    G N47303500E011312700                                                                        252810001
+SEURUCLOXLOXX PA    03690B    G N47303300E011315200                                                                        252820001
+SEURUCLOXLOXX PA    03700B    G N47303200E011320600                                                                        252830001
+SEURUCLOXLOXX PA    03710B    G N47303400E011322100                                                                        252840001
+SEURUCLOXLOXX PA    03720B    G N47304200E011324100                                                                        252850001
+SEURUCLOXLOXX PA    03730B    G N47304400E011331000                                                                        252860001
+SEURUCLOXLOXX PA    03740B    G N47304900E011340700                                                                        252870001
+SEURUCLOXLOXX PA    03750B    G N47310100E011343200                                                                        252880001
+SEURUCLOXLOXX PA    03760B    G N47311500E011344800                                                                        252890001
+SEURUCLOXLOXX PA    03770B    G N47311900E011345600                                                                        252900001
+SEURUCLOXLOXX PA    03780B    G N47313100E011351700                                                                        252910001
+SEURUCLOXLOXX PA    03790B    G N47315200E011351900                                                                        252920001
+SEURUCLOXLOXX PA    03800B    G N47322100E011351500                                                                        252930001
+SEURUCLOXLOXX PA    03810B    G N47324300E011350800                                                                        252940001
+SEURUCLOXLOXX PA    03820B    G N47325700E011352000                                                                        252950001
+SEURUCLOXLOXX PA    03830B    G N47330700E011352000                                                                        252960001
+SEURUCLOXLOXX PA    03840B    G N47331600E011351200                                                                        252970001
+SEURUCLOXLOXX PA    03850B    G N47333300E011352400                                                                        252980001
+SEURUCLOXLOXX PA    03860B    G N47333800E011352900                                                                        252990001
+SEURUCLOXLOXX PA    03870B    G N47334200E011353500                                                                        253000001
+SEURUCLOXLOXX PA    03880B    G N47334500E011354100                                                                        253010001
+SEURUCLOXLOXX PA    03890B    G N47334700E011354400                                                                        253020001
+SEURUCLOXLOXX PA    03900B    G N47335000E011355000                                                                        253030001
+SEURUCLOXLOXX PA    03910B    G N47335900E011355900                                                                        253040001
+SEURUCLOXLOXX PA    03920B    G N47341300E011360500                                                                        253050001
+SEURUCLOXLOXX PA    03930B    G N47342200E011360600                                                                        253060001
+SEURUCLOXLOXX PA    03940B    G N47343200E011361000                                                                        253070001
+SEURUCLOXLOXX PA    03950B    G N47343600E011361400                                                                        253080001
+SEURUCLOXLOXX PA    03960B    G N47344700E011361800                                                                        253090001
+SEURUCLOXLOXX PA    03970B    G N47345400E011362500                                                                        253100001
+SEURUCLOXLOXX PA    03980B    G N47344900E011363200                                                                        253110001
+SEURUCLOXLOXX PA    03990B    G N47345000E011363600                                                                        253120001
+SEURUCLOXLOXX PA    04000B    G N47344700E011364600                                                                        253130001
+SEURUCLOXLOXX PA    04010B    G N47345200E011365500                                                                        253140001
+SEURUCLOXLOXX PA    04020B    G N47345400E011370000                                                                        253150001
+SEURUCLOXLOXX PA    04030B    G N47350200E011370500                                                                        253160001
+SEURUCLOXLOXX PA    04040B    G N47350300E011372000                                                                        253170001
+SEURUCLOXLOXX PA    04050B    G N47350000E011372800                                                                        253180001
+SEURUCLOXLOXX PA    04060B    G N47345500E011373500                                                                        253190001
+SEURUCLOXLOXX PA    04070B    G N47345100E011374300                                                                        253200001
+SEURUCLOXLOXX PA    04080B    G N47345000E011375100                                                                        253210001
+SEURUCLOXLOXX PA    04090B    G N47345500E011380300                                                                        253220001
+SEURUCLOXLOXX PA    04100B    G N47350300E011375600                                                                        253230001
+SEURUCLOXLOXX PA    04110B    G N47350600E011375000                                                                        253240001
+SEURUCLOXLOXX PA    04120B    G N47352900E011375600                                                                        253250001
+SEURUCLOXLOXX PA    04130B    G N47353300E011380100                                                                        253260001
+SEURUCLOXLOXX PA    04140B    G N47353800E011380600                                                                        253270001
+SEURUCLOXLOXX PA    04150B    G N47353700E011381700                                                                        253280001
+SEURUCLOXLOXX PA    04160B    G N47353600E011382800                                                                        253290001
+SEURUCLOXLOXX PA    04170B    G N47352100E011383600                                                                        253300001
+SEURUCLOXLOXX PA    04180B    G N47352500E011385700                                                                        253310001
+SEURUCLOXLOXX PA    04190B    G N47352000E011390500                                                                        253320001
+SEURUCLOXLOXX PA    04200B    G N47351300E011390900                                                                        253330001
+SEURUCLOXLOXX PA    04210B    G N47350400E011392800                                                                        253340001
+SEURUCLOXLOXX PA    04220B    G N47350100E011393700                                                                        253350001
+SEURUCLOXLOXX PA    04230B    G N47350000E011394900                                                                        253360001
+
+SEURUCLOXLOXX PA    04240B    G N47350700E011401300                                                                        253370001
+SEURUCLOXLOXX PA    04250B    G N47350600E011402700                                                                        253380001
+SEURUCLOXLOXX PA    04260B    G N47350300E011404100                                                                        253390001
+SEURUCLOXLOXX PA    04270B    G N47350300E011405700                                                                        253400001
+SEURUCLOXLOXX PA    04280B    G N47350700E011411100                                                                        253410001
+SEURUCLOXLOXX PA    04290B    G N47351200E011412200                                                                        253420001
+SEURUCLOXLOXX PA    04300B    G N47351900E011415100                                                                        253430001
+SEURUCLOXLOXX PA    04310B    G N47352000E011420000                                                                        253440001
+SEURUCLOXLOXX PA    04320B    GEN47351700E011442000                                                                        253450001
+
+
+SEURUCLOXLOXX PA    00101B    G N48283400E016375200                              GND  A04500MLOWW                          253470001
+SEURUCLOXLOXX PA    00102T                                                                                                 253470001
+SEURUCLOXLOXX PA    00110B    G N48080000E016520000                                                                        253480001
+SEURUCLOXLOXX PA    00120B    G N48030000E016561000                                                                        253490001
+SEURUCLOXLOXX PA    00130B    G N47411605E016544594                                                                        253500001
+SEURUCLOXLOXX PA    00140B    G N47411600E016544500                                                                        253510001
+SEURUCLOXLOXX PA    00150B    G N47411800E016523000                                                                        253520001
+SEURUCLOXLOXX PA    00160B    G N47431600E016520700                                                                        253530001
+SEURUCLOXLOXX PA    00170B    G N47423900E016511900                                                                        253540001
+SEURUCLOXLOXX PA    00180B    G N47421600E016502000                                                                        253550001
+SEURUCLOXLOXX PA    00190B    G N47411700E016495500                                                                        253560001
+SEURUCLOXLOXX PA    00200B    G N47405300E016445600                                                                        253570001
+SEURUCLOXLOXX PA    00210B    G N47440700E016431500                                                                        253580001
+SEURUCLOXLOXX PA    00220B    G N47442900E016400000                                                                        253590001
+SEURUCLOXLOXX PA    00230B    G N47442900E016392500                                                                        253600001
+SEURUCLOXLOXX PA    00240B    G N47444400E016384200                                                                        253610001
+SEURUCLOXLOXX PA    00250B    G N47445800E016381800                                                                        253620001
+SEURUCLOXLOXX PA    00260B    G N47452100E016381400                                                                        253630001
+SEURUCLOXLOXX PA    00270B    G N47453200E016380300                                                                        253640001
+SEURUCLOXLOXX PA    00280B    G N47452500E016373700                                                                        253650001
+SEURUCLOXLOXX PA    00290B    G N47452700E016371200                                                                        253660001
+SEURUCLOXLOXX PA    00300B    G N47453600E016364400                                                                        253670001
+SEURUCLOXLOXX PA    00310B    G N47452900E016360700                                                                        253680001
+SEURUCLOXLOXX PA    00320B    G N47452700E016354500                                                                        253690001
+SEURUCLOXLOXX PA    00330B    G N47452500E016352000                                                                        253700001
+SEURUCLOXLOXX PA    00340B    G N47451800E016345800                                                                        253710001
+SEURUCLOXLOXX PA    00350B    G N47450500E016325200                                                                        253720001
+SEURUCLOXLOXX PA    00360B    G N47445700E016325100                                                                        253730001
+SEURUCLOXLOXX PA    00370B    G N47445100E016324800                                                                        253740001
+SEURUCLOXLOXX PA    00380B    G N47444300E016324700                                                                        253750001
+SEURUCLOXLOXX PA    00390B    G N47442800E016324100                                                                        253760001
+SEURUCLOXLOXX PA    00400B    G N47442300E016321500                                                                        253770001
+SEURUCLOXLOXX PA    00410B    G N47441100E016321100                                                                        253780001
+SEURUCLOXLOXX PA    00420B    G N47432100E016330800                                                                        253790001
+SEURUCLOXLOXX PA    00430B    G N47430100E016324000                                                                        253800001
+SEURUCLOXLOXX PA    00440B    G N47424600E016323100                                                                        253810001
+SEURUCLOXLOXX PA    00450B    G N47424200E016321500                                                                        253820001
+SEURUCLOXLOXX PA    00460B    G N47423800E016320300                                                                        253830001
+SEURUCLOXLOXX PA    00470B    G N47423700E016313900                                                                        253840001
+SEURUCLOXLOXX PA    00480B    G N47424400E016311400                                                                        253850001
+SEURUCLOXLOXX PA    00490B    G N47422700E016305100                                                                        253860001
+SEURUCLOXLOXX PA    00500B    G N47422500E016303900                                                                        253870001
+SEURUCLOXLOXX PA    00510B    G N47421500E016302400                                                                        253880001
+SEURUCLOXLOXX PA    00520B    G N47421400E016301900                                                                        253890001
+SEURUCLOXLOXX PA    00530B    G N47421400E016300600                                                                        253900001
+SEURUCLOXLOXX PA    00540B    G N47421700E016295900                                                                        253910001
+SEURUCLOXLOXX PA    00550B    G N47421100E016295100                                                                        253920001
+SEURUCLOXLOXX PA    00560B    G N47420600E016294800                                                                        253930001
+SEURUCLOXLOXX PA    00570B    G N47415400E016293500                                                                        253940001
+SEURUCLOXLOXX PA    00580B    G N47415000E016291000                                                                        253950001
+SEURUCLOXLOXX PA    00590B    G N47414500E016290400                                                                        253960001
+SEURUCLOXLOXX PA    00600B    G N47413300E016290900                                                                        253970001
+SEURUCLOXLOXX PA    00610B    G N47412700E016285900                                                                        253980001
+SEURUCLOXLOXX PA    00620B    G N47412500E016285100                                                                        253990001
+SEURUCLOXLOXX PA    00630B    G N47412600E016283800                                                                        254000001
+SEURUCLOXLOXX PA    00640B    G N47412100E016283100                                                                        254010001
+SEURUCLOXLOXX PA    00650B    G N47410200E016282900                                                                        254020001
+SEURUCLOXLOXX PA    00660B    G N47405200E016282800                                                                        254030001
+SEURUCLOXLOXX PA    00670B    G N47405600E016281900                                                                        254040001
+SEURUCLOXLOXX PA    00680B    G N47405200E016281000                                                                        254050001
+SEURUCLOXLOXX PA    00690B    G N47405100E016275800                                                                        254060001
+SEURUCLOXLOXX PA    00700B    G N47405700E016274300                                                                        254070001
+SEURUCLOXLOXX PA    00710B    G N47414800E016271400                                                                        254080001
+SEURUCLOXLOXX PA    00720B    G N47414600E016270200                                                                        254090001
+SEURUCLOXLOXX PA    00730B    G N47414600E016265000                                                                        254100001
+SEURUCLOXLOXX PA    00740B    G N47412300E016264500                                                                        254110001
+SEURUCLOXLOXX PA    00750B    G N47403700E016263200                                                                        254120001
+SEURUCLOXLOXX PA    00760B    G N47401300E016260600                                                                        254130001
+SEURUCLOXLOXX PA    00770B    G N47400700E016254100                                                                        254140001
+SEURUCLOXLOXX PA    00780B    G N47395900E016252300                                                                        254150001
+SEURUCLOXLOXX PA    00790B    G N47395902E016252337                                                                        254160001
+SEURUCLOXLOXX PA    00800B    G N47483200E016140100                                                                        254170001
+SEURUCLOXLOXX PA    00810B    G N47513700E016143900                                                                        254180001
+SEURUCLOXLOXX PA    00820B    G N47523700E016131300                                                                        254190001
+SEURUCLOXLOXX PA    00830B    G N47544700E016100700                                                                        254200001
+SEURUCLOXLOXX PA    00840B    G N48064800E016065600                                                                        254210001
+SEURUCLOXLOXX PA    00850B    G N48074600E016043600                                                                        254220001
+SEURUCLOXLOXX PA    00860B    G N48093200E016002400                                                                        254230001
+SEURUCLOXLOXX PA    00870B    G N48144600E016041000                                                                        254240001
+SEURUCLOXLOXX PA    00880B    G N48151000E016052400                                                                        254250001
+SEURUCLOXLOXX PA    00890B    G N48163300E016095000                                                                        254260001
+SEURUCLOXLOXX PA    00900B    G N48165100E016105000                                                                        254270001
+SEURUCLOXLOXX PA    00910B    G N48181400E016151600                                                                        254280001
+SEURUCLOXLOXX PA    00920B    G N48183100E016191000                                                                        254290001
+SEURUCLOXLOXX PA    00930B    G N48183800E016193000                                                                        254300001
+SEURUCLOXLOXX PA    00940B    G N48220000E016180000                                                                        254310001
+SEURUCLOXLOXX PA    00950B    G N48243400E016165100                                                                        254320001
+SEURUCLOXLOXX PA    00960B    G N48245000E016181400                                                                        254330001
+SEURUCLOXLOXX PA    00970B    G N48272400E016314200                                                                        254340001
+SEURUCLOXLOXX PA    00980B    GEN48283400E016375200                                                                        254350001
+
+
+
+SEURURLO LOWI E     00101B    G N47414279E012262424                              11000MFL125MLOWI E                        249130001
+SEURURLO LOWI E     00102T                                                                                                 249130001
+SEURURLO LOWI E     00110B    G N47193600E012243200                                                                        249140001
+SEURURLO LOWI E     00120B    G N47173000E012055000                                                                        249150001
+SEURURLO LOWI E     00130B    G N47074000E011293500                                                                        249160001
+SEURURLO LOWI E     00140B    G N47123000E011264500                                                                        249170001
+SEURURLO LOWI E     00150B    G N47182000E011481000                                                                        249180001
+SEURURLO LOWI E     00160B    G N47221300E012074100                                                                        249190001
+SEURURLO LOWI E     00170B    G N47352000E012130000                                                                        249200001
+SEURURLO LOWI E     00180B    GEN47414279E012262424                                                                        249210001
+
+
+TRA in Jeppesen
+SEURURLOGHOLZLEIT2* 00101LN   G N47185400E010531500                              09000M09500MTRA HOLZLEITENSATTEL 2        169171504
+SEURURLOGHOLZLEIT2* 00102N  BY ATC.                                                                                        169181504
+SEURURLOGHOLZLEIT2* 00200     G N47175200E010522800                                                                        169191504
+SEURURLOGHOLZLEIT2* 00300     G N47165900E010523200                                                                        169201504
+SEURURLOGHOLZLEIT2* 00400     G N47165800E010474200                                                                        169211504
+
+
+{"record_type":"S","area":"EUR","section":"U","sub_section":"R","icao_code":"LO","as_type":"G","designator":"HOLZLEIT2*","multi_cd":null,"seq_nr":10,"cont_nr":1,"level":"L","boundary_via":"G","latitude":"N47185400","longitude":"E010531500","lower":"09000","lower_unit":"M","upper":"09500","upper_unit":"M","name":"TRA HOLZLEITENSATTEL 2","record_nr":16917,"cycle":1504}
+
+SEURUFLSAS     10  0            G N47352389E007352077                           FL195FL195UNLTD   LSAS                     000100001
+SEURUFLSAS     11  0            G N47345600E007351200                           FL195FL195UNLTD                            000110001
+SEURUFLSAS     12  0            G N47345300E007361700                           FL195FL195UNLTD                            000120001
+philhug@ofm2arinc:~/workspace (master) $ grep SEURUFLS reference/euroav15.pc |head -n3
+SEURUFLSASZRZXB00100EDGG    11N G N47530000E008510000                           FL195FL195FL660XX SWITZERLAND              870170613
+SEURUFLSASZRZXB00200EDGG        H N47470000E008520000                                                                      870180613
+SEURUFLSASZRZXB00300EDGG        G N47470000E008521600                                                                      870190613
+

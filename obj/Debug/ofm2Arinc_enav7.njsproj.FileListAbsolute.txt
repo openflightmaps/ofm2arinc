@@ -1,0 +1,2 @@
+C:\Users\ovord\OneDrive\Sources\plugins\ofm2arinc\ENAV7\workspace\obj\Debug\ofm2Arinc_enav7.njsprojResolveAssemblyReference.cache
+C:\Users\ovord\OneDrive\Sources\plugins\ofm2arinc\ENAV7\workspace\bin\Microsoft.NodejsTools.WebRole.dll
