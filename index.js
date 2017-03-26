@@ -614,7 +614,7 @@ xml1.on("end", function() {
 			
 		if (parseFloat(data.valTrueBrg) < 0) { data.valTrueBrg = parseFloat(data.valTrueBrg) + 360; }	
             
-            if (data.valueTruBrg == 0) {
+            if (data.valTrueBrg == 0) {
                 console.log("WARNING: bearing is ZERO " + apt.AhpUid.codeId);
             }    
 
@@ -628,7 +628,7 @@ xml1.on("end", function() {
 				rwy_len: convertUnit(rwy.valLen, rwy.uomDimRwy, 'FT'),
 				
 				
-				rwy_brg: Math.round(parseFloat(data.valueTruBrg) * 10),
+				rwy_brg: Math.round(parseFloat(data.valTrueBrg) * 10),
 				latitude: lat2arinc(data.geoLat),
 				longitude: long2arinc(data.geoLon),
 				elevation: convertUnit(apt.valElev, apt.uomElev, 'FT'),
