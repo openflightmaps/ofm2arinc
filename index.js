@@ -612,7 +612,7 @@ xml1.on("end", function() {
 			return;
 		}
 			
-		if (parseFloat(data.valueTruBrg) < 0) { data.valueTruBrg = parseFloat(data.valueTruBrg) + 360; }	
+		if (parseFloat(data.valTrueBrg) < 0) { data.valTrueBrg = parseFloat(data.valTrueBrg) + 360; }	
             
             if (data.valueTruBrg == 0) {
                 console.log("WARNING: bearing is ZERO " + apt.AhpUid.codeId);
