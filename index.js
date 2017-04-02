@@ -603,7 +603,7 @@ xml1.on("end", function() {
 			return;
 		}		
 
-		if (lat2arinc(data.geoLat) == "" || long2arinc(data.geoLon) == "") {
+		if (lat2arinc(data.geoLat) == "" || long2arinc(data.geoLong) == "") {
 			console.log("WARNING: missing threshold coordinates:"+ apt.AhpUid.codeId);
 		}
 
@@ -630,7 +630,7 @@ xml1.on("end", function() {
 				
 				rwy_brg: Math.round(parseFloat(data.valTrueBrg) * 10),
 				latitude: lat2arinc(data.geoLat),
-				longitude: long2arinc(data.geoLon),
+				longitude: long2arinc(data.geoLong),
 				elevation: convertUnit(apt.valElev, apt.uomElev, 'FT'),
 				dsplcd_thr: convertUnit(data.xt_valDispTres, data.xt_uomDispTres, 'FT'),
 				rwy_width: convertUnit(rwy.valWid, rwy.uomDimRwy, 'FT'),
