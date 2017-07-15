@@ -9,10 +9,11 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "bindings": "^1.2.1",
     "command-line-args": "^1.0.1",
     "fixed": "0.0.6",
     "object-mapper": "^2.2.5",
     "unidecode": "^0.1.7",
-    "xml-stream": "^0.4.5"
+"xml-stream": "^0.4.5"
   }
 }

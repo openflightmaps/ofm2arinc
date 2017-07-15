@@ -119,13 +119,13 @@ var arinc_spec_header = {
             type: 'string',
             length: 30,
             startingPosition: 29,
-            defaultValue: 'OFM Test, Work in Progress',
+            defaultValue: 'OFMA',
         }, {
             key: 'descriptive_text',
             type: 'string',
             length: 30,
             startingPosition: 59,
-            defaultValue: 'TEST! NOT FOR OPERATIONAL USE',
+            defaultValue: 'OPEN FLIGHTMAPS ASSOCIATION',
         }]
     }
 }

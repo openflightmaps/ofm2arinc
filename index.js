@@ -1,4 +1,5 @@
 var xmlStream = require('xml-stream');
+
 var fs = require('fs');
 var fixed = require('fixed');
 var unidecode = require('unidecode');
@@ -388,50 +389,53 @@ xml1.on("end", function() {
 	});
 
 	// Designated Point / Reporting Points
-	xml.on('updateElement: Dpn', function (data) {
-		
-		try {
-			
-			if (current_record_nr >= maxRecIdBeforReset) {
-				current_record_nr = 1
-			};	
+          xml.on('updateElement: Dpn', function (data) {
+              if ((data.codeType == 'VFR-RP') || (data.codeType == 'VFR-MRP'))
+              {
+                  try {
 
-		var ident = str2arinc(data.DpnUid.codeId, 5);
-		if (ident == "") {
-			console.log("INFO: waypoint has no ident: " + data.txtName)
-			ident = str2arinc(data.txtName, 5);
-		}
-		// Enroute Waypoints (EA) / Terminal Waypoint (PC)
-		var arinc_data = {
-			icao_code: data.$.xt_fir.substring(0, 2), // ICAO code
-			ident: ident,
-			cont_nr: 0,
-			wpt_type: 'V', // TODO: all are VFR RP
-			latitude: lat2arinc(data.DpnUid.geoLat),
-			longitude: long2arinc(data.DpnUid.geoLong),
-			name: str2arinc(data.txtName),
-			record_nr: current_record_nr++,
-			cycle: 1, //TODO
-		};
-		if (data.AhpUid_codeId) { // Terminal WP
-			arinc_data.section = 'P';
-			arinc_data.sub_section_13 = 'C';
-			arinc_data.aprt_ident = data.AhpUid_codeId;
-			arinc_data.aprt_icao_code = data.$.xt_fir.substring(0, 2); // ICAO code
-		}
-		else { // Enroute Waypoint
-			arinc_data.section = 'E';
-			arinc_data.sub_section_6 = 'A';
-			arinc_data.aprt_ident = 'ENRT';
-			arinc_data.icao_code = data.$.xt_fir.substring(0, 2); // ICAO code
-		}
-		generateAndWriteRecord(arinc_spec.wp, arinc_data);
-		//console.log(JSON.stringify(data) + "\n\n");
-		}
-			catch (err) {
-			console.log("ERROR parsing Point: " + err);
-		}
-	});
+                      if (current_record_nr >= maxRecIdBeforReset) {
+                          current_record_nr = 1
+                      };
+
+                      var ident = str2arinc(data.DpnUid.codeId, 5);
+                      if (ident == "") {
+                          console.log("INFO: waypoint has no ident: " + data.txtName)
+                          ident = str2arinc(data.txtName, 5);
+                      }
+                      // Enroute Waypoints (EA) / Terminal Waypoint (PC)
+                      var arinc_data = {
+                          icao_code: data.$.xt_fir.substring(0, 2), // ICAO code
+                          ident: ident,
+                          cont_nr: 0,
+                          wpt_type: 'V', // TODO: all are VFR RP
+                          latitude: lat2arinc(data.DpnUid.geoLat),
+                          longitude: long2arinc(data.DpnUid.geoLong),
+                          name: str2arinc(data.txtName),
+                          record_nr: current_record_nr++,
+                          cycle: 1, //TODO
+                      };
+                      if (data.AhpUid_codeId) { // Terminal WP
+                          arinc_data.section = 'P';
+                          arinc_data.sub_section_13 = 'C';
+                          arinc_data.aprt_ident = data.AhpUid_codeId;
+                          arinc_data.aprt_icao_code = data.$.xt_fir.substring(0, 2); // ICAO code
+                      }
+                      else { // Enroute Waypoint
+                          arinc_data.section = 'E';
+                          arinc_data.sub_section_6 = 'A';
+                          arinc_data.aprt_ident = 'ENRT';
+                          arinc_data.icao_code = data.$.xt_fir.substring(0, 2); // ICAO code
+                      }
+                      generateAndWriteRecord(arinc_spec.wp, arinc_data);
+                      //console.log(JSON.stringify(data) + "\n\n");
+                  }
+                  catch (err) {
+                      console.log("ERROR parsing Point: " + err);
+                  }
+         
+              }
+          });	
 
 	// Airport
 	xml.on('updateElement: Ahp', function (data) {
