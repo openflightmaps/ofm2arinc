@@ -812,7 +812,7 @@ xml1.on("end", function() {
 				res_type: 'R',	
 			},
 			'RMZ': {
-				is_restricted: false,
+				is_restricted: true,
 				res_type: 'R',			
 			},
 			'ATZ': {
