@@ -466,7 +466,7 @@ xml1.on("end", function() {
 			latitude: lat2arinc(data.geoLat),
 			longitude: long2arinc(data.geoLong),
 			mag_variation: decl2arinc(data.valMagVar),
-			elevation: convertUnit(data.valElev, data.uomElev, 'FT'),
+			elevation: convertUnit(data.valElev, data.uomDistVer, 'FT'),
 			record_nr: current_record_nr++,
 			cycle: 1, //TODO
 		};
@@ -491,7 +491,7 @@ xml1.on("end", function() {
                         latitude: lat2arinc(data.geoLat),
                         longitude: long2arinc(data.geoLong),
                         mag_variation: decl2arinc(data.valMagVar),
-                        elevation: convertUnit(data.valElev, data.uomElev, 'FT'),
+                        elevation: convertUnit(data.valElev, data.uomDistVer, 'FT'),
                         callsign: str2arinc(data.codeIcao + ' INFO', 25),
                         record_nr: current_record_nr++,
                         cycle: 1, //TODO
@@ -554,7 +554,7 @@ xml1.on("end", function() {
                     latitude: lat2arinc(apt.geoLat),
                     longitude: long2arinc(apt.geoLong),
                     mag_variation: decl2arinc(apt.valMagVar),
-                    elevation: convertUnit(apt.valElev, apt.uomElev, 'FT'),
+                    elevation: convertUnit(apt.valElev, apt.uomDistVer, 'FT'),
                     callsign: str2arinc(data.Cdl.txtCallSign, 25),
                     record_nr: current_record_nr++,
                     cycle: 1, //TODO
@@ -635,7 +635,7 @@ xml1.on("end", function() {
 				rwy_brg: Math.round(parseFloat(data.valTrueBrg) * 10),
 				latitude: lat2arinc(data.geoLat),
 				longitude: long2arinc(data.geoLong),
-				elevation: convertUnit(apt.valElev, apt.uomElev, 'FT'),
+				elevation: convertUnit(apt.valElev, apt.uomDistVer, 'FT'),
 				dsplcd_thr: convertUnit(data.xt_valDispTres, data.xt_uomDispTres, 'FT'),
 				rwy_width: convertUnit(rwy.valWid, rwy.uomDimRwy, 'FT'),
 				record_nr: current_record_nr++,
