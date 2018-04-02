@@ -665,8 +665,8 @@ xml1.on("end", function() {
             
             
             switch (data.$.xt_fir) {
-                case 'LOVV':
-                    // exclude national parks (NRAs) in austria
+                case 'LOVV','ED':
+                    // exclude national parks (NRAs) in austria and Germany
                     if (data.AseUid.codeType == 'NRA') {
                         console.log("INFO: Filtering (ignoring) NRAs for region " + data.$.xt_fir);
                         return;
